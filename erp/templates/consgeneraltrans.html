@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+    <!-- Contenido específico de la página de dashboard -->
+    <div class="content-header">
+    </div>
+    <div class="content">
+
+    <div class="card-body">
+        <form method="GET" action="{% url 'consgeneraltrans' %}">
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                      <label>Desde:</label>
+                        <div class="input-group date" id="desde" data-target-input="nearest">
+                            <input type="text" name="fecha_desde" class="form-control datetimepicker-input" data-target="#desde"/>
+                            <div class="input-group-append" data-target="#desde" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <label>Hasta:</label>
+                        <div class="input-group date" id="hasta" data-target-input="nearest">
+                            <input type="text" name="fecha_hasta" class="form-control datetimepicker-input" data-target="#hasta"/>
+                            <div class="input-group-append" data-target="#hasta" data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="selectTrans">Cod.Trans</label>
+                        <select class="form-control select2" style="width: 100%;" id="selectTrans" name="CodTrans">
+                            <option value="">Todas</option>
+                            {% for trans in unique_trans %}
+                                <option value="{{ trans }}">{{ trans }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="selectEstado">Estado</label>
+                        <select class="form-control select2" multiple="multiple" style="width: 100%;" id="selectEstado" name="Estado">
+                            <option value="">Todos</option>
+                            {% for estado in unique_trans_estado %}
+                                <option value="{{ estado.EstadoL }}">{{ estado.Estado }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
+    </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Transaciones en General</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Asiento</th>
+                        <th>Trans</th>
+                        <th>#Trans</th>
+                        <th>#Ref</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th>Comp. Electrónico</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- JavaScript agregará filas aquí -->
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Asiento</th>
+                        <th>Trans</th>
+                        <th>#Trans</th>
+                        <th>#Ref</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th>Comp. Electrónico</th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+    </div>
+
+{# Armado de la tabla #}
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var results = JSON.parse('{{ results_json|escapejs }}');
+            var tableBody = document.querySelector('#example1 tbody');
+
+            results.forEach(function (row) {
+                var newRow = document.createElement('tr');
+
+                var columns = [
+                    'Fecha', 'Asiento', 'Trans', '#Trans', '#Ref', 'Nombre', 'descripcion', 'Estadol', 'Mensaje Comprobante Electrónico'
+                ];
+
+                columns.forEach(function (columnName) {
+                    var cell = document.createElement('td');
+                    cell.textContent = row[columnName];
+                    newRow.appendChild(cell);
+                });
+
+                tableBody.appendChild(newRow);
+            });
+        });
+</script>
+
+{% endblock %}

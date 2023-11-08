@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+    <!-- Contenido específico de la página de dashboard -->
+    <div class="content-header">
+    </div>
+    <div class="content">
+
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Información de la Empresa</h3>
+        </div>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <div class="form-group">
+                  <label for="id_imagen">Imagen de la Empresa</label>
+                  <div class="image-frame">
+                    {% if imagen_url %}
+                     <img src="{{ imagen_url }}" alt="Imagen de la Empresa" width="200" height="80">
+                    {% else %}
+                      <!-- Puedes mostrar una imagen predeterminada si no hay imagen cargada -->
+                      <img src="/static/default_image.jpg" alt="Imagen Predeterminada" width="100%">
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="id_imagen">Logo</label>
+                  <input type="file" class="form-control-file" id="id_imagen" name="imagen">
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="form-group">
+                  <label for="id_nombreempresa">Empresa</label>
+                  <input type="text" class="form-control form-control-sm" id="id_nombreempresa" name="nombreempresa" placeholder="Nombre de la Empresa" value="{{ empresa_data.0 }}">
+                </div>
+                <div class="form-group">
+                  <label for="id_direccion1">Direccion1</label>
+                  <input type="text" class="form-control form-control-sm" id="id_direccion1" name="direccion1" placeholder="Dirección 1" value="{{ empresa_data.1 }}">
+                </div>
+                <div class="form-group">
+                  <label for="id_direccion2">Direccion2</label>
+                  <input type="text" class="form-control form-control-sm" id="id_direccion2" name="direccion2" placeholder="Dirección 2" value="{{ empresa_data.2 }}">
+                </div>
+                <div class="form-group">
+                  <label for="id_Telefono1">Telefono1</label>
+                  <input type="text" class="form-control form-control-sm" id="id_Telefono1" name="Telefono1" placeholder="Teléfono1" value="{{ empresa_data.3 }}">
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="form-group">
+                  <label for="id_ruc">RUC</label>
+                  <input type="text" class="form-control form-control-sm" id="id_ruc" name="ruc" placeholder="RUC" value="{{ empresa_data.4 }}">
+                </div>
+                <div class="form-group">
+                  <label for="id_email">Email</label>
+                  <input type="text" class="form-control form-control-sm" id="id_email" name="email" placeholder="Email" value="{{ empresa_data.5 }}">
+                </div>
+                <div class="form-group">
+                  <label for="id_tipoempresa">Tipo de Empresa</label>
+                  <input type="text" class="form-control form-control-sm" id="id_tipoempresa" name="tipoempresa" placeholder="Tipo de Empresa" value="{{ empresa_data.6 }}">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,536 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+    <!-- Contenido específico de la página de dashboard -->
+    <div class="content-header">
+    </div>
+    <div class="content">
+
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Encabezado de la Factura</h3>
+        </div>
+        <form method="post">
+          {% csrf_token %}
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 col-md-2">
+                <div class="form-group">
+                  <label for="id_fecha" class="text-sm">Fecha</label>
+                  <input type="text" class="form-control form-control-sm" id="id_fecha" name="fecha" value="" readonly>
+                </div>
+              </div>
+              <div class="col-12 col-md-1">
+                <div class="form-group">
+                  <label for="id_hora" class="text-sm">Hora</label>
+                  <input type="text" class="form-control form-control-sm" id="id_hora" name="hora" value="" readonly>
+                </div>
+              </div>
+              <div class="col-12 col-md-1">
+                <div class="form-group">
+                  <label for="id_codtrans" class="text-sm">Cod.Trans</label>
+                  <input type="text" class="form-control form-control-sm" id="id_codtrans" name="codtrans" value="{{ results.0.0 }}" readonly>
+                </div>
+              </div>
+              <div class="col-12 col-md-1">
+                <div class="form-group">
+                  <label for="id_NumTransSiguiente" class="text-sm"># Trans</label>
+                  <input type="text" class="form-control form-control-sm" id="id_NumTransSiguiente" name="NumTransSiguiente" value="{{ results.0.1 }}" readonly>
+                </div>
+              </div>
+              <div class="col-12 col-md-1">
+                <div class="form-group">
+                  <label for="id_NumTransSiguiente" class="text-sm">Asiento</label>
+                  <input type="text" class="form-control form-control-sm" id="id_NumTransSiguiente" name="NumTransSiguiente" value="0" readonly>
+                </div>
+              </div>
+              <div class="col-12 col-md-1">
+                <div class="form-group">
+                  <label for="id_nombre" class="text-sm">Resp</label>
+                  <input type="text" class="form-control form-control-sm" id="id_nombre" name="nombre" value="{{ results.0.3 }}" readonly>
+                </div>
+              </div>
+              <div class="col-12 col-md-1">
+                <div class="form-group">
+                  <label for="id_ruc" class="text-sm">Moneda</label>
+                  <input type="text" class="form-control form-control-sm" id="id_ruc" name="ruc" value="{{ results.0.4 }}" readonly>
+                </div>
+              </div>
+              <div class="col-12 col-md-1">
+                <div class="form-group">
+                  <label for="id_ruc" class="text-sm">Monto</label>
+                  <input type="text" class="form-control form-control-sm" id="id_ruc" name="ruc" value="" readonly>
+                </div>
+              </div>
+              <div class="col-12 col-md-1">
+                <div class="form-group">
+                  <label for="id_ltecredito" class="text-sm">Lte.Crédito</label>
+                  <input type="text" class="form-control form-control-sm" id="id_ltecredito" name="ltecredito" value="" readonly>
+                </div>
+              </div>
+              <div class="col-12 col-md-1">
+                <div class="form-group">
+                  <label for="id_disponible" class="text-sm">Disponible</label>
+                  <input type="text" class="form-control form-control-sm" id="id_disponible" name="disponible" value="" readonly>
+                </div>
+              </div>
+              <div class="col-12 col-md-1">
+                <div class="form-group">
+                   <label for="id_diascredito" class="text-sm">D.Crédito</label>
+                  <input type="text" class="form-control form-control-sm" id="id_diascredito" name="dcredito" value="" readonly>
+                </div>
+              </div>
+            </div>
+            <!-- Termina  -->
+            <div class="row">
+             <div class="col-12 col-md-3">
+                <div class="form-group">
+                    <label for="selectTrans" class="text-sm">Cliente</label>
+                    <select class="form-control select2 form-control-sm" style="width: 100%;" id="selectTrans" name="CodTrans" onchange="fillClientInfo(this)">
+                     <option value="">Buscar Cliente</option>
+                        {% for item in data %}
+                            <option value="{{ item.nombre }}" data-ltecredito="{{ item.limitecredito|floatformat:2 }}"
+                                    data-ruc="{{ item.ruc }}" data-direccion="{{ item.Direccion1 }}" data-celular="{{ item.celular }}"
+                                    data-telefono="{{ item.telefono1 }}" data-diascredito="{{ item.diascredito|floatformat:0 }}"
+                                    data-observacion="{{ item.observacion }}" data-pcgrupo1="{{ item.pcgrupo1 }}"
+                                    data-pcgrupo2="{{ item.pcgrupo2 }}" data-pcgrupo3="{{ item.pcgrupo3 }}"
+                                    data-pcgrupo4="{{ item.pcgrupo4 }}"
+                                    data-vendedor="{{ item.vendedor }}"
+                                    data-email="{{ item.email }}">{{ item.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-md-2">
+                <div class="form-group">
+                    <label for="ruc" class="text-sm">RUC/CI</label>
+                    <input type="text" class="form-control form-control-sm" id="ruc" name="ruc" value="" readonly>
+                </div>
+            </div>
+            <div class="col-12 col-md-2">
+                <div class="form-group">
+                    <label for="id_celular" class="text-sm">Celular</label>
+                    <input type="text" class="form-control form-control-sm" id="id_celular" name="celular" value="" readonly>
+                </div>
+            </div>
+            <div class="col-12 col-md-2">
+                <div class="form-group">
+                    <label for="id_pcgrupo1" class="text-sm">{{ pcgrupos.0.pcgrupo1 }}</label>
+                    <input type="text" class="form-control form-control-sm" id="id_pcgrupo1" name="pcgrupo1" value="" readonly>
+                </div>
+            </div>
+            <div class="col-12 col-md-2">
+                <div class="form-group">
+                    <label for="id_pcgrupo2" class="text-sm">{{ pcgrupos.0.pcgrupo2 }}</label>
+                    <input type="text" class="form-control form-control-sm" id="id_pcgrupo2" name="pcgrupo2" value="" readonly>
+                </div>
+            </div>
+          </div>
+          <div class="row">
+                <div class="col-12 col-md-3">
+                <div class="form-group">
+                    <label for="direccion" class="text-sm">Dirección</label>
+                    <input type="text" class="form-control form-control-sm" id="direccion" name="direccion" value="" readonly>
+                </div>
+                </div>
+                <div class="col-12 col-md-1">
+                    <div class="form-group">
+                    <label for="telefono" class="text-sm">Teléfono</label>
+                    <input type="text" class="form-control form-control-sm" id="telefono" name="telefono" value="" readonly>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <div class="form-group">
+                    <label for="email" class="text-sm">E-mail</label>
+                    <input type="text" class="form-control form-control-sm" id="email" name="email" value="" readonly>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2">
+                    <div class="form-group">
+                    <label for="id_pcgrupo3" class="text-sm">{{ pcgrupos.0.pcgrupo3 }}</label>
+                    <input type="text" class="form-control form-control-sm" id="id_pcgrupo3" name="pcgrupo3" value="" readonly>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2">
+                    <div class="form-group">
+                    <label for="id_pcgrupo4" class="text-sm">{{ pcgrupos.0.pcgrupo4 }}</label>
+                    <input type="text" class="form-control form-control-sm" id="id_pcgrupo4" name="pcgrupo4" value="" readonly>
+                    </div>
+                </div>
+          </div>
+          <div class="row">
+              <div class="col-12 col-md-2">
+                    <div class="form-group">
+                    <label for="id_vendedor" class="text-sm">Vendedor</label>
+                    <input type="text" class="form-control form-control-sm" id="id_vendedor" name="vendedor" value="" readonly>
+                    </div>
+                </div>
+               <div class="col-12 col-md-1">
+                    <div class="form-group">
+                    <label for="descripcion" class="text-sm">Descripcion</label>
+                    <input type="text" class="form-control form-control-sm" id="descripcion" name="descripcion" value="{{ results.0.5 }}">
+                    </div>
+               </div>
+              <div class="col-12 col-md-3">
+                    <div class="form-group">
+                    <label for="id_observacion" class="text-sm">Obs.</label>
+                    <input type="text" class="form-control form-control-sm" id="id_observacion" name="observacion" value="" readonly>
+                    </div>
+               </div>
+          </div>
+          <div class="card p-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Búsqueda de productos:</label>
+                    <div class="row">
+                        <div class="col-12 col-md-4">
+                            <div class="btn-group" role="group" aria-label="Opciones de productos">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-xl">
+                                    Buscar productos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table id="factura" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 25%;" class="text-sm">Codigo</th>
+                        <th style="width: 25%;" class="text-sm">Descripcion</th>
+                        <th style="width: 15%;" class="text-sm">Exist</th>
+                        <th style="width: 20%;" class="text-sm">Cant</th>
+                        <th style="width: 15%;" class="text-sm">Pre U.</th>
+                        <th style="width: 15%;" class="text-sm">Pre U.R</th>
+                        <th style="width: 15%;" class="text-sm">Pre U+IVA</th>
+                        <th style="width: 15%;" class="text-sm">Pre T.</th>
+                        <th style="width: 15%;" class="text-sm">Pre. T.R</th>
+                        <th style="width: 15%;" class="text-sm">P.Total+IVA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+
+            </table>
+            </div>
+        </div>
+    </div>
+        </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+
+
+<div class="modal fade" id="modal-xl">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Productos Disponibles</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="table-responsive">
+        <table id="factura_modal" class="table table-bordered table-striped text-sm">
+            <thead>
+                <tr>
+                    <th class="text-sm">Imagen</th>
+                    <th class="text-sm">Codigo</th>
+                    <th class="text-sm">CodigoAlt</th>
+                    <th class="text-sm">Descripcion</th>
+                    <th class="text-sm" style="width: 5%;">Existencia</th>
+                    <th class="text-sm">Precio</th>
+                    <th class="text-sm">Precio+IVA</th>
+                    <th class="text-sm">Agregar</th>
+                </tr>
+            </thead>
+            <tbody>
+               {% for producto in factura %}
+                    <tr>
+                        <td>
+                            {% if producto.imagen %}
+                                <div style="text-align: center;">
+                                    <img src="{{ media_url }}imagenes/{{ producto.cod_item }}.jpg" alt="Imagen del producto" style="max-width: 100px; max-height: 100px; display: block; margin: 0 auto;">
+                                </div>
+                            {% else %}
+                                <input type="file" name="imagen_producto_{{ producto.cod_item }}">
+                            {% endif %}
+                        </td>
+                        <td>{{ producto.cod_item }}</td>
+                        <td>{{ producto.cod_alterno }}</td>
+                        <td>{{ producto.descripcion }}</td>
+                        <td>{{ producto.exist |floatformat:2 }}</td>
+                        <td>{{ producto.precio1 |floatformat:2}}</td>
+                        <td>Calcular el PRECIO+IVA</td>
+                        <td style="text-align: center;">
+                            <button class="btn btn-success btnAddClient" type="button" data-coditem="{{ producto.cod_item }}"
+                                    data-codalterno="{{ producto.cod_alterno }}" data-descripcion="{{ producto.descripcion }}"
+                                    data-exist="{{ producto.exist |floatformat:2 }}"  data-precio="{{ producto.precio1 |floatformat:2 }}"
+                                    data-iva="{{ producto.porc_iva |floatformat:2 }}">
+                            <i class="fas fa-plus"></i>
+                            </button>
+                        </td>
+                    </tr>
+               {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <button type="submit">Guardar Imágenes</button>
+</form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Agregar Productos</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+.total-row {
+    font-weight: bold; /* Aplica negritas a la fila de totales */
+}
+
+.total-cell {
+    font-weight: normal; /* Restaura el peso normal de la fuente para las celdas de totales */
+}
+
+</style>
+
+<!-- JavaScript para copiar el valor a la segunda tabla -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const addButtonElements = document.querySelectorAll(".btnAddClient");
+        let facturaTable;
+        let initialized = false;
+        let totalRow; // Variable para mantener la fila de totales
+
+        addButtonElements.forEach(function(addButton) {
+            addButton.addEventListener("click", function() {
+                // Obtiene los valores de data-coditem y data-codalterno del botón
+                const codItem = addButton.getAttribute("data-coditem");
+                const descripcion = addButton.getAttribute("data-descripcion");
+                const exist = addButton.getAttribute("data-exist");
+                const preciou = parseFloat(addButton.getAttribute("data-precio"));
+                const preciour = parseFloat(addButton.getAttribute("data-precio"));
+                const porcentajeIva = parseFloat(addButton.getAttribute("data-iva"));
+
+                if (!initialized) {
+                    // Inicializa DataTables solo una vez
+                    facturaTable = $('#factura').DataTable({
+                        paging: false, // Desactiva la paginación
+                        searching: false, // Desactiva la búsqueda
+                    });
+                    initialized = true;
+                }
+
+                const cantidadInput = '<input type="number" name="cantidad" value="1" class="form-control">';
+
+                // Encuentra la fila correspondiente en la tabla anterior y elimínala
+                {#const modalTable = document.getElementById('factura_modal');#}
+                {#for (let i = 1; i < modalTable.rows.length; i++) {#}
+                {#    const row = modalTable.rows[i];#}
+                {#    if (row.cells[1].textContent === codItem) {#}
+                {#        modalTable.deleteRow(i);#}
+                {#        break;#}
+                {#    }#}
+                {#}#}
+
+                const newRow = [
+                    `<td style="width: 15%;" class="text-sm">${codItem}</td>`,
+                    `<td style="width: 30%;" class="text-sm">${descripcion}</td>`,
+                    `<td style="width: 15%;" class="text-sm">${exist}</td>`,
+                    `<td style="width: 15%;" class="text-sm">${cantidadInput}</td>`,
+                    `<td style="width: 15%;" class="text-sm">${preciou.toFixed(2)}</td>`,
+                    `<td style="width: 15%;" class="text-sm">${preciour.toFixed(2)}</td>`,
+                    `<td style="width: 15%;" class="text-sm">${(preciou + (preciou * porcentajeIva)).toFixed(2)}</td>`,
+                    `<td style="width: 15%;" class="text-sm preciot"></td>`,
+                    `<td style="width: 15%;" class="text-sm preciotr"></td>`,
+                    `<td style="width: 15%;" class="text-sm preciotconiva"></td>`
+                ];
+
+                facturaTable.row.add(newRow).draw();
+
+                const currentRow = facturaTable.row(facturaTable.rows().count() - 1);
+                const cantidadElement = currentRow.node().querySelector('input[name="cantidad"]');
+                const precioTCell = currentRow.cell(currentRow, 7);
+                const precioTrCell = currentRow.cell(currentRow, 8);
+                const precioTConIvaCell = currentRow.cell(currentRow, 9);
+
+                const recalculatePrecios = () => {
+                    const cantidad = parseInt(cantidadElement.value);
+                    const precioT = (cantidad * preciou).toFixed(2);
+                    precioTCell.data(precioT).draw();
+
+                    precioTrCell.data(precioT).draw();
+
+                    const precioTConIva = (precioT * (1 + porcentajeIva)).toFixed(2);
+                    precioTConIvaCell.data(precioTConIva).draw();
+
+                    // Recalcular la suma de "P.Total+IVA" en la tabla
+                    let sumaTotal = 0;
+                    facturaTable.rows().every(function() {
+                        const rowData = this.data();
+                        if (rowData.length > 0 && rowData[0] !== '') { // Evitar sumar las filas vacías y de totales
+                            const totalIVA = parseFloat(rowData[9].replace(',', '')); // Obtener el valor de "P.Total+IVA" (columna 9)
+                            sumaTotal += totalIVA;
+                        }
+                    });
+
+                    // Actualizar la fila de totales o agregarla si no existe
+                    if (totalRow) {
+                        // Si la fila de totales ya existe, actualizar sus valores
+                        totalRow[9] = sumaTotal.toFixed(2);
+                        totalRow.forEach((value, index) => {
+                            if (index > 0) { // Evitar cambiar el primer valor (código)
+                                facturaTable.row(totalRowIdx).data(totalRow);
+                            }
+                        });
+                    } else {
+                        // Si la fila de totales no existe, agréguela al final de la tabla
+                        totalRow = [
+                            '', // Código (vacío)
+                            'Total', // Descripción
+                            '', // Exist
+                            '', // Cant
+                            '', // Pre U.
+                            '', // Pre U.R
+                            '', // Pre U+IVA
+                            '', // Pre T.
+                            '', // Pre. T.R
+                            sumaTotal.toFixed(2) // Total de "P.Total+IVA"
+                        ];
+
+                        facturaTable.row.add(totalRow).draw();
+                        totalRowIdx = facturaTable.rows().count() - 1;
+                        facturaTable.row(totalRowIdx).nodes().to$().addClass('total-row');
+                    }
+                };
+
+                cantidadElement.addEventListener("input", recalculatePrecios);
+
+                recalculatePrecios();
+            });
+        });
+
+
+    });
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{#  Script para llenar campos apartir del select  #}
+<script>
+function fillClientInfo(select) {
+    var selectedOption = select.options[select.selectedIndex];
+    var rucField = document.getElementById('ruc');
+    var direccionField = document.getElementById('direccion');
+    var telefonoField = document.getElementById('telefono');
+    var emailField = document.getElementById('email');
+    var limitecreditoField = document.getElementById('id_ltecredito');
+    var diascreditoField = document.getElementById('id_diascredito');
+    var celularField = document.getElementById('id_celular');
+    var observacionField = document.getElementById('id_observacion');
+    var pcgrupo1Field = document.getElementById('id_pcgrupo1');
+    var pcgrupo2Field = document.getElementById('id_pcgrupo2');
+    var pcgrupo3Field = document.getElementById('id_pcgrupo3');
+    var pcgrupo4Field = document.getElementById('id_pcgrupo4');
+    var vendedorField = document.getElementById('id_vendedor');
+
+    rucField.value = selectedOption.getAttribute('data-ruc');
+    direccionField.value = selectedOption.getAttribute('data-direccion');
+    telefonoField.value = selectedOption.getAttribute('data-telefono');
+    emailField.value = selectedOption.getAttribute('data-email');
+    limitecreditoField.value = selectedOption.getAttribute('data-ltecredito');
+    diascreditoField.value = selectedOption.getAttribute('data-diascredito');
+    celularField.value = selectedOption.getAttribute('data-celular');
+    observacionField.value = selectedOption.getAttribute('data-observacion');
+    pcgrupo1Field.value = selectedOption.getAttribute('data-pcgrupo1');
+    pcgrupo2Field.value = selectedOption.getAttribute('data-pcgrupo2');
+    pcgrupo3Field.value = selectedOption.getAttribute('data-pcgrupo3');
+    pcgrupo4Field.value = selectedOption.getAttribute('data-pcgrupo4');
+
+    var selectedVendedor = selectedOption.getAttribute('data-vendedor');
+
+    // Actualiza el campo "Vendedor" con el valor correspondiente
+    vendedorField.value = selectedVendedor;
+
+    // Elimina la opción "Buscar" una vez que se ha seleccionado una opción
+    var buscarOption = vendedorField.querySelector('option[value=""]');
+    if (buscarOption) {
+        buscarOption.remove();
+    }
+}
+
+
+</script>
+
+{#  Script para llenar la fecha  #}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var dateField = document.getElementById('id_fecha');
+
+    // Obtiene la fecha actual en el formato deseado (puedes personalizar el formato)
+    var currentDate = new Date();
+    var formattedDate = currentDate.toLocaleDateString(); // Formato por defecto
+
+    // Establece la fecha en el campo de entrada
+    dateField.value = formattedDate;
+});
+</script>
+
+{#  Script para llenar la hora  #}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var timeField = document.getElementById('id_hora');
+
+    // Obtiene la hora actual en el formato "HH:mm"
+    var currentTime = new Date();
+    var hours = currentTime.getHours().toString().padStart(2, '0'); // Formato de 2 dígitos, rellenando con ceros si es necesario
+    var minutes = currentTime.getMinutes().toString().padStart(2, '0'); // Formato de 2 dígitos, rellenando con ceros si es necesario
+
+    // Combina horas y minutos en el formato deseado
+    var formattedTime = hours + ':' + minutes;
+
+    // Establece la hora en el campo de entrada
+    timeField.value = formattedTime;
+});
+</script>
+
+
+{% endblock %}
