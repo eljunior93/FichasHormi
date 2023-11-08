@@ -313,124 +313,139 @@
 
 </style>
 
-<!-- JavaScript para copiar el valor a la segunda tabla -->
+
+
+
+
+{# Javascrip para traer los productos del modal a la tabla del factura#}
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const addButtonElements = document.querySelectorAll(".btnAddClient");
-        let facturaTable;
-        let initialized = false;
-        let totalRow; // Variable para mantener la fila de totales
+document.addEventListener("DOMContentLoaded", function() {
+    const addButtonElements = document.querySelectorAll(".btnAddClient");
+    let facturaTable = $('#factura').DataTable({
+        paging: false, // Desactiva la paginación
+        searching: false, // Desactiva la búsqueda
+    });
 
-        addButtonElements.forEach(function(addButton) {
-            addButton.addEventListener("click", function() {
-                // Obtiene los valores de data-coditem y data-codalterno del botón
-                const codItem = addButton.getAttribute("data-coditem");
-                const descripcion = addButton.getAttribute("data-descripcion");
-                const exist = addButton.getAttribute("data-exist");
-                const preciou = parseFloat(addButton.getAttribute("data-precio"));
-                const preciour = parseFloat(addButton.getAttribute("data-precio"));
-                const porcentajeIva = parseFloat(addButton.getAttribute("data-iva"));
 
-                if (!initialized) {
-                    // Inicializa DataTables solo una vez
-                    facturaTable = $('#factura').DataTable({
-                        paging: false, // Desactiva la paginación
-                        searching: false, // Desactiva la búsqueda
+    let totalRow; // Variable para mantener la fila de totales
+    let productosAgregados = [];
+
+    addButtonElements.forEach(function(addButton) {
+        addButton.addEventListener("click", function() {
+            // Obtiene los valores de los atributos del botón
+            const codItem = addButton.getAttribute("data-coditem");
+
+            if (productosAgregados.includes(codItem)) {
+                // Mostrar notificación Toastr en caso de producto duplicado
+                   toastr.error('Producto ya ingresado.', 'Error', {
+                        progressBar: true,
+                        closeDuration: 25,
+                       "positionClass": "toast-top-left",
                     });
-                    initialized = true;
+                    return;
                 }
 
-                const cantidadInput = '<input type="number" name="cantidad" value="1" class="form-control">';
+                productosAgregados.push(codItem);
 
-                // Encuentra la fila correspondiente en la tabla anterior y elimínala
-                {#const modalTable = document.getElementById('factura_modal');#}
-                {#for (let i = 1; i < modalTable.rows.length; i++) {#}
-                {#    const row = modalTable.rows[i];#}
-                {#    if (row.cells[1].textContent === codItem) {#}
-                {#        modalTable.deleteRow(i);#}
-                {#        break;#}
-                {#    }#}
-                {#}#}
+                // Cambiar la clase del botón de btn-success a btn-danger
+                addButton.classList.remove('btn-success');
+                addButton.classList.add('btn-danger');
 
-                const newRow = [
-                    `<td style="width: 15%;" class="text-sm">${codItem}</td>`,
-                    `<td style="width: 30%;" class="text-sm">${descripcion}</td>`,
-                    `<td style="width: 15%;" class="text-sm">${exist}</td>`,
-                    `<td style="width: 15%;" class="text-sm">${cantidadInput}</td>`,
-                    `<td style="width: 15%;" class="text-sm">${preciou.toFixed(2)}</td>`,
-                    `<td style="width: 15%;" class="text-sm">${preciour.toFixed(2)}</td>`,
-                    `<td style="width: 15%;" class="text-sm">${(preciou + (preciou * porcentajeIva)).toFixed(2)}</td>`,
-                    `<td style="width: 15%;" class="text-sm preciot"></td>`,
-                    `<td style="width: 15%;" class="text-sm preciotr"></td>`,
-                    `<td style="width: 15%;" class="text-sm preciotconiva"></td>`
-                ];
+            const descripcion = addButton.getAttribute("data-descripcion");
+            const exist = addButton.getAttribute("data-exist");
+            const preciou = parseFloat(addButton.getAttribute("data-precio"));
+            const preciour = parseFloat(addButton.getAttribute("data-precio"));
+            const porcentajeIva = parseFloat(addButton.getAttribute("data-iva"));
 
-                facturaTable.row.add(newRow).draw();
+            const cantidadInput = '<input type="number" name="cantidad" value="1" class="form-control">';
 
-                const currentRow = facturaTable.row(facturaTable.rows().count() - 1);
-                const cantidadElement = currentRow.node().querySelector('input[name="cantidad"]');
-                const precioTCell = currentRow.cell(currentRow, 7);
-                const precioTrCell = currentRow.cell(currentRow, 8);
-                const precioTConIvaCell = currentRow.cell(currentRow, 9);
+            toastr.success('Producto ingresado correctamente: ' + codItem, 'Éxito', {
+                    progressBar: true,
+                    closeDuration: 25,
+                "positionClass": "toast-top-left",
+                });
 
-                const recalculatePrecios = () => {
-                    const cantidad = parseInt(cantidadElement.value);
-                    const precioT = (cantidad * preciou).toFixed(2);
-                    precioTCell.data(precioT).draw();
+            const newRow = [
+                `<td style="width: 15%;" class="text-sm">${codItem}</td>`,
+                `<td style="width: 30%;" class="text-sm">${descripcion}</td>`,
+                `<td style="width: 15%;" class="text-sm">${exist}</td>`,
+                `<td style="width: 15%;" class="text-sm">${cantidadInput}</td>`,
+                `<td style="width: 15%;" class="text-sm">${preciou.toFixed(2)}</td>`,
+                `<td style="width: 15%;" class="text-sm">${preciour.toFixed(2)}</td>`,
+                `<td style="width: 15%;" class="text-sm">${(preciou + (preciou * porcentajeIva)).toFixed(2)}</td>`,
+                `<td style="width: 15%;" class="text-sm preciot"></td>`,
+                `<td style="width: 15%;" class="text-sm preciotr"></td>`,
+                `<td style="width: 15%;" class="text-sm preciotconiva"></td>`
+            ];
 
-                    precioTrCell.data(precioT).draw();
 
-                    const precioTConIva = (precioT * (1 + porcentajeIva)).toFixed(2);
-                    precioTConIvaCell.data(precioTConIva).draw();
 
-                    // Recalcular la suma de "P.Total+IVA" en la tabla
-                    let sumaTotal = 0;
-                    facturaTable.rows().every(function() {
-                        const rowData = this.data();
-                        if (rowData.length > 0 && rowData[0] !== '') { // Evitar sumar las filas vacías y de totales
-                            const totalIVA = parseFloat(rowData[9].replace(',', '')); // Obtener el valor de "P.Total+IVA" (columna 9)
-                            sumaTotal += totalIVA;
+            facturaTable.row.add(newRow).draw();
+
+            const currentRow = facturaTable.row(facturaTable.rows().count() - 1);
+            const cantidadElement = currentRow.node().querySelector('input[name="cantidad"]');
+            const precioTCell = currentRow.cell(currentRow, 7);
+            const precioTrCell = currentRow.cell(currentRow, 8);
+            const precioTConIvaCell = currentRow.cell(currentRow, 9);
+
+            const recalculatePrecios = () => {
+                const cantidad = parseInt(cantidadElement.value);
+                const precioT = (cantidad * preciou).toFixed(2);
+                precioTCell.data(precioT).draw();
+
+                precioTrCell.data(precioT).draw();
+
+                const precioTConIva = (precioT * (1 + porcentajeIva)).toFixed(2);
+                precioTConIvaCell.data(precioTConIva).draw();
+
+                // Recalcular la suma de "P.Total+IVA" en la tabla
+                let sumaTotal = 0;
+                facturaTable.rows().every(function() {
+                    const rowData = this.data();
+                    if (rowData.length > 0 && rowData[0] !== '') { // Evitar sumar las filas vacías y de totales
+                        const totalIVA = parseFloat(rowData[9].replace(',', '')); // Obtener el valor de "P.Total+IVA" (columna 9)
+                        sumaTotal += totalIVA;
+                    }
+                });
+
+                // Actualizar la fila de totales o agregarla si no existe
+                if (totalRow) {
+                    // Si la fila de totales ya existe, actualizar sus valores
+                    totalRow[9] = sumaTotal.toFixed(2);
+                    totalRow.forEach((value, index) => {
+                        if (index > 0) { // Evitar cambiar el primer valor (código)
+                            facturaTable.row(totalRowIdx).data(totalRow);
                         }
                     });
+                } else {
+                    // Si la fila de totales no existe, agréguela al final de la tabla
+                    totalRow = [
+                        '', // Código (vacío)
+                        'Total', // Descripción
+                        '', // Exist
+                        '', // Cant
+                        '', // Pre U.
+                        '', // Pre U.R
+                        '', // Pre U+IVA
+                        '', // Pre T.
+                        '', // Pre. T.R
+                        sumaTotal.toFixed(2) // Total de "P.Total+IVA"
+                    ];
 
-                    // Actualizar la fila de totales o agregarla si no existe
-                    if (totalRow) {
-                        // Si la fila de totales ya existe, actualizar sus valores
-                        totalRow[9] = sumaTotal.toFixed(2);
-                        totalRow.forEach((value, index) => {
-                            if (index > 0) { // Evitar cambiar el primer valor (código)
-                                facturaTable.row(totalRowIdx).data(totalRow);
-                            }
-                        });
-                    } else {
-                        // Si la fila de totales no existe, agréguela al final de la tabla
-                        totalRow = [
-                            '', // Código (vacío)
-                            'Total', // Descripción
-                            '', // Exist
-                            '', // Cant
-                            '', // Pre U.
-                            '', // Pre U.R
-                            '', // Pre U+IVA
-                            '', // Pre T.
-                            '', // Pre. T.R
-                            sumaTotal.toFixed(2) // Total de "P.Total+IVA"
-                        ];
+                    facturaTable.row.add(totalRow).draw();
+                    totalRowIdx = facturaTable.rows().count() - 1;
+                    facturaTable.row(totalRowIdx).nodes().to$().addClass('total-row');
+                }
+            };
 
-                        facturaTable.row.add(totalRow).draw();
-                        totalRowIdx = facturaTable.rows().count() - 1;
-                        facturaTable.row(totalRowIdx).nodes().to$().addClass('total-row');
-                    }
-                };
+            cantidadElement.addEventListener("input", recalculatePrecios);
 
-                cantidadElement.addEventListener("input", recalculatePrecios);
-
-                recalculatePrecios();
-            });
+            recalculatePrecios();
         });
 
 
     });
+});
 
 </script>
 
