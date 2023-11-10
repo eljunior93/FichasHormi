@@ -10,7 +10,7 @@
       <div class="container-fluid">
       <div class="row mb-2">
           <div class="col-sm-6">
-            <h3 class="m-0">Dashboard</h3>
+            <h3 class="m-0">Fichas Medicas</h3>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -19,449 +19,52 @@
             </ol>
           </div><!-- /.col -->
         </div><!-- /.Titulo -->
+        <!-- Reemplaza la Card con una Tabla -->
         <div class="row">
-          <div class="col-lg-6">
+            <div class="col-lg-12">
             <div class="card card-primary">
                 <div class="card-header border-0">
-                    <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Ventas Diarias</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="d-flex">
-                        <p class="d-flex flex-column">
-                            <span class="text-bold text-lg">${{ total_ventas_semana|floatformat:2|intcomma }}</span>
-                            <span>Ventas semana Actual</span>
-                        </p>
-                        <p class="ml-auto d-flex flex-column text-right">
-                            {% if cambio_porcentual_diario >= 0 %}
-                                <span class="text-success">
-                                    <i class="fas fa-arrow-up"></i> {{ cambio_porcentual_diario|floatformat:2|intcomma }}%
-                                </span>
-                            {% else %}
-                                <span class="text-danger">
-                                    <i class="fas fa-arrow-down"></i> {{ cambio_porcentual_diario|floatformat:2|intcomma|cut:'-' }}%
-                                </span>
-                            {% endif %}
-                            <span class="text-muted">Desde el día anterior</span>
-                        </p>
-                    </div>
-                    <!-- /.d-flex -->
-
-                    <div class="position-relative mb-4">
-                        <canvas id="visitors-chart" height="200"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card card-info" >
-                <div class="card-header border-0">
-                    <h3 class="card-title" id="card-productos">Top 5 Productos</h3>
+                <div class="d-flex justify-content-between">
+                    <h3 class="card-title">Ventas Diarias</h3>
                     <div class="card-tools">
-                        <a href="#" class="btn btn-tool btn-sm" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
-                        </a>
-                        <a href="#" class="btn btn-tool btn-sm" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
-                        </a>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
                     </div>
                 </div>
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-striped table-valign-middle" id="productos-table">
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- La tabla será llenada por JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-          </div>
-          <!-- /.col-md-6 dos cards-->
-          <div class="col-lg-6">
-            <div class="card card-danger">
-                <div class="card-header border-0">
-                    <div class="d-flex justify-content-between">
-                        <h3 class="card-title">Ventas General</h3>
-                        <div class="card-tools">
-                            <a href="#" class="btn btn-tool btn-sm" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </a>
-                            <a href="#" class="btn btn-tool btn-sm" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </a>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
-                    <div class="d-flex">
-                        <p class="d-flex flex-column">
-                            <span class="text-bold text-lg">${{ventas_totales_año_actual|floatformat:2|intcomma}}</span>
-                            <span>Ventas año actual</span>
-                        </p>
-                        <p class="ml-auto d-flex flex-column text-right">
-                            {% if cambio_porcentual >= 0 %}
-                                <span class="text-success">
-                                    <i class="fas fa-arrow-up"></i> {{ cambio_porcentual|floatformat:2|intcomma }}%
-                                </span>
-                            {% else %}
-                                <span class="text-danger">
-                                    <i class="fas fa-arrow-down"></i> {{ cambio_porcentual|floatformat:2|intcomma|cut:'-' }}%
-                                </span>
-                            {% endif %}
-                            <span class="text-muted">Desde el mes pasado</span>
-                        </p>
-                    </div>
-                    <!-- /.d-flex -->
-
-                    <div class="position-relative mb-4">
-                        <canvas id="sales-chart" height="200"></canvas>
-                    </div>
+                <!-- Contenido de la tabla -->
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Columna 1</th>
+                        <th>Columna 2</th>
+                        <!-- Agrega más columnas según sea necesario -->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- Agrega filas con los datos necesarios -->
+                    <tr>
+                        <td>Dato 1</td>
+                        <td>Dato 2</td>
+                        <!-- Agrega más celdas según sea necesario -->
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- /.table -->
                 </div>
             </div>
-
-
-            <div class="card card-green">
-    <div class="card-header border-0">
-        <div class="d-flex justify-content-between">
-            <h3 class="card-title">Top Ventas Lineas</h3>
-            <div class="card-tools">
-                <a href="#" class="btn btn-tool btn-sm" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                </a>
-                <a href="#" class="btn btn-tool btn-sm" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                </a>
             </div>
         </div>
-    </div>
-    <div class="card-body">
-        <div class="d-flex">
-            <p class="d-flex flex-column">
-                <span id='linea_mas_vendida' class="text-bold text-lg"></span>
-                <span>Linea mas vendida</span>
-            </p>
-        </div>
-        <!-- /.d-flex -->
 
-        <div class="position-relative mb-4">
-            <canvas id="lineas-chart" height="200"></canvas>
-        </div>
-    </div>
-</div>
-
-            <!-- /.card -->
-
-          </div>
-          <!-- /.col-md-6 -->
-        </div>
         <!-- /.row -->
       </div>
     </div>
     <!-- Termina el Contenido -->
-
-<script src="{% static 'plugins/chart.js/Chart.min.js' %}"></script>
-{# Script para Ventas generales #}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var etiquetas_mes = {{ etiquetas_mes|safe }};
-        var ventas_mensual_año_actual = {{ ventas_mensual_año_actual|safe }};
-        var ventas_mensual_año_anterior = {{ ventas_mensual_año_anterior|safe }};
-        var ctx = document.getElementById('sales-chart').getContext('2d');
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: etiquetas_mes,
-                datasets: [
-                    {
-                        label: 'Ventas {{ año_actual }}',
-                        backgroundColor: '#007bff',
-                        borderColor: '#007bff',
-                        data: ventas_mensual_año_actual
-                    },
-                    {
-                        label: 'Ventas {{ año_anterior }}',
-                        backgroundColor: '#ced4da',
-                        borderColor: '#ced4da',
-                        data: ventas_mensual_año_anterior
-                    }
-                ]
-            },
-            options: {
-                maintainAspectRatio: false,
-                tooltips: {
-                    mode: 'index',
-                    intersect: true,
-                    callbacks: {
-                        label: function(tooltipItem, data) {
-                            var label = data.datasets[tooltipItem.datasetIndex].label || '';
-                            if (label) {
-                               label += ': $' + tooltipItem.yLabel.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                            }
-                            return label;
-                        }
-                    }
-                },
-                hover: {
-                    mode: 'index',
-                    intersect: true
-                },
-                legend: {
-                    display: true,
-                },
-                scales: {
-                    yAxes: [{
-                        gridLines: {
-                            display: true,
-                            lineWidth: '4px',
-                            color: 'rgba(0, 0, 0, .2)',
-                            zeroLineColor: 'transparent'
-                        },
-                        ticks: {
-                            beginAtZero: true,
-                            callback: function (value) {
-                                return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                            }
-                        }
-                    }],
-                    xAxes: [{
-                        gridLines: {
-                            display: false
-                        },
-                        ticks: {
-                            fontColor: '#495057',
-                            fontStyle: 'bold'
-                        }
-                    }]
-                }
-            }
-        });
-    });
-</script>
-
-{# Script para Ventas Diarias #}
-<script>
-    var ctx = document.getElementById('visitors-chart').getContext('2d');
-    var fechaData = JSON.parse('{{ ventas_diarias_semana | safe }}');
-    console.log(fechaData)
-
-    // Extraer las fechas y ventas de los datos recuperados
-    var fechas = fechaData.map(function(item) {
-        return item.Fecha;
-    });
-
-    var ventas = fechaData.map(function(item) {
-        return item.VentasDiarias;
-    });
-
-    var salesChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: fechas,
-            datasets: [
-                {
-                    label: 'Ventas Diarias',
-                    borderColor: '#007bff',
-                    backgroundColor: 'transparent',
-                    data: ventas,
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                display: true,
-            },
-            scales: {
-                xAxes: [
-                    {
-                        display: true,
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                        gridLines: {
-                            display: true,
-                            color: 'rgba(0, 0, 0, 0.2)',
-                            lineWidth: '4px',
-                        },
-                    }
-                ],
-                yAxes: [
-                    {
-                        display: true,
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                        gridLines: {
-                            display: false,
-                            color: 'rgba(0, 0, 0, 0.2)',
-                            lineWidth: '4px',
-                        },
-                    }
-                ]
-            },
-            tooltips: {
-                mode: 'index',
-                intersect: false,
-            }
-        }
-    });
-</script>
-
-{# Armar la tabla productos top#}
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    var productosMasVendidos = {{ productos_mas_vendidos | safe }};
-    var tableBody = document.querySelector('#productos-table tbody');
-    var currentDate = new Date();
-    var monthNames = [
-      "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-    ];
-    var currentMonth = monthNames[currentDate.getMonth()];
-
-    // Actualiza el título con el mes actual
-    document.querySelector("#card-productos").textContent = "Top Productos " + currentMonth;
-
-    productosMasVendidos.forEach(function(producto) {
-      var newRow = tableBody.insertRow();
-      var itemCell = newRow.insertCell(0);
-      var totalCell = newRow.insertCell(1);
-
-      itemCell.textContent = producto[0]; // Nombre de la línea
-      totalCell.textContent = '$' + producto[1]; // Nombre del producto
-
-    });
-  });
-</script>
-
-{# Script para Venta Lineas top #}
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var lineasData = {{ lineas_mas_vendidas|safe }};
-        var labels = lineasData.map(function (item) {
-            return item[0]; // Nombre de la línea
-        });
-        var values = lineasData.map(function (item) {
-            return item[1]; // Valor de las ventas
-        });
-        var ctx = document.getElementById('lineas-chart').getContext('2d');
-
-        var backgroundColors = [
-            '#6A0DAD',
-            '#00C957',
-            '#FFD700',
-            '#FF8C00',
-            '#E0115F',
-            '#B22222', // Rojo oscuro
-            '#008B8B', // Azul verdoso
-            '#8A2BE2', // Azul violeta
-            '#228B22', // Verde oscuro
-            '#FF1493', // Rosa profundo
-            '#FFD700', // Amarillo dorado
-            '#1E90FF', // Azul real
-            // Puedes agregar más colores aquí
-        ];
-
-        var lineaMasVendidaIndex = values.indexOf(Math.max(...values)); // Encuentra el índice de la línea más vendida
-        var lineaMasVendida = labels[lineaMasVendidaIndex]; // Obtiene el nombre de la línea más vendida
-
-        // Muestra el nombre de la línea más vendida en el <span> con ID "linea_mas_vendida"
-        document.getElementById('linea_mas_vendida').textContent = lineaMasVendida;
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [
-                    {
-                        label: 'Ventas',
-                        data: values,
-                        backgroundColor: backgroundColors,
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                    display: true,
-                },
-                scales: {
-                    xAxes: [
-                        {
-                            display: true,
-                            gridLines: {
-                                display: true,
-                                color: 'rgba(0, 0, 0, 0.2)',
-                                lineWidth: '4px',
-                            }
-                        }
-                    ],
-                    yAxes: [
-                        {
-                            display: true,
-                            ticks: {
-                                beginAtZero: true,
-                                callback: function (value) {
-                                      return '$' + value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                                }
-                            },
-                            gridLines: {
-                                display: false,
-                                color: 'rgba(0, 0, 0, 0.2)',
-                                lineWidth: '4px',
-                            }
-                        }
-                    ]
-                },
-                tooltips: {
-                    mode: 'index',
-                    intersect: false,
-                    callbacks: {
-                        label: function(tooltipItem, data) {
-                            var label = data.datasets[tooltipItem.datasetIndex].label || '';
-                            if (label) {
-                                label += ': $' + tooltipItem.yLabel.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                            }
-                            return label;
-                        }
-                    }
-                }
-            }
-        });
-    });
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

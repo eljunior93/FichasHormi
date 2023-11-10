@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('sii_seguridad.urls',)),
     path('empresa/Hormi2023', views.hormi2023, name='hormi2023'),
-    
+    path('empresa/Hormi2023/contact', views.contact, name='contact'),
    
 
 ]

@@ -37,7 +37,14 @@ def hormi2023(request):
 
 
 
+@login_required
+def contact(request):
+    username = request.user
 
+    context = {
+        'username': username
+    }
+    return render(request, 'contact.html', context)
 
 
 
