@@ -23,11 +23,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('sii_seguridad.urls',)),
-    path('empresa/mq2010New', views.mq2010New, name='mq2010New'),
-    path('empresa/mq2010New/consgeneraltrans', views.consgeneraltrans, name='consgeneraltrans'),
-    path('empresa/mq2010New/contact', views.contact, name='contact'),
-    path('empresa/mq2010New/infoempresa', views.infoempresa, name='infoempresa'),
-    path('empresa/mq2010New/facturacion', views.facturacion, name='facturacion'),
+    path('empresa/Hormi2023', views.hormi2023, name='hormi2023'),
+    
+   
 
 ]
 if settings.DEBUG:

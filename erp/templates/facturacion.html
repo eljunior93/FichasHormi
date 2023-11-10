@@ -14,7 +14,7 @@
         <div class="card-header">
           <h3 class="card-title">Encabezado de la Factura</h3>
         </div>
-        <form method="post">
+        <form method="post" action="{% url 'facturacion' %}">
           {% csrf_token %}
           <div class="card-body">
             <div class="row">
@@ -45,7 +45,7 @@
               <div class="col-12 col-md-1">
                 <div class="form-group">
                   <label for="id_NumTransSiguiente" class="text-sm">Asiento</label>
-                  <input type="text" class="form-control form-control-sm" id="id_NumTransSiguiente" name="NumTransSiguiente" value="0" readonly>
+                  <input type="text" class="form-control form-control-sm" id="id_NumTransSiguiente" name="NumTransAsientodefault" value="0" readonly>
                 </div>
               </div>
               <div class="col-12 col-md-1">
@@ -90,7 +90,7 @@
              <div class="col-12 col-md-3">
                 <div class="form-group">
                     <label for="selectTrans" class="text-sm">Cliente</label>
-                    <select class="form-control select2 form-control-sm" style="width: 100%;" id="selectTrans" name="CodTrans" onchange="fillClientInfo(this)">
+                    <select class="form-control select2 form-control-sm" style="width: 100%;" id="selectTrans" name="nombre_cliente" onchange="fillClientInfo(this)">
                      <option value="">Buscar Cliente</option>
                         {% for item in data %}
                             <option value="{{ item.nombre }}" data-ltecredito="{{ item.limitecredito|floatformat:2 }}"
@@ -172,7 +172,7 @@
                <div class="col-12 col-md-1">
                     <div class="form-group">
                     <label for="descripcion" class="text-sm">Descripcion</label>
-                    <input type="text" class="form-control form-control-sm" id="descripcion" name="descripcion" value="{{ results.0.5 }}">
+                    <input type="text" class="form-control form-control-sm" id="descripcion" name="descripcion_factura" value="{{ results.0.5 }}">
                     </div>
                </div>
               <div class="col-12 col-md-3">
@@ -197,7 +197,8 @@
                         </div>
                     </div>
                 </div>
-                <table id="factura" class="table table-bordered table-striped">
+                <div class="table-responsive">
+                     <table id="factura" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th style="width: 25%;" class="text-sm">Codigo</th>
@@ -216,6 +217,8 @@
                 </tbody>
 
             </table>
+                </div>
+
             </div>
         </div>
     </div>
@@ -312,9 +315,6 @@
 }
 
 </style>
-
-
-
 
 
 {# Javascrip para traer los productos del modal a la tabla del factura#}
@@ -450,25 +450,6 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 {#  Script para llenar campos apartir del select  #}
 <script>
 function fillClientInfo(select) {
@@ -549,3 +530,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 {% endblock %}
+
+
+{# Tabla responsive revisar si se puede mejorar impoirtante #}
