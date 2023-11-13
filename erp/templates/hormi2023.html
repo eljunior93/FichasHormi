@@ -3,140 +3,160 @@
 {% load static %}
 
 {% block content %}
-    <!-- Contenido específico de la página de dashboard -->
-    <div class="content-header">
-    </div>
-    <div class="content">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h3 class="m-0">Fichas Medicas</h3>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-12">
-            <!-- Pestañas (Tabs) -->
-            <div class="card">
-              <div class="card-header p-0">
-                <ul class="nav nav-pills">
-                  <li class="nav-item">
-                  <a class="nav-link" id="tabSeleccion" data-toggle="pill" href="#seleccion" onclick="volverASeleccion()">Seleccionar opciones</a>
-
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="tabTabla" data-toggle="pill" href="#miTabla">Tabla</a>
-                  </li>
-                </ul>
-              </div>
-              <div class="card-body">
-                <div class="tab-content">
-                  <!-- Contenido de la pestaña de selección -->
-                  <div id="seleccion" class="tab-pane fade show active">
-                    <label for="opcionesSelect">Selecciona una opción:</label>
-                        <select class="form-control select2 form-control-sm" style="width: 100%;" id="codigo_paciente" name="codigo_paciente">
-                            <option value="">Buscar Paciente</option>
-                            {% for item in data %}
-                                <option value="{{ item.codprovcli }}">{{ item.codprovcli }} - {{ item.nombre }}</option>
-                            {% endfor %}
-                        </select>
-
-                    <button type="button" class="btn btn-primary mt-2" onclick="seleccionarOpcion()">Continuar</button>
-                  </div>
-
-                  <!-- Contenido de la pestaña de la tabla -->
-                  <div id="miTabla" class="tab-pane fade">
-                    <!-- Contenido de la tabla -->
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Columna 1</th>
-                          <th>Columna 2</th>
-                          <!-- Agrega más columnas según sea necesario -->
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <!-- Agrega filas con los datos necesarios -->
-                        <tr>
-                          <td>Dato 1</td>
-                          <td>Dato 2</td>
-                          <!-- Agrega más celdas según sea necesario -->
-                        </tr>
-                      </tbody>
-                    </table>
-                    <!-- /.table -->
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Fin de Pestañas (Tabs) -->
-          </div>
-        </div>
-
+<!-- Contenido específico de la página de dashboard -->
+<div class="content-header">
+</div>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h3 class="m-0">Fichas Medicas</h3>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
       </div>
     </div>
 
+    <div class="row">
+      <div class="col-lg-12">
+        <!-- Pestañas (Tabs) -->
+        <div class="card">
+          <div class="card-header p-0">
+            <ul class="nav nav-pills">
+              <li class="nav-item">
+                <a class="nav-link" id="tabSeleccion" data-toggle="pill" href="#seleccion"
+                  onclick="volverASeleccion()">Seleccionar opciones</a>
+
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="tabTabla" data-toggle="pill" href="#miTabla">Tabla</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <div class="tab-content">
+              <!-- Contenido de la pestaña de selección -->
+              <div id="seleccion" class="tab-pane fade show active">
+                <label for="opcionesSelect">Selecciona una opción:</label>
+                <select class="form-control select2 form-control-sm" style="width: 100%;" id="codigo_paciente"
+                  name="codigo_paciente">
+                  <option value="">Buscar Paciente</option>
+                  {% for item in data %}
+                  <option value="{{ item.codprovcli }}">{{ item.codprovcli }} - {{ item.nombre }}</option>
+                  {% endfor %}
+                </select>
+
+                <button type="button" class="btn btn-primary mt-2" onclick="seleccionarOpcion()">Continuar</button>
+              </div>
+
+              <!-- Contenido de la pestaña de la tabla -->
+              <div id="miTabla" class="tab-pane fade">
+                <!-- Contenido de la tabla -->
+                <div class="table-responsive">
+
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Ficha</th>
+                        <th>Cedula</th>
+                        <th>Historia</th>
+                        <th>Paciente</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        <th>Activo</th>
+                        <th>Acciones</th>
+                        <!-- Agrega más columnas según sea necesario -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Agrega filas con los datos necesarios -->
+                      <tr>
+                        <td>Dato 1</td>
+                        <td>Dato 2</td>
+                        <!-- Agrega más celdas según sea necesario -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.table -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Fin de Pestañas (Tabs) -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script>
-    function seleccionarOpcion() {
-        var codprovcli = $('#codigo_paciente').val();
+  
+  function seleccionarOpcion() {
+    var codprovcli = $('#codigo_paciente').val();
 
-        if (codprovcli) {
-            $.ajax({
-                type: 'GET',
-                url: '{% url "obtener_datos_paciente" %}',
-                data: {'codprovcli': codprovcli},
-                success: function (data) {
-                    if (data.error) {
-                        alert(data.error);
-                    } else {
-                        // Llenar la tabla con los resultados obtenidos
-                        var tabla = $('#miTabla tbody');
-                        tabla.empty();
+    if (codprovcli) {
+      $.ajax({
+        type: 'GET',
+        url: '{% url "obtener_datos_paciente" %}',
+        data: { 'codprovcli': codprovcli },
+        success: function (data) {
+          if (data.error) {
+            alert(data.error);
+          } else {
+            var tabla = $('#miTabla tbody');
+            tabla.empty();
 
-                        for (var i = 0; i < data.data.length; i++) {
-                            var paciente = data.data[i];
-                            var row = '<tr>';
-                            row += '<td>' + paciente.historia + '</td>';
-                            row += '<td>' + paciente.ruc + '</td>';
-                            row += '<td>' + paciente.nombre + '</td>';
-                            row += '<td>' + paciente.direccion + '</td>';
-                            row += '<td>' + paciente.telefono + '</td>';
-                            row += '<td>' + paciente.bandactivo + '</td>';
-                            row += '</tr>';
-                            tabla.append(row);
-                        }
-
-                        // Cambiar a la pestaña de la tabla después de seleccionar una opción
-                        $('#tabSeleccion').removeClass('active');
-                        $('#tabTabla').addClass('active');
-                        $('#seleccion').removeClass('show active');
-                        $('#miTabla').addClass('show active');
-                    }
-                },
-                error: function () {
-                    alert('Error al obtener los datos del paciente');
-                }
-            });
-        } else {
-            alert('Por favor, selecciona un paciente.');
+            // BOTON PARA VER LOS DATOS DE LA FICHA
+            const btnVerFicha = document.createElement('button');
+            btnVerFicha.textContent = 'Ver';
+            btnVerFicha.className = 'btn btn-outline-secondary';
+            btnVerFicha.id = 'btnVerFicha';
+            
+            // Llenar la tabla con los resultados obtenidos
+            for (var i = 0; i < data.data.length; i++) {
+              var paciente = data.data[i];
+              var row = '<tr>';
+              row += '<td>' + paciente.codprovcli + '</td>';
+              row += '<td>' + paciente.historia + '</td>';
+              row += '<td>' + paciente.ruc + '</td>';
+              row += '<td>' + paciente.nombre + '</td>';
+              row += '<td>' + paciente.direccion + '</td>';
+              row += '<td>' + paciente.telefono + '</td>';
+              row += '<td>' + paciente.bandactivo + '</td>';
+              row += '<td>' + btnVerFicha.outerHTML + '</td>';
+              row += '</tr>';
+              tabla.append(row);
+            }
+            
+            // Cambiar a la pestaña de la tabla después de seleccionar una opción
+            $('#tabSeleccion').removeClass('active');
+            $('#tabTabla').addClass('active');
+            $('#seleccion').removeClass('show active');
+            $('#miTabla').addClass('show active');
+          }
+        },
+        error: function () {
+          alert('Error al obtener los datos del paciente');
         }
+      });
+    } else {
+      alert('Por favor, selecciona un paciente.');
     }
+  }
 
-    // Agregar esta función para limpiar la tabla y deseleccionar la opción
-    function volverASeleccion() {
-        $('#miTabla tbody').empty();
-        $('#codigo_paciente').val('').trigger('change'); // Desactivar la opción seleccionada
-        $('#tabTabla').removeClass('active');
-        $('#tabSeleccion').addClass('active');
-        $('#miTabla').removeClass('show active');
-        $('#seleccion').addClass('show active');
-    }
+  // Agregar esta función para limpiar la tabla y deseleccionar la opción
+  function volverASeleccion() {
+    $('#miTabla tbody').empty();
+    $('#codigo_paciente').val('').trigger('change'); // Desactivar la opción seleccionada
+    $('#tabTabla').removeClass('active');
+    $('#tabSeleccion').addClass('active');
+    $('#miTabla').removeClass('show active');
+    $('#seleccion').addClass('show active');
+  }
 </script>
 
 
