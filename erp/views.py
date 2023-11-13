@@ -20,16 +20,18 @@ from erp_ishida.settings import BASE_DIR
 def hormi2023(request):
     connection = connections['empresa']
     with connection.cursor() as cursor:
-        cursor.execute("SELECT Codprovcli,idprovcli as historia,RUC,Nombre,Direccion1,Telefono1, bandactivo  FROM Empleado e inner join personal p on e.idprovcli=p.idempleado  Where CODPROVCLI like '%%' ORDER BY Nombre")
+        cursor.execute("	SELECT  pc.CodProvCli, pc.Nombre FROM Empleado pc  Inner join personal p on p.idempleado = pc.idprovcli  Where BandGestion=0 and pc.nombre LIKE '%%' ORDER BY pc.Nombre")
         pcprovcli_results = cursor.fetchall()
 
         data = []
         for row in pcprovcli_results:
             data.append({
                 'codprovcli': row[0],
+                'nombre': row[1],
             })
         username = request.user
         contexto = {
+            'data': data,
             'username': username,
         }
         print(data)

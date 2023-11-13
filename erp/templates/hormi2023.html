@@ -1,73 +1,95 @@
-{% extends "base.html" %} {% load humanize %}
-
+{% extends "base.html" %}
+{% load humanize %}
 {% load static %}
-{% block content %}
 
+{% block content %}
     <!-- Contenido específico de la página de dashboard -->
     <div class="content-header">
     </div>
     <div class="content">
       <div class="container-fluid">
-      <div class="row mb-2">
+        <div class="row mb-2">
           <div class="col-sm-6">
             <h3 class="m-0">Fichas Medicas</h3>
-          </div><!-- /.col -->
+          </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">Dashboard</li>
             </ol>
-          </div><!-- /.col -->
-        </div><!-- /.Titulo -->
-        <!-- Reemplaza la Card con una Tabla -->
-        <div class="row">
-            <div class="col-lg-12">
-            <div class="card card-primary">
-                <div class="card-header border-0">
-                <div class="d-flex justify-content-between">
-                    <h3 class="card-title">Ventas Diarias</h3>
-                    <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    </div>
-                </div>
-                </div>
-                <div class="card-body">
-                <!-- Contenido de la tabla -->
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Columna 1</th>
-                        <th>Columna 2</th>
-                        <!-- Agrega más columnas según sea necesario -->
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <!-- Agrega filas con los datos necesarios -->
-                    <tr>
-                        <td>Dato 1</td>
-                        <td>Dato 2</td>
-                        <!-- Agrega más celdas según sea necesario -->
-                    </tr>
-                    </tbody>
-                </table>
-                <!-- /.table -->
-                </div>
-            </div>
-            </div>
+          </div>
         </div>
 
-        <!-- /.row -->
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- Pestañas (Tabs) -->
+            <div class="card">
+              <div class="card-header p-0">
+                <ul class="nav nav-pills">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="tabSeleccion" data-toggle="pill" href="#seleccion">Seleccionar opciones</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="tabTabla" data-toggle="pill" href="#miTabla">Tabla</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content">
+                  <!-- Contenido de la pestaña de selección -->
+                  <div id="seleccion" class="tab-pane fade show active">
+                    <label for="opcionesSelect">Selecciona una opción:</label>
+                        <select class="form-control select2 form-control-sm" style="width: 100%;" id="codigo_paciente" name="codigo_paciente">
+        <option value="">Buscar Paciente</option>
+        {% for item in data %}
+            <option value="{{ item.codprovcli }}">{{ item.codprovcli }} - {{ item.nombre }}</option>
+        {% endfor %}
+    </select>
+
+                    <button type="button" class="btn btn-primary mt-2" onclick="seleccionarOpcion()">Continuar</button>
+                  </div>
+
+                  <!-- Contenido de la pestaña de la tabla -->
+                  <div id="miTabla" class="tab-pane fade">
+                    <!-- Contenido de la tabla -->
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Columna 1</th>
+                          <th>Columna 2</th>
+                          <!-- Agrega más columnas según sea necesario -->
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Agrega filas con los datos necesarios -->
+                        <tr>
+                          <td>Dato 1</td>
+                          <td>Dato 2</td>
+                          <!-- Agrega más celdas según sea necesario -->
+                        </tr>
+                      </tbody>
+                    </table>
+                    <!-- /.table -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Fin de Pestañas (Tabs) -->
+          </div>
+        </div>
+
       </div>
     </div>
-    <!-- Termina el Contenido -->
 
+<script>
+      function seleccionarOpcion() {
+        // Cambia a la pestaña de la tabla después de seleccionar una opción
+        $('#tabSeleccion').removeClass('active');
+        $('#tabTabla').addClass('active');
+        $('#seleccion').removeClass('show active');
+        $('#miTabla').addClass('show active');
+      }
+    </script>
 
 
 {% endblock %}
-
-
