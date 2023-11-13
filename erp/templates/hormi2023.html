@@ -66,18 +66,12 @@
                         <th class="text-sm">Paciente</th>
                         <th class="text-sm">Dirección</th>
                         <th class="text-sm">Teléfono</th>
-                        <th class="text-sm">Activo</th>
                         <th class="text-sm">Acciones</th>
                         <!-- Agrega más columnas según sea necesario -->
                       </tr>
                     </thead>
                     <tbody>
-                      <!-- Agrega filas con los datos necesarios -->
-                      <tr>
-                        <td>Dato 1</td>
-                        <td>Dato 2</td>
-                        <!-- Agrega más celdas según sea necesario -->
-                      </tr>
+
                     </tbody>
                   </table>
                 </div>
@@ -90,91 +84,95 @@
       </div>
     </div>
 
-   <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="miModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal fade" data-backdrop="static" id="miModal" tabindex="-1" role="dialog"
+      aria-labelledby="miModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="miModalLabel">Detalles del Paciente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Contenido del modal -->
-                <div id="detallesPaciente"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
+          <div class="modal-header">
+            <h5 class="modal-title" id="miModalLabel">Detalles del Paciente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Contenido del modal -->
+            <div id="detallesPaciente"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
         </div>
+      </div>
     </div>
-</div>
   </div>
 </div>
 
 <script>
-    function seleccionarOpcion() {
-        var codprovcli = $('#codigo_paciente').val();
+  function seleccionarOpcion() {
+    var codprovcli = $('#codigo_paciente').val();
 
-        if (codprovcli) {
-            $.ajax({
-                type: 'GET',
-                url: '{% url "obtener_datos_paciente" %}',
-                data: {'codprovcli': codprovcli},
-                success: function (data) {
-                    if (data.error) {
-                        alert(data.error);
-                    } else {
-                        var tabla = $('#miTabla tbody');
-                        tabla.empty();
+    if (codprovcli) {
+      $.ajax({
+        type: 'GET',
+        url: '{% url "obtener_datos_paciente" %}',
+        data: { 'codprovcli': codprovcli },
+        success: function (data) {
+          if (data.error) {
+            alert(data.error);
+          } else {
+            var tabla = $('#miTabla tbody');
+            tabla.empty();
 
-                        for (var i = 0; i < data.data.length; i++) {
-                            var paciente = data.data[i];
-                            var row = '<tr>';
-                            row += '<td class="text-sm">' + paciente.codprovcli + '</td>';
-                            row += '<td class="text-sm">' + paciente.historia + '</td>';
-                            row += '<td class="text-sm">' + paciente.ruc + '</td>';
-                            row += '<td class="text-sm">' + paciente.nombre + '</td>';
-                            row += '<td class="text-sm">' + paciente.direccion + '</td>';
-                            row += '<td class="text-sm">' + paciente.telefono + '</td>';
-                            row += '<td class="text-sm text-center"><input class="form-check-input" type="checkbox" ' + (paciente.bandactivo ? 'checked' : '') + ' disabled></td>';
-                            row += '<td><button class="btn btn-primary btn-sm" onclick="capturarValor(\'' + paciente.codprovcli + '\')">Capturar</button></td>';
-                            row += '</tr>';
-                            tabla.append(row);
-                        }
+            for (var i = 0; i < data.data.length; i++) {
+              var paciente = data.data[i];
+              var row = '<tr>';
+              row += '<td class="text-sm">' + paciente.codprovcli + '</td>';
+              row += '<td class="text-sm">' + paciente.historia + '</td>';
+              row += '<td class="text-sm">' + paciente.ruc + '</td>';
+              row += '<td class="text-sm">' + paciente.nombre + '</td>';
+              row += '<td class="text-sm">' + paciente.direccion + '</td>';
+              row += '<td class="text-sm">' + paciente.telefono + '</td>';
+              if (paciente.bandactivo) {
+                row += '<td><button class="btn btn-outline-secondary" onclick="capturarValor(\'' + paciente.codprovcli + '\')">Activo</button></td>';
+              } else {
+                row += '<td><button class="btn btn-outline-secondary" onclick="capturarValor(\'' + paciente.codprovcli + '\')" disabled>Inactivo</button></td>';
+              };
+              row += '</tr>';
+              tabla.append(row);
+            }
 
-                        $('#tabSeleccion').removeClass('active');
-                        $('#tabTabla').addClass('active');
-                        $('#seleccion').removeClass('show active');
-                        $('#miTabla').addClass('show active');
-                    }
-                },
-                error: function () {
-                    alert('Error al obtener los datos del paciente');
-                }
-            });
-        } else {
-            alert('Por favor, selecciona un paciente.');
+            $('#tabSeleccion').removeClass('active');
+            $('#tabTabla').addClass('active');
+            $('#seleccion').removeClass('show active');
+            $('#miTabla').addClass('show active');
+          }
+        },
+        error: function () {
+          alert('Error al obtener los datos del paciente');
         }
+      });
+    } else {
+      alert('Por favor, selecciona un paciente.');
     }
+  }
 
-    function volverASeleccion() {
-        $('#miTabla tbody').empty();
-        $('#codigo_paciente').val('').trigger('change');
-        $('#tabTabla').removeClass('active');
-        $('#tabSeleccion').addClass('active');
-        $('#miTabla').removeClass('show active');
-        $('#seleccion').addClass('show active');
-    }
+  function volverASeleccion() {
+    $('#miTabla tbody').empty();
+    $('#codigo_paciente').val('').trigger('change');
+    $('#tabTabla').removeClass('active');
+    $('#tabSeleccion').addClass('active');
+    $('#miTabla').removeClass('show active');
+    $('#seleccion').addClass('show active');
+  }
 
-    // Nueva función para capturar el valor y mostrarlo en la consola
-    function capturarValor(codprovcli) {
-         var detalles = "Detalles del paciente: " + codprovcli;
-        console.log(detalles)
-        // Muestra los detalles en el modal
-        $('#detallesPaciente').html(detalles);
-        $('#miModal').modal('show');
-    }
+  // Nueva función para capturar el valor y mostrarlo en la consola
+  function capturarValor(codprovcli) {
+    var detalles = "Detalles del paciente: " + codprovcli;
+    console.log(detalles)
+    // Muestra los detalles en el modal
+    $('#detallesPaciente').html(detalles);
+    $('#miModal').modal('show');
+  }
 </script>
 
 
