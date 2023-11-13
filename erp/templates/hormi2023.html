@@ -84,19 +84,87 @@
       </div>
     </div>
 
-    <div class="modal fade" data-backdrop="static" id="miModal" tabindex="-1" role="dialog"
-      aria-labelledby="miModalLabel" aria-hidden="true">
+    <!-- MODAL PRINCIPAL -->
+    <div class="modal fade" data-backdrop="static" id="modalInfoPaciente" tabindex="-1" role="dialog"
+      aria-labelledby="modalInfoPacienteLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="miModalLabel">Detalles del Paciente</h5>
+            <h5 class="modal-title" id="modalInfoPacienteLabel">Detalles del Paciente</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
+            <!-- Boton para seleccion de los diferentes formularios -->
+
             <!-- Contenido del modal -->
-            <div id="detallesPaciente"></div>
+            <span id="detallesPaciente"></span>
+            <hr>
+            <!-- BARRA DE NAVEGACION DE PASOS Y FORMULARIO DE INFORMACION PRINCIPAL -->
+            <div class="row g-1">
+              <div class="col-md-12">
+
+                <!-- Barra de navegación -->
+
+                <!-- CONTENIDO DEL FORMULARIO DE INFORMACION PERSONAL -->
+                <div class="tab-content mt-2">
+                  <!-- Paso 1 -->
+                  <div class="tab-pane fade show active" id="paso1">
+                    <h4>Paso 1</h4>
+                    <form>
+                      <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre">
+                      </div>
+                      <button type="button" class="btn btn-primary next-button" data-toggle="pill"
+                        href="#paso2">Siguiente</button>
+                    </form>
+                  </div>
+                  <!-- Paso 2 -->
+                  <div class="tab-pane fade" id="paso2">
+                    <h4>Paso 2</h4>
+                    <form>
+                      <div class="form-group">
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" class="form-control" id="apellido" placeholder="Ingrese su apellido">
+                      </div>
+                      <button type="button" class="btn btn-secondary prev-button" data-toggle="pill"
+                        href="#paso1">Anterior</button>
+                      <button type="button" class="btn btn-primary next-button" data-toggle="pill"
+                        href="#paso3">Siguiente</button>
+                    </form>
+                  </div>
+                  <!-- Paso 3 -->
+                  <div class="tab-pane fade" id="paso3">
+                    <h4>Paso 3</h4>
+                    <form>
+                      <div class="form-group">
+                        <label for="edad">Edad:</label>
+                        <input type="number" class="form-control" id="edad" placeholder="Ingrese su edad">
+                      </div>
+                      <button type="button" class="btn btn-secondary prev-button" data-toggle="pill"
+                        href="#paso2">Anterior</button>
+                      <button type="button" class="btn btn-primary next-button" data-toggle="pill"
+                        href="#paso4">Siguiente</button>
+                    </form>
+                  </div>
+                  <!-- Paso 4 -->
+                  <div class="tab-pane fade" id="paso4">
+                    <h4>Paso 4</h4>
+                    <form>
+                      <div class="form-group">
+                        <label for="correo">Correo:</label>
+                        <input type="email" class="form-control" id="correo" placeholder="Ingrese su correo">
+                      </div>
+                      <button type="button" class="btn btn-secondary prev-button" data-toggle="pill"
+                        href="#paso3">Anterior</button>
+                      <button type="submit" class="btn btn-success">Enviar</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -107,7 +175,24 @@
   </div>
 </div>
 
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
 <script>
+  // Agregar funcionalidad para cambiar de pestaña al hacer clic en el botón "Siguiente"
+  $(document).ready(function () {
+    $('.next-button').on('click', function () {
+      var nextTab = $(this).attr('href');
+      $('.nav-pills a[href="' + nextTab + '"]').tab('show');
+    });
+
+    // Agregar funcionalidad para cambiar de pestaña al hacer clic en el botón "Anterior"
+    $('.prev-button').on('click', function () {
+      var prevTab = $(this).attr('href');
+      $('.nav-pills a[href="' + prevTab + '"]').tab('show');
+    });
+  });
+
   function seleccionarOpcion() {
     var codprovcli = $('#codigo_paciente').val();
 
@@ -133,9 +218,9 @@
               row += '<td class="text-sm">' + paciente.direccion + '</td>';
               row += '<td class="text-sm">' + paciente.telefono + '</td>';
               if (paciente.bandactivo) {
-                row += '<td><button class="btn btn-outline-secondary" onclick="capturarValor(\'' + paciente.codprovcli + '\')">Activo</button></td>';
+                row += '<td><button class="btn btn-outline-secondary" onclick="capturarCodProvCli(\'' + paciente.codprovcli + '\')">Activo</button></td>';
               } else {
-                row += '<td><button class="btn btn-outline-secondary" onclick="capturarValor(\'' + paciente.codprovcli + '\')" disabled>Inactivo</button></td>';
+                row += '<td><button class="btn btn-outline-secondary" onclick="capturarCodProvCli(\'' + paciente.codprovcli + '\')" disabled>Inactivo</button></td>';
               };
               row += '</tr>';
               tabla.append(row);
@@ -166,19 +251,13 @@
   }
 
   // Nueva función para capturar el valor y mostrarlo en la consola
-  function capturarValor(codprovcli) {
-    var detalles = "Detalles del paciente: " + codprovcli;
-    console.log(detalles)
+  function capturarCodProvCli(codprovcli) {
+    var codprovcli = `Paciente: ${codprovcli}`
     // Muestra los detalles en el modal
-    $('#detallesPaciente').html(detalles);
-    $('#miModal').modal('show');
+    $('#detallesPaciente').html(codprovcli);
+    $('#modalInfoPaciente').modal('show');
   }
 </script>
-
-
-
-
-
 
 
 {% endblock %}

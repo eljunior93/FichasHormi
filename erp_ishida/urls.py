@@ -14,19 +14,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 from erp import views
-from django.urls import re_path
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('sii_seguridad.urls',)),
-    path('empresa/Hormi2023', views.hormi2023, name='hormi2023'),
-    path('empresa/Hormi2023/obtener_datos_paciente/', views.obtener_datos_paciente, name='obtener_datos_paciente'),
-        path('empresa/mq2010New/contact', views.contact, name='contact'),
-
+    path("admin/", admin.site.urls),
+    path(
+        "",
+        include(
+            "sii_seguridad.urls",
+        ),
+    ),
+    path("empresa/Hormi2023", views.hormi2023, name="hormi2023"),
+    path(
+        "empresa/Hormi2023/obtener_datos_paciente/",
+        views.obtener_datos_paciente,
+        name="obtener_datos_paciente",
+    ),
+    path("empresa/mq2010New/contact", views.contact, name="contact"),
+    path("empresa/Hormi2023/fichasii4/", views.fichasii4, name="fichasii4"),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
