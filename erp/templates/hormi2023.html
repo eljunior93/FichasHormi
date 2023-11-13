@@ -27,7 +27,8 @@
               <div class="card-header p-0">
                 <ul class="nav nav-pills">
                   <li class="nav-item">
-                    <a class="nav-link active" id="tabSeleccion" data-toggle="pill" href="#seleccion">Seleccionar opciones</a>
+                  <a class="nav-link" id="tabSeleccion" data-toggle="pill" href="#seleccion" onclick="volverASeleccion()">Seleccionar opciones</a>
+
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" id="tabTabla" data-toggle="pill" href="#miTabla">Tabla</a>
@@ -40,11 +41,11 @@
                   <div id="seleccion" class="tab-pane fade show active">
                     <label for="opcionesSelect">Selecciona una opción:</label>
                         <select class="form-control select2 form-control-sm" style="width: 100%;" id="codigo_paciente" name="codigo_paciente">
-        <option value="">Buscar Paciente</option>
-        {% for item in data %}
-            <option value="{{ item.codprovcli }}">{{ item.codprovcli }} - {{ item.nombre }}</option>
-        {% endfor %}
-    </select>
+                            <option value="">Buscar Paciente</option>
+                            {% for item in data %}
+                                <option value="{{ item.codprovcli }}">{{ item.codprovcli }} - {{ item.nombre }}</option>
+                            {% endfor %}
+                        </select>
 
                     <button type="button" class="btn btn-primary mt-2" onclick="seleccionarOpcion()">Continuar</button>
                   </div>
@@ -82,14 +83,65 @@
     </div>
 
 <script>
-      function seleccionarOpcion() {
-        // Cambia a la pestaña de la tabla después de seleccionar una opción
-        $('#tabSeleccion').removeClass('active');
-        $('#tabTabla').addClass('active');
-        $('#seleccion').removeClass('show active');
-        $('#miTabla').addClass('show active');
-      }
-    </script>
+    function seleccionarOpcion() {
+        var codprovcli = $('#codigo_paciente').val();
+
+        if (codprovcli) {
+            $.ajax({
+                type: 'GET',
+                url: '{% url "obtener_datos_paciente" %}',
+                data: {'codprovcli': codprovcli},
+                success: function (data) {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        // Llenar la tabla con los resultados obtenidos
+                        var tabla = $('#miTabla tbody');
+                        tabla.empty();
+
+                        for (var i = 0; i < data.data.length; i++) {
+                            var paciente = data.data[i];
+                            var row = '<tr>';
+                            row += '<td>' + paciente.historia + '</td>';
+                            row += '<td>' + paciente.ruc + '</td>';
+                            row += '<td>' + paciente.nombre + '</td>';
+                            row += '<td>' + paciente.direccion + '</td>';
+                            row += '<td>' + paciente.telefono + '</td>';
+                            row += '<td>' + paciente.bandactivo + '</td>';
+                            row += '</tr>';
+                            tabla.append(row);
+                        }
+
+                        // Cambiar a la pestaña de la tabla después de seleccionar una opción
+                        $('#tabSeleccion').removeClass('active');
+                        $('#tabTabla').addClass('active');
+                        $('#seleccion').removeClass('show active');
+                        $('#miTabla').addClass('show active');
+                    }
+                },
+                error: function () {
+                    alert('Error al obtener los datos del paciente');
+                }
+            });
+        } else {
+            alert('Por favor, selecciona un paciente.');
+        }
+    }
+
+    // Agregar esta función para limpiar la tabla y deseleccionar la opción
+    function volverASeleccion() {
+        $('#miTabla tbody').empty();
+        $('#codigo_paciente').val('').trigger('change'); // Desactivar la opción seleccionada
+        $('#tabTabla').removeClass('active');
+        $('#tabSeleccion').addClass('active');
+        $('#miTabla').removeClass('show active');
+        $('#seleccion').addClass('show active');
+    }
+</script>
+
+
+
+
 
 
 {% endblock %}

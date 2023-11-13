@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.core.serializers.json import DjangoJSONEncoder
 from datetime import date, timedelta
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.core.files.storage import default_storage
 from django.conf import settings
 
@@ -16,6 +17,7 @@ from django.conf import settings
 from erp_ishida.settings import BASE_DIR
 
 
+# Principal
 @login_required
 def hormi2023(request):
     connection = connections['empresa']
@@ -34,8 +36,38 @@ def hormi2023(request):
             'data': data,
             'username': username,
         }
-        print(data)
+
     return render(request, 'hormi2023.html',contexto)
+
+
+# Obtener apcientes por del codprovclijson
+def obtener_datos_paciente(request):
+    codprovcli = request.GET.get('codprovcli', None)
+
+
+    if codprovcli:
+        connection = connections['empresa']
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT Codprovcli, idprovcli as historia, RUC, Nombre, Direccion1, Telefono1, bandactivo FROM Empleado e INNER JOIN personal p ON e.idprovcli=p.idempleado WHERE CODPROVCLI = %s ORDER BY Nombre", [codprovcli])
+            resultados = cursor.fetchall()
+
+        data = []
+        for row in resultados:
+            data.append({
+                'codprovcli': row[0],
+                'historia': row[1],
+                'ruc': row[2],
+                'nombre': row[3],
+                'direccion': row[4],
+                'telefono': row[5],
+                'bandactivo': row[6],
+            })
+
+        return JsonResponse({'data': data})
+        print(data)
+    return JsonResponse({'error': 'No se proporcionó un código de paciente'})
+
+
 
 
 
