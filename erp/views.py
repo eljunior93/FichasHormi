@@ -69,6 +69,29 @@ def obtener_datos_paciente(request):
 
 
 
+def fichasii4(request):
+    codprovcli = request.GET.get('codprovcli', None)
+
+    if codprovcli:
+        connection = connections['empresa']
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT * FROM vwEmpleado  WHERE CODPROVCLI = %s",
+                [codprovcli])
+            resultados = cursor.fetchall()
+
+        vistaficha = []
+        for row in resultados:
+            vistaficha.append({
+                'IdProvCli': row[0],
+                'CodProvCli': row[1],
+                'Nombre': row[2],
+
+            })
+
+        return JsonResponse({'vistaficha': vistaficha})
+        print(vistaficha)
+    return JsonResponse({'error': 'No se proporcionó un código de paciente'})
 
 
 @login_required
