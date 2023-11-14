@@ -84,56 +84,69 @@ def fichasii4(request):
         with connection.cursor() as cursor:
             try:
                 cursor.execute(
-                    "select * from vw_infoempleado vw WHERE vw.CODPROVCLI = %s",
+                    "SELECT * FROM vw_infoempleado vw WHERE vw.CODPROVCLI = %s",
                     [codprovcli],
                 )
-
                 resultados = cursor.fetchall()
 
-                vistaficha = []
+                vistaficha = {}
                 for row in resultados:
-                    vistaficha.append(
-                        {
-                            "CodProvCli": row[0],
-                            "HistoriaClinica": row[1],
-                            "Cedula": row[2],
-                            "Sexo": row[3],
-                            "EstadoCivil": row[4],
-                            "Nombre": row[5],
-                            "Apellido": row[6],
-                            "DireccionActual": row[7],
-                            "Telefono1": row[8],
-                            "Telefono2": row[9],
-                            "Email": row[10],
-                            "Sector": row[
-                                11
-                            ],  # Asegúrate de que esta columna esté seleccionada correctamente
-                            "FechaNacimiento": row[12],
-                            "Edad": row[13],
-                            "Grupo1": row[14],
-                            "Grupo2": row[15],
-                            "Grupo3": row[16],
-                            "Instruccion": row[17],
-                            "Profesion": row[18],
-                            "Ocupacion": row[19],
-                            "Provincia": row[20],
-                            "Canton": row[21],
-                            "Religion": row[22],
-                            "Nacionalidad": row[23],
-                            "Discapacidad": row[24],
-                            "Tabaco": row[25],
-                            "Alcohol": row[26],
-                            "Droga": row[27],
-                        }
-                    )
+                    vistaficha = {
+                        "CodProvCli": row[0],
+                        "Cedula": row[2],
+                        "Sexo": row[3],
+                        "EstadoCivil": row[4],
+                        "PrimerApellido": row[5],
+                        "SegundoApellido": row[6],
+                        "PrimerNombre": row[7],
+                        "SegundoNombre": row[8],
+                        "DireccionActual": row[9],
+                        "Telefono1": row[10],
+                        "Telefono2": row[11],
+                        "Email": row[12],
+                        "Sector": row[13],
+                        "FechaNacimiento": row[14],
+                        "Edad": row[15],
+                        "Grupo1": row[16],
+                        "Grupo2": row[17],
+                        "Grupo3": row[18],
+                        "Instruccion": row[19],
+                        "Profesion": row[20],
+                        "Ocupacion": row[21],
+                        "Provincia": row[22],
+                        "Canton": row[23],
+                        "Religion": row[24],
+                        "Nacionalidad": row[25],
+                        "Discapacidad": row[26],
+                        "Tabaco": row[27],
+                        "Alcohol": row[28],
+                        "Droga": row[29],
 
-                return JsonResponse({"vistaficha": vistaficha})
+                    }
+
+                cursor.execute(
+                    "SELECT TOP 1 Nombreempresa, ruc FROM gnopcion"
+                )
+                empresa_resultado = cursor.fetchone()
+
+                empresa_data = {
+                    "Nombreempresa": empresa_resultado[0],
+                    "Ruc": empresa_resultado[1],
+                    "Historia Clinica": vistaficha["Cedula"],
+                    "PrimerApellido": vistaficha["PrimerApellido"],
+                    "SegundoApellido": vistaficha["SegundoApellido"],
+                    "PrimerNombre": vistaficha["PrimerNombre"],
+                    "SegundoNombre": vistaficha["SegundoNombre"],
+                    "Sexo": vistaficha["Sexo"],
+                    "Ocupacion": vistaficha["Ocupacion"],
+                }
+
+                return JsonResponse({"vistaficha": vistaficha, "empresa": empresa_data})
 
             except Exception as e:
                 return JsonResponse(
                     {"error": f"Error al ejecutar la consulta: {str(e)}"}
                 )
-
     return JsonResponse({"error": "No se proporcionó un código de paciente"})
 
 
