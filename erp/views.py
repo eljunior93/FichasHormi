@@ -132,7 +132,7 @@ def fichasii4(request):
                 empresa_data = {
                     "Nombreempresa": empresa_resultado[0],
                     "Ruc": empresa_resultado[1],
-                    "Historia Clinica": vistaficha["Cedula"],
+                    "HistoriaClinica": vistaficha["Cedula"],
                     "PrimerApellido": vistaficha["PrimerApellido"],
                     "SegundoApellido": vistaficha["SegundoApellido"],
                     "PrimerNombre": vistaficha["PrimerNombre"],

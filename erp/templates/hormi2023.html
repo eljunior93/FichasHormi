@@ -96,32 +96,25 @@
             </button>
           </div>
           <div class="modal-body">
-            <!-- Boton para seleccion de los diferentes formularios -->
-
-            <!-- Contenido del modal -->
-            <span id="detallesPaciente"></span>
-            <hr>
             <!-- BARRA DE NAVEGACION DE PASOS Y FORMULARIO DE INFORMACION PRINCIPAL -->
             <div class="row g-1">
               <div class="col-md-12">
 
                 <!-- Barra de navegación -->
-                <!-- Barra de navegación -->
-            <ul class="nav nav-pills">
-              <li class="nav-item">
-                <a class="nav-link active paso-tab" data-toggle="pill" href="#paso1">Paso 1</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link paso-tab" data-toggle="pill" href="#paso2" disabled>Paso 2</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link paso-tab" data-toggle="pill" href="#paso3" disabled>Paso 3</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link paso-tab" data-toggle="pill" href="#paso4" disabled>Paso 4</a>
-              </li>
-            </ul>
-
+                <ul class="nav nav-pills">
+                  <li class="nav-item">
+                    <a class="nav-link active paso-tab" data-toggle="pill" href="#paso1">Personal</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link paso-tab" data-toggle="pill" href="#paso2" disabled>Paso 2</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link paso-tab" data-toggle="pill" href="#paso3" disabled>Paso 3</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link paso-tab" data-toggle="pill" href="#paso4" disabled>Paso 4</a>
+                  </li>
+                </ul>
 
                 <!-- CONTENIDO DEL FORMULARIO DE INFORMACION PERSONAL -->
                 <div class="tab-content mt-2">
@@ -136,8 +129,9 @@
                         <div class="row g-1">
                           <div class="col-md-12">
                             <div class="form-group">
-                              <label for="inputNombreEmpresaVacuna">Intitución del Sistema o Nombre de la Empresa</label>
-                              <input type="text" class="form-control" id="inputNombreEmpresaVacuna">
+                              <label for="inputNombreEmpresaVacuna">Intitución del Sistema o Nombre de la
+                                Empresa</label>
+                              <input type="text" class="form-control" id="inputNombreEmpresaVacuna" disabled>
                             </div>
                           </div>
                         </div>
@@ -145,19 +139,19 @@
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="inputRucVacuna">RUC</label>
-                              <input type="text" class="form-control" id="inputRucVacuna">
+                              <input type="text" class="form-control" id="inputRucVacuna" disabled>
                             </div>
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="inputCiuuVacuna">CIUU</label>
-                              <input type="text" class="form-control" id="inputCiuuVacuna">
+                              <input type="text" class="form-control" id="inputCiuuVacuna" disabled>
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="inputEstablecimientoVacuna">Establecimiento de Salud</label>
-                              <input type="text" class="form-control" id="inputEstablecimientoVacuna">
+                              <input type="text" class="form-control" id="inputEstablecimientoVacuna" disabled>
                             </div>
                           </div>
                         </div>
@@ -165,13 +159,13 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="inputNumHistoriaClinicaVacuna">Número de Historia Clínica</label>
-                              <input type="number" class="form-control" id="inputNumHistoriaClinicaVacuna">
+                              <input type="number" class="form-control" id="inputNumHistoriaClinicaVacuna" disabled>
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="inputNumArchivoVacuna">Número de Archivo</label>
-                              <input type="number" class="form-control" id="inputNumArchivoVacuna">
+                              <input type="number" class="form-control" id="inputNumArchivoVacuna" disabled>
                             </div>
                           </div>
                         </div>
@@ -179,25 +173,25 @@
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="inputPrimerApellidoVacuna">Primer Apellido</label>
-                              <input type="text" class="form-control" id="inputPrimerApellido">
+                              <input type="text" class="form-control" id="inputPrimerApellidoVacuna" disabled>
                             </div>
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="inputSegundoApellidoVacuna">Segundo Apellido</label>
-                              <input type="text" class="form-control" id="inputSegundoApellidoVacuna">
+                              <input type="text" class="form-control" id="inputSegundoApellidoVacuna" disabled>
                             </div>
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="inputPrimerNombreVacuna">Primer Nombre</label>
-                              <input type="text" class="form-control" id="inputPrimerNombreVacuna">
+                              <input type="text" class="form-control" id="inputPrimerNombreVacuna" disabled>
                             </div>
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="inputSegundoNombreVacuna">Segundo Nombre</label>
-                              <input type="text" class="form-control" id="inputSegundoNombreVacuna">
+                              <input type="text" class="form-control" id="inputSegundoNombreVacuna" disabled>
                             </div>
                           </div>
                         </div>
@@ -205,40 +199,179 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="inputSexoVacuna">Sexo</label>
-                              <input type="text" class="form-control" id="inputSexoVacuna">
+                              <input type="text" class="form-control" id="inputSexoVacuna" disabled>
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="inputCargoOcupacionVacuna">Cargo/Ocupación</label>
-                              <input type="text" class="form-control" id="inputCargoOcupacionVacuna">
+                              <input type="text" class="form-control" id="inputCargoOcupacionVacuna" disabled>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                     <button type="button" class="btn btn-primary next-button" data-toggle="pill"
-                        href="#paso2">Siguiente</button>
+                      href="#paso2">Siguiente</button>
                   </div>
                   <!-- Paso 2 -->
                   <div class="tab-pane fade" id="paso2">
-                      <br>
-                      <div class="card card-primary">
-                        <div class="card-header">
-                          <h4 class="card-title">Inmunizaciones</h4>
-                        </div>
-                        <div class="card-body">
-                          
+                    <br>
+                    <div class="card card-primary">
+                      <div class="card-header">
+                        <h4 class="card-title">Inmunizaciones</h4>
+                      </div>
+                      <div class="card-body">
+                        <!-- LISTA DE VACUNAS -->
+                        <div class="accordion" id="accordionListInmunizaciones">
+                          <div class="card">
+                            <div class="card-header" id="tetanosDifteriaItem">
+                              <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                                  data-target="#coleccionTetanos" aria-expanded="true" aria-controls="coleccionTetanos">
+                                  Tetanos - Difteria
+                                </button>
+                              </h2>
+                            </div>
+                            <div id="coleccionTetanos" class="collapse show" aria-labelledby="tetanosDifteriaItem"
+                              data-parent="#accordionListInmunizaciones">
+                              <div class="card-body">
+                                <!-- CONTENIDO CON UN FORMULARIO -->
+                                <div class="table-responsive">
+                                  <table class="table table-primary" id="tableTetanos">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Acciones</th>
+                                        <th scope="col">Dosis</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Lote</th>
+                                        <th scope="col">Esquema Completo</th>
+                                        <th scope="col">Responsable de la Vacuna</th>
+                                        <th scope="col">Establecimiento de Salud donde se colocó la Vacuna</th>
+                                        <th scope="col">Observaciones</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr id="newRow">
+                                        <td><button class="btn btn-success" id="btnAgregarFilaTetanos"
+                                            onclick="agregarFila()">Agregar</button>
+                                        </td>
+                                        <td><span id="dosisSpan">1</span></td>
+                                        <td><input type="date" id="fechaInput" placeholder="Fecha"></td>
+                                        <td><input type="number" id="loteInput" placeholder="Lote"></td>
+                                        <td><input type="checkbox" id="esquemaInput" placeholder="Esquema"></td>
+                                        <td><input type="text" id="responsableInput" placeholder="Responsable"></td>
+                                        <td><input type="text" id="establecimientoInput" placeholder="Establecimiento">
+                                        </td>
+                                        <td><input type="text" id="observacionesInput" placeholder="Observaciones"></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card">
+                            <div class="card-header" id="hepatitisA">
+                              <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                  data-toggle="collapse" data-target="#coleccionHepatitisA" aria-expanded="false"
+                                  aria-controls="coleccionHepatitisA">
+                                  Hepatitis A
+                                </button>
+                              </h2>
+                            </div>
+                            <div id="coleccionHepatitisA" class="collapse" aria-labelledby="hepatitisA"
+                              data-parent="#accordionListInmunizaciones">
+                              <div class="card-body">
+                                Some placeholder content for the second accordion panel. This panel is hidden by
+                                default.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card">
+                            <div class="card-header" id="hepatitisB">
+                              <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                  data-toggle="collapse" data-target="#coleccionHepatitisB" aria-expanded="false"
+                                  aria-controls="coleccionHepatitisB">
+                                  Hepatitis B
+                                </button>
+                              </h2>
+                            </div>
+                            <div id="coleccionHepatitisB" class="collapse" aria-labelledby="hepatitisB"
+                              data-parent="#accordionListInmunizaciones">
+                              <div class="card-body">
+                                And lastly, the placeholder content for the third and final accordion panel. This panel
+                                is hidden by default.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card">
+                            <div class="card-header" id="influenza">
+                              <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                  data-toggle="collapse" data-target="#coleccionInfluenza" aria-expanded="false"
+                                  aria-controls="coleccionInfluenza">
+                                  Influenza
+                                </button>
+                              </h2>
+                            </div>
+                            <div id="coleccionInfluenza" class="collapse" aria-labelledby="Influenza"
+                              data-parent="#accordionListInmunizaciones">
+                              <div class="card-body">
+                                And lastly, the placeholder content for the third and final accordion panel. This panel
+                                is hidden by default.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card">
+                            <div class="card-header" id="fiebreAmarilla">
+                              <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                  data-toggle="collapse" data-target="#coleccionFiebreAmarilla" aria-expanded="false"
+                                  aria-controls="coleccionFiebreAmarilla">
+                                  Fiebre Amarilla
+                                </button>
+                              </h2>
+                            </div>
+                            <div id="coleccionFiebreAmarilla" class="collapse" aria-labelledby="FiebreAmarilla"
+                              data-parent="#accordionListInmunizaciones">
+                              <div class="card-body">
+                                And lastly, the placeholder content for the third and final accordion panel. This panel
+                                is hidden by default.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="card">
+                            <div class="card-header" id="sarampionRubeola">
+                              <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left collapsed" type="button"
+                                  data-toggle="collapse" data-target="#coleccionSarampionRubeola" aria-expanded="false"
+                                  aria-controls="coleccionSarampionRubeola">
+                                  Sarampión - Rubeola
+                                </button>
+                              </h2>
+                            </div>
+                            <div id="coleccionSarampionRubeola" class="collapse" aria-labelledby="SarampionRubeola"
+                              data-parent="#accordionListInmunizaciones">
+                              <div class="card-body">
+                                And lastly, the placeholder content for the third and final accordion panel. This panel
+                                is hidden by default.
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                        <button type="button" class="btn btn-secondary prev-button" data-toggle="pill"
-                        href="#paso1">Anterior</button>
-                      <button type="button" class="btn btn-primary next-button" data-toggle="pill"
-                        href="#paso3">Siguiente</button>
+                    </div>
+                    <button type="button" class="btn btn-secondary prev-button" data-toggle="pill"
+                      href="#paso1">Anterior</button>
+                    <button type="button" class="btn btn-primary next-button" data-toggle="pill"
+                      href="#paso3">Siguiente</button>
                   </div>
                   <!-- Paso 3 -->
                   <div class="tab-pane fade" id="paso3">
-                      <br>
+                    <br>
                     <h4>Paso 3</h4>
                     <form>
                       <div class="form-group">
@@ -253,7 +386,7 @@
                   </div>
                   <!-- Paso 4 -->
                   <div class="tab-pane fade" id="paso4">
-                      <br>
+                    <br>
                     <h4>Paso 4</h4>
                     <form>
                       <div class="form-group">
@@ -329,9 +462,9 @@
               row += '<td class="text-sm">' + paciente.direccion + '</td>';
               row += '<td class="text-sm">' + paciente.telefono + '</td>';
               if (paciente.bandactivo) {
-                row += '<td><button class="btn btn-outline-secondary" onclick="capturarCodProvCli(\'' + paciente.codprovcli + '\')">Activo</button></td>';
+                row += '<td><button class="btn btn-outline-secondary" onclick="capturarCodProvCli(\'' + paciente.codprovcli + '\', \'' + paciente.nombre + '\')">Activo</button></td>';
               } else {
-                row += '<td><button class="btn btn-outline-secondary" onclick="capturarCodProvCli(\'' + paciente.codprovcli + '\')" disabled>Inactivo</button></td>';
+                row += '<td><button class="btn btn-outline-secondary" onclick="capturarCodProvCli(\'' + paciente.codprovcli + '\', \'' + paciente.nombre + '\')" disabled>Inactivo</button></td>';
               };
               row += '</tr>';
               tabla.append(row);
@@ -362,21 +495,45 @@
   }
 
   // Nueva función para capturar el valor y mostrarlo en la consola
-  function capturarCodProvCli(codprovcli) {
-    var codprovcli = `Paciente: ${codprovcli}`
+  function capturarCodProvCli(codprovcli, paciente) {
     // Muestra los detalles en el modal
-    $('#detallesPaciente').html(codprovcli);
     $('#modalInfoPaciente').modal('show');
   }
-  
+
 </script>
 
 <script>
   $(document).ready(function () {
-    // ... Tu código JavaScript existente ...
+    // DECLARACION DE LOS INPUTS PARA LLENAR
+    const inputRucVacuna = document.getElementById('inputRucVacuna');
+    const inputNombreEmpresaVacuna = document.getElementById('inputNombreEmpresaVacuna');
+    const inputNumHistoriaClinicaVacuna = document.getElementById('inputNumHistoriaClinicaVacuna');
+    const inputCargoOcupacionVacuna = document.getElementById('inputCargoOcupacionVacuna');
+    const inputPrimerApellidoVacuna = document.getElementById('inputPrimerApellidoVacuna');
+    const inputSegundoApellidoVacuna = document.getElementById('inputSegundoApellidoVacuna');
+    const inputPrimerNombreVacuna = document.getElementById('inputPrimerNombreVacuna');
+    const inputSegundoNombreVacuna = document.getElementById('inputSegundoNombreVacuna');
+    const inputSexoVacuna = document.getElementById('inputSexoVacuna');
 
     // Agregar evento al modal cuando se muestra
     $('#modalInfoPaciente').on('shown.bs.modal', function () {
+      inputRucVacuna.value = '';
+      inputNombreEmpresaVacuna.value = '';
+      inputNumHistoriaClinicaVacuna.value = '';
+      inputCargoOcupacionVacuna.value = '';
+      inputPrimerApellidoVacuna.value = '';
+      inputSegundoApellidoVacuna.value = '';
+      inputPrimerNombreVacuna.value = '';
+      inputSegundoNombreVacuna.value = '';
+      inputSexoVacuna.value = '';
+
+      Swal.fire({
+        position: "top-end",
+        icon: "info",
+        title: "Cargando información ...",
+        showConfirmButton: false,
+      });
+
       var codprovcli = $('#codigo_paciente').val();
 
       // Verifica si hay un valor de codprovcli antes de realizar la solicitud AJAX
@@ -390,10 +547,35 @@
           url: url,
           success: function (data) {
             if (data.error) {
-              alert(data.error);
+              Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: `${data.error}`,
+                showConfirmButton: false,
+              });
             } else {
-              // Logica para llenar el modal 
-              
+              Swal.close();
+              // LLENAR INPUT CON DATA
+              let empresa = data.empresa;
+              inputRucVacuna.value = empresa.Ruc
+              inputNombreEmpresaVacuna.value = empresa.Nombreempresa
+              inputNumHistoriaClinicaVacuna.value = empresa.HistoriaClinica
+              inputCargoOcupacionVacuna.value = empresa.Ocupacion
+              inputPrimerApellidoVacuna.value = empresa.PrimerApellido;
+              inputSegundoApellidoVacuna.value = empresa.SegundoApellido;
+              inputPrimerNombreVacuna.value = empresa.PrimerNombre;
+              inputSegundoNombreVacuna.value = empresa.SegundoNombre;
+              inputSexoVacuna.value = empresa.Sexo;
+
+              // DATOS LLENOS
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `Datos llenos correctamente`,
+                showConfirmButton: false,
+                timer: 1000,
+              });
+
             }
           },
           error: function () {
@@ -404,10 +586,101 @@
     });
   });
 
-  function capturarCodProvCli(codprovcli) {
-    // Muestra el modal
-    $('#modalInfoPaciente').modal('show');
-  }
 </script>
+
+<!-- CODIGO PARA LA FUNCIONALIDAD DE LA TABLA -->
+<script>
+  let datosTetanos = [];
+  var contadorDosis = 1;
+  const inputObservaciones = document.getElementById('observacionesInput');
+
+  function agregarFila() {
+    // Obtén los valores de los campos de entrada
+    const fecha = document.getElementById('fechaInput').value;
+    const lote = document.getElementById('loteInput').value;
+    const esquema = document.getElementById('esquemaInput').checked;
+    const responsable = document.getElementById('responsableInput').value;
+    const establecimiento = document.getElementById('establecimientoInput').value;
+    const observaciones = document.getElementById('observacionesInput').value;
+    const dosisSpan = document.getElementById('dosisSpan');
+    const btnAgregarFilaTetanos = document.getElementById('btnAgregarFilaTetanos');
+
+    if (fecha, lote, responsable, establecimiento != '') {
+      var nuevaFila = {
+        dosis: contadorDosis,
+        fecha: fecha,
+        lote: lote,
+        esquema: esquema,
+        responsable: responsable,
+        establecimiento: establecimiento,
+        observaciones: observaciones
+      };
+      datosTetanos.push(nuevaFila);
+      // Obtén el cuerpo de la tabla
+      const tbody = document.getElementById('tableTetanos').getElementsByTagName('tbody')[0];
+      // Crea una nueva fila
+      const newRow = tbody.insertRow();
+      // Agrega celdas a la nueva fila
+      const cell1 = newRow.insertCell(0);
+      const cell2 = newRow.insertCell(1);
+      const cell3 = newRow.insertCell(2);
+      const cell4 = newRow.insertCell(3);
+      const cell5 = newRow.insertCell(4);
+      const cell6 = newRow.insertCell(5);
+      const cell7 = newRow.insertCell(6);
+      const cell8 = newRow.insertCell(7);
+      // Llena las celdas con los valores de los campos de entrada
+      cell1.innerHTML = '+';
+      cell2.innerHTML = contadorDosis;
+      cell3.innerHTML = fecha;
+      cell4.innerHTML = lote;
+      cell5.innerHTML = esquema ? 'Sí' : 'No';
+      cell6.innerHTML = responsable;
+      cell7.innerHTML = establecimiento;
+      cell8.innerHTML = observaciones;
+      // Incrementar el contador de dosis
+      contadorDosis++;
+
+      // Limpia o convierte los campos de entrada en etiquetas, según tu necesidad
+      dosisSpan.value = contadorDosis;
+      dosisSpan.textContent = contadorDosis;
+      document.getElementById('fechaInput').value = '';
+      document.getElementById('loteInput').value = '';
+      document.getElementById('esquemaInput').checked = false;
+      document.getElementById('responsableInput').value = '';
+      document.getElementById('establecimientoInput').value = '';
+      document.getElementById('observacionesInput').value = '';
+      // Verificar si el contador de dosis llega a 5 y deshabilitar el botón
+      if (contadorDosis > 5) {
+        btnAgregarFilaTetanos.disabled = true;
+        document.getElementById('fechaInput').disabled = true;
+        document.getElementById('loteInput').disabled = true;
+        document.getElementById('responsableInput').disabled = true;
+        document.getElementById('esquemaInput').disabled = true;
+        document.getElementById('establecimientoInput').disabled = true;
+        document.getElementById('observacionesInput').disabled = true;
+      }
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Por favor llene los datos necesarios!",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+  }
+
+  // FUNCIONAMIENTO DEL ENTER
+  inputObservaciones.addEventListener('keydown', function () {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      agregarFila();
+    }
+  })
+
+
+</script>
+
 
 {% endblock %}
