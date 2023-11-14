@@ -125,33 +125,116 @@
 
                 <!-- CONTENIDO DEL FORMULARIO DE INFORMACION PERSONAL -->
                 <div class="tab-content mt-2">
-                  <!-- Paso 1 -->
+                  <!-- Paso 1 DATOS PERSONALES CARGADOS DESDE EL API -->
                   <div class="tab-pane fade show active" id="paso1">
-                      <br>
-                    <h4>Paso 1</h4>
-                    <form>
-                      <div class="form-group">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre">
+                    <br>
+                    <div class="card card-primary">
+                      <div class="card-header">
+                        <h4 class="card-title">Datos del establecimiento - Empresa y Usuario</h4>
                       </div>
-                      <button type="button" class="btn btn-primary next-button" data-toggle="pill"
+                      <div class="card-body">
+                        <div class="row g-1">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="inputNombreEmpresaVacuna">Intitución del Sistema o Nombre de la Empresa</label>
+                              <input type="text" class="form-control" id="inputNombreEmpresaVacuna">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row g-1">
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="inputRucVacuna">RUC</label>
+                              <input type="text" class="form-control" id="inputRucVacuna">
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="inputCiuuVacuna">CIUU</label>
+                              <input type="text" class="form-control" id="inputCiuuVacuna">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="inputEstablecimientoVacuna">Establecimiento de Salud</label>
+                              <input type="text" class="form-control" id="inputEstablecimientoVacuna">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row g-1">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="inputNumHistoriaClinicaVacuna">Número de Historia Clínica</label>
+                              <input type="number" class="form-control" id="inputNumHistoriaClinicaVacuna">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="inputNumArchivoVacuna">Número de Archivo</label>
+                              <input type="number" class="form-control" id="inputNumArchivoVacuna">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row g-1">
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="inputPrimerApellidoVacuna">Primer Apellido</label>
+                              <input type="text" class="form-control" id="inputPrimerApellido">
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="inputSegundoApellidoVacuna">Segundo Apellido</label>
+                              <input type="text" class="form-control" id="inputSegundoApellidoVacuna">
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="inputPrimerNombreVacuna">Primer Nombre</label>
+                              <input type="text" class="form-control" id="inputPrimerNombreVacuna">
+                            </div>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label for="inputSegundoNombreVacuna">Segundo Nombre</label>
+                              <input type="text" class="form-control" id="inputSegundoNombreVacuna">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row g-1">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="inputSexoVacuna">Sexo</label>
+                              <input type="text" class="form-control" id="inputSexoVacuna">
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="inputCargoOcupacionVacuna">Cargo/Ocupación</label>
+                              <input type="text" class="form-control" id="inputCargoOcupacionVacuna">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-primary next-button" data-toggle="pill"
                         href="#paso2">Siguiente</button>
-                    </form>
                   </div>
                   <!-- Paso 2 -->
                   <div class="tab-pane fade" id="paso2">
                       <br>
-                    <h4>Paso 2</h4>
-                    <form>
-                      <div class="form-group">
-                        <label for="apellido">Apellido:</label>
-                        <input type="text" class="form-control" id="apellido" placeholder="Ingrese su apellido">
+                      <div class="card card-primary">
+                        <div class="card-header">
+                          <h4 class="card-title">Inmunizaciones</h4>
+                        </div>
+                        <div class="card-body">
+                          
+                        </div>
                       </div>
-                      <button type="button" class="btn btn-secondary prev-button" data-toggle="pill"
+                        <button type="button" class="btn btn-secondary prev-button" data-toggle="pill"
                         href="#paso1">Anterior</button>
                       <button type="button" class="btn btn-primary next-button" data-toggle="pill"
                         href="#paso3">Siguiente</button>
-                    </form>
                   </div>
                   <!-- Paso 3 -->
                   <div class="tab-pane fade" id="paso3">
@@ -285,7 +368,46 @@
     $('#detallesPaciente').html(codprovcli);
     $('#modalInfoPaciente').modal('show');
   }
+  
 </script>
 
+<script>
+  $(document).ready(function () {
+    // ... Tu código JavaScript existente ...
+
+    // Agregar evento al modal cuando se muestra
+    $('#modalInfoPaciente').on('shown.bs.modal', function () {
+      var codprovcli = $('#codigo_paciente').val();
+
+      // Verifica si hay un valor de codprovcli antes de realizar la solicitud AJAX
+      if (codprovcli) {
+        // Construye la URL completa con el parámetro codprovcli
+        var url = `/empresa/Hormi2023/fichasii4?codprovcli=${codprovcli}`;
+
+        // Realiza la solicitud AJAX para obtener los detalles del paciente
+        $.ajax({
+          type: 'GET',
+          url: url,
+          success: function (data) {
+            if (data.error) {
+              alert(data.error);
+            } else {
+              // Logica para llenar el modal 
+              
+            }
+          },
+          error: function () {
+            alert('Error al obtener los detalles del paciente');
+          }
+        });
+      }
+    });
+  });
+
+  function capturarCodProvCli(codprovcli) {
+    // Muestra el modal
+    $('#modalInfoPaciente').modal('show');
+  }
+</script>
 
 {% endblock %}
