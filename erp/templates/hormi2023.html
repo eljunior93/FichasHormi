@@ -239,6 +239,7 @@
                             <div id="coleccionTetanos" class="collapse show" aria-labelledby="tetanosDifteriaItem"
                               data-parent="#accordionListInmunizaciones">
                               <div class="card-body">
+
                                 <!-- CONTENIDO CON UN FORMULARIO -->
                                 <div class="table-responsive">
                                   <table class="table table-primary" id="tableTetanos">
@@ -421,6 +422,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+
 <script>
   // Agregar funcionalidad para cambiar de pestaña al hacer clic en el botón "Siguiente"
   $(document).ready(function () {
@@ -500,6 +502,8 @@
 
 
 
+
+
   // Nueva función para capturar el valor y mostrarlo en la consola
   function capturarCodProvCli(codprovcli, paciente) {
     // Muestra los detalles en el modal
@@ -509,10 +513,16 @@
 
 </script>
 
+
 <script>
 
     // Nueva función para enviar datos usando Ajax
     function enviarDatos(empresa) {
+
+         var hayDatosEnTabla = datosTetanos.length > 0;
+
+    // Actualiza el valor de vacuna_tetano
+         var vacuna_tetano = hayDatosEnTabla ? 'Recibida' : '';
     $.ajax({
       type: 'GET',
       url: '{% url "tu_vista_de_impresion" %}',
@@ -525,7 +535,8 @@
         'primernombre': empresa.PrimerNombre,
         'segundonombre': empresa.SegundoNombre,
         'sexo': empresa.Sexo,
-        'ocupacion' : empresa.Ocupacion
+        'ocupacion' : empresa.Ocupacion, 'vacuna_tetano': vacuna_tetano
+
         // Puedes agregar más datos si es necesario
       },
       success: function (response) {
@@ -535,6 +546,8 @@
         console.error('Error en la solicitud Ajax:', error);
       }
     });
+
+    limpiarInputsTabla();
   }
 
   $(document).ready(function () {
@@ -612,10 +625,11 @@
               });
 
               $('#btnGrabar').on('click', function () {
+                   // Verifica si hay datos en la tabla
 
                   // Enviar el valor a la vista usando Ajax
                   enviarDatos(empresa);
-                  toastr.error('Producto ya ingresado.', 'Error', {
+                  toastr.error('Insert a Vacunacion exitoso.', 'Éxito', {
                         progressBar: true,
                         closeDuration: 25,
                        "positionClass": "toast-top-left",
@@ -640,7 +654,8 @@
   let datosTetanos = [];
   var contadorDosis = 1;
   const inputObservaciones = document.getElementById('observacionesInput');
-
+  // Restablecer los valores de la tabla
+  
   function agregarFila() {
     // Obtén los valores de los campos de entrada
     const fecha = document.getElementById('fechaInput').value;
@@ -651,7 +666,8 @@
     const observaciones = document.getElementById('observacionesInput').value;
     const dosisSpan = document.getElementById('dosisSpan');
     const btnAgregarFilaTetanos = document.getElementById('btnAgregarFilaTetanos');
-
+    var hayDatosEnTabla = datosTetanos.length > 0;
+     var vacuna_tetano = hayDatosEnTabla ? 'Recibida' : '';
     if (fecha, lote, responsable, establecimiento != '') {
       var nuevaFila = {
         dosis: contadorDosis,
@@ -706,6 +722,7 @@
         document.getElementById('esquemaInput').disabled = true;
         document.getElementById('establecimientoInput').disabled = true;
         document.getElementById('observacionesInput').disabled = true;
+
       }
     } else {
       Swal.fire({
@@ -716,6 +733,8 @@
         timer: 2000
       });
     }
+
+
   }
 
   // FUNCIONAMIENTO DEL ENTER
@@ -728,8 +747,6 @@
 
 
 </script>
-
-
 
 
 
