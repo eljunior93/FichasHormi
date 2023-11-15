@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from decimal import Decimal
 from datetime import datetime, timedelta
 import json
+import subprocess
 from django.contrib import messages
 from django.core.serializers.json import DjangoJSONEncoder
 from datetime import date, timedelta
@@ -12,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core.files.storage import default_storage
 from django.conf import settings
-
+#from FormatosHormi.Formatos import formatoVacunas
 
 # Función para convertir objetos Decimal a números de punto flotante (float)
 from erp_ishida.settings import BASE_DIR
@@ -161,13 +162,6 @@ def contact(request):
     context = {"username": username}
     return render(request, "contact.html", context)
 
-
-
-
-
-
-
-
 def tu_vista_de_impresion(request):
     if request.method == 'GET':
         nombre_empresa_vacuna = request.GET.get('nombre_empresa_vacuna')
@@ -219,9 +213,40 @@ def tu_vista_de_impresion(request):
 
             # Ejecutar la consulta
             cursor.execute(sql_query, params)
+            # Obtener el valor de numeroArchivo después de la inserción
+            cursor.execute("SELECT TOP 1 numeroArchivo FROM Vacunacion ORDER BY numeroArchivo DESC;")
+            numero_archivo_result = cursor.fetchone()
+            numero_archivo = str(numero_archivo_result[0]) if numero_archivo_result else None
+        # Devolver todas las variables en la respuesta JSON
+        response_data = {
+            'nombre_empresa_vacuna': nombre_empresa_vacuna,
+            'ruc': ruc,
+            'historia_clinica': historia_clinica,
+            'numero_archivo': numero_archivo,
+            'primer_apellido': primer_apellido,
+            'segundo_apellido': segundo_apellido,
+            'primer_nombre': primer_nombre,
+            'segundo_nombre': segundo_nombre,
+            'sexo': sexo,
+            'ocupacion': ocupacion,
+            'vacuna_tetano': vacuna_tetano,
+        }
 
-        # Realiza otras acciones según sea necesario
-        return JsonResponse({'message': 'La información de formulación fue obtenida mediante una solicitud GET y se ha realizado una inserción exitosa en la tabla de vacunación.'})
+        # Guardar los datos en un archivo JSON
+        with open('postVacunas.json', 'w') as json_file:
+            json.dump(response_data, json_file)
+        
+
+        # Obtén la ruta completa del script
+        script_path = 'erp/FormatosHormi/Formatos/formatoVacunas.py'
+
+        # Ejecutar el script de Python
+        try:
+            subprocess.run(['python', script_path])
+        except Exception as e:
+            print(f"Error al ejecutar el script: {e}")    
+
+        return JsonResponse(response_data)
     else:
         return JsonResponse({'error': 'Método no permitido'})
 

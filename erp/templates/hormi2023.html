@@ -540,7 +540,12 @@
         // Puedes agregar más datos si es necesario
       },
       success: function (response) {
-        console.log(response);  // Maneja la respuesta del servidor
+        console.log(response); 
+        toastr.success('Insert a Vacunacion exitoso.', 'Éxito', {
+            progressBar: true,
+            closeDuration: 25,
+          "positionClass": "toast-top-left",
+        }); // Maneja la respuesta del servidor
       },
       error: function (error) {
         console.error('Error en la solicitud Ajax:', error);
@@ -629,12 +634,7 @@
 
                   // Enviar el valor a la vista usando Ajax
                   enviarDatos(empresa);
-                  toastr.error('Insert a Vacunacion exitoso.', 'Éxito', {
-                        progressBar: true,
-                        closeDuration: 25,
-                       "positionClass": "toast-top-left",
-                    });
-                    return;
+                
                 });
             }
           },
