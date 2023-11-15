@@ -35,6 +35,8 @@ urlpatterns = [
     ),
     path("empresa/mq2010New/contact", views.contact, name="contact"),
     path("empresa/Hormi2023/fichasii4/", views.fichasii4, name="fichasii4"),
+    path("empresa/Hormi2023/prueba/", views.tu_vista_de_impresion, name="tu_vista_de_impresion"),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

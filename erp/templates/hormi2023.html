@@ -121,6 +121,8 @@
                   <!-- Paso 1 DATOS PERSONALES CARGADOS DESDE EL API -->
                   <div class="tab-pane fade show active" id="paso1">
                     <br>
+                      <form id="datosEmpresaForm" method="get" action="{% url 'tu_vista_de_impresion' %}">
+                        {% csrf_token %}
                     <div class="card card-primary">
                       <div class="card-header">
                         <h4 class="card-title">Datos del establecimiento - Empresa y Usuario</h4>
@@ -131,7 +133,7 @@
                             <div class="form-group">
                               <label for="inputNombreEmpresaVacuna">Intitución del Sistema o Nombre de la
                                 Empresa</label>
-                              <input type="text" class="form-control" id="inputNombreEmpresaVacuna" disabled>
+                              <input type="text" class="form-control" id="inputNombreEmpresaVacuna" name="empresa" disabled>
                             </div>
                           </div>
                         </div>
@@ -139,19 +141,19 @@
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="inputRucVacuna">RUC</label>
-                              <input type="text" class="form-control" id="inputRucVacuna" disabled>
+                              <input type="text" class="form-control" id="inputRucVacuna" name="ruc" disabled>
                             </div>
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="inputCiuuVacuna">CIUU</label>
-                              <input type="text" class="form-control" id="inputCiuuVacuna" disabled>
+                              <input type="text" class="form-control" id="inputCiuuVacuna" name="ciuu" disabled>
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="inputEstablecimientoVacuna">Establecimiento de Salud</label>
-                              <input type="text" class="form-control" id="inputEstablecimientoVacuna" disabled>
+                              <input type="text" class="form-control" id="inputEstablecimientoVacuna" name="establecimientosalud" disabled>
                             </div>
                           </div>
                         </div>
@@ -159,13 +161,13 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="inputNumHistoriaClinicaVacuna">Número de Historia Clínica</label>
-                              <input type="number" class="form-control" id="inputNumHistoriaClinicaVacuna" disabled>
+                              <input type="number" class="form-control" id="inputNumHistoriaClinicaVacuna" name="historiaclinica" disabled>
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="inputNumArchivoVacuna">Número de Archivo</label>
-                              <input type="number" class="form-control" id="inputNumArchivoVacuna" disabled>
+                              <input type="number" class="form-control" id="inputNumArchivoVacuna"  name="numarchivo" disabled>
                             </div>
                           </div>
                         </div>
@@ -173,25 +175,25 @@
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="inputPrimerApellidoVacuna">Primer Apellido</label>
-                              <input type="text" class="form-control" id="inputPrimerApellidoVacuna" disabled>
+                              <input type="text" class="form-control" id="inputPrimerApellidoVacuna"  name="pmerapellido" disabled>
                             </div>
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="inputSegundoApellidoVacuna">Segundo Apellido</label>
-                              <input type="text" class="form-control" id="inputSegundoApellidoVacuna" disabled>
+                              <input type="text" class="form-control" id="inputSegundoApellidoVacuna" name="segapellido" disabled>
                             </div>
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="inputPrimerNombreVacuna">Primer Nombre</label>
-                              <input type="text" class="form-control" id="inputPrimerNombreVacuna" disabled>
+                              <input type="text" class="form-control" id="inputPrimerNombreVacuna" name="pmernombre" disabled>
                             </div>
                           </div>
                           <div class="col-md-3">
                             <div class="form-group">
                               <label for="inputSegundoNombreVacuna">Segundo Nombre</label>
-                              <input type="text" class="form-control" id="inputSegundoNombreVacuna" disabled>
+                              <input type="text" class="form-control" id="inputSegundoNombreVacuna" name="segnombre" disabled>
                             </div>
                           </div>
                         </div>
@@ -199,13 +201,13 @@
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="inputSexoVacuna">Sexo</label>
-                              <input type="text" class="form-control" id="inputSexoVacuna" disabled>
+                              <input type="text" class="form-control" id="inputSexoVacuna"  name="sexo" disabled>
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
                               <label for="inputCargoOcupacionVacuna">Cargo/Ocupación</label>
-                              <input type="text" class="form-control" id="inputCargoOcupacionVacuna" disabled>
+                              <input type="text" class="form-control" id="inputCargoOcupacionVacuna" name="ocupacion" disabled>
                             </div>
                           </div>
                         </div>
@@ -213,6 +215,7 @@
                     </div>
                     <button type="button" class="btn btn-primary next-button" data-toggle="pill"
                       href="#paso2">Siguiente</button>
+                    </form>
                   </div>
                   <!-- Paso 2 -->
                   <div class="tab-pane fade" id="paso2">
@@ -405,6 +408,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button id="btnGrabar" type="button" class="btn btn-secondary" >Grabar</button>
           </div>
         </div>
       </div>
@@ -464,7 +468,7 @@
               if (paciente.bandactivo) {
                 row += '<td><button class="btn btn-outline-secondary" onclick="capturarCodProvCli(\'' + paciente.codprovcli + '\', \'' + paciente.nombre + '\')">Activo</button></td>';
               } else {
-                row += '<td><button class="btn btn-outline-secondary" onclick="capturarCodProvCli(\'' + paciente.codprovcli + '\', \'' + paciente.nombre + '\')" disabled>Inactivo</button></td>';
+                row += '<td><button class="btn btn-outline-secondary"  id="nazi" onclick="capturarCodProvCli(\'' + paciente.codprovcli + '\', \'' + paciente.nombre + '\')" disabled>Inactivo</button></td>';
               };
               row += '</tr>';
               tabla.append(row);
@@ -494,15 +498,45 @@
     $('#seleccion').addClass('show active');
   }
 
+
+
   // Nueva función para capturar el valor y mostrarlo en la consola
   function capturarCodProvCli(codprovcli, paciente) {
     // Muestra los detalles en el modal
     $('#modalInfoPaciente').modal('show');
+
   }
 
 </script>
 
 <script>
+
+    // Nueva función para enviar datos usando Ajax
+    function enviarDatos(empresa) {
+    $.ajax({
+      type: 'GET',
+      url: '{% url "tu_vista_de_impresion" %}',
+      data: {
+        'nombre_empresa_vacuna': empresa.Nombreempresa,
+        'ruc': empresa.Ruc,
+        'historiaclinica' :empresa.HistoriaClinica,
+        'primerapellido': empresa.PrimerApellido,
+        'segundoapellido': empresa.SegundoApellido,
+        'primernombre': empresa.PrimerNombre,
+        'segundonombre': empresa.SegundoNombre,
+        'sexo': empresa.Sexo,
+        'ocupacion' : empresa.Ocupacion
+        // Puedes agregar más datos si es necesario
+      },
+      success: function (response) {
+        console.log(response);  // Maneja la respuesta del servidor
+      },
+      error: function (error) {
+        console.error('Error en la solicitud Ajax:', error);
+      }
+    });
+  }
+
   $(document).ready(function () {
     // DECLARACION DE LOS INPUTS PARA LLENAR
     const inputRucVacuna = document.getElementById('inputRucVacuna');
@@ -514,6 +548,7 @@
     const inputPrimerNombreVacuna = document.getElementById('inputPrimerNombreVacuna');
     const inputSegundoNombreVacuna = document.getElementById('inputSegundoNombreVacuna');
     const inputSexoVacuna = document.getElementById('inputSexoVacuna');
+    const inputNumArchivoVacuna = document.getElementById('inputNumArchivoVacuna');
 
     // Agregar evento al modal cuando se muestra
     $('#modalInfoPaciente').on('shown.bs.modal', function () {
@@ -525,7 +560,7 @@
       inputSegundoApellidoVacuna.value = '';
       inputPrimerNombreVacuna.value = '';
       inputSegundoNombreVacuna.value = '';
-      inputSexoVacuna.value = '';
+      inputNumArchivoVacuna.value = '';
 
       Swal.fire({
         position: "top-end",
@@ -566,7 +601,7 @@
               inputPrimerNombreVacuna.value = empresa.PrimerNombre;
               inputSegundoNombreVacuna.value = empresa.SegundoNombre;
               inputSexoVacuna.value = empresa.Sexo;
-
+              inputNumArchivoVacuna.value = empresa.NumeroArchivo;
               // DATOS LLENOS
               Swal.fire({
                 position: "top-end",
@@ -576,6 +611,17 @@
                 timer: 1000,
               });
 
+              $('#btnGrabar').on('click', function () {
+
+                  // Enviar el valor a la vista usando Ajax
+                  enviarDatos(empresa);
+                  toastr.error('Producto ya ingresado.', 'Error', {
+                        progressBar: true,
+                        closeDuration: 25,
+                       "positionClass": "toast-top-left",
+                    });
+                    return;
+                });
             }
           },
           error: function () {
@@ -585,6 +631,7 @@
       }
     });
   });
+
 
 </script>
 
@@ -681,6 +728,12 @@
 
 
 </script>
+
+
+
+
+
+
 
 
 {% endblock %}

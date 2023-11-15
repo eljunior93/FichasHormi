@@ -13,6 +13,7 @@ from django.http import JsonResponse
 from django.core.files.storage import default_storage
 from django.conf import settings
 
+
 # Función para convertir objetos Decimal a números de punto flotante (float)
 from erp_ishida.settings import BASE_DIR
 
@@ -21,6 +22,7 @@ from erp_ishida.settings import BASE_DIR
 @login_required
 def hormi2023(request):
     connection = connections["empresa"]
+
     with connection.cursor() as cursor:
         cursor.execute(
             "	SELECT  pc.CodProvCli, pc.Nombre FROM Empleado pc  Inner join personal p on p.idempleado = pc.idprovcli  Where BandGestion=0 and pc.nombre LIKE '%%' ORDER BY pc.Nombre"
@@ -72,7 +74,7 @@ def obtener_datos_paciente(request):
             )
 
         return JsonResponse({"data": data})
-        print(data)
+
     return JsonResponse({"error": "No se proporcionó un código de paciente"})
 
 
@@ -121,6 +123,7 @@ def fichasii4(request):
                         "Tabaco": row[27],
                         "Alcohol": row[28],
                         "Droga": row[29],
+                        "NumeroArchivo": row[30],
 
                     }
 
@@ -139,6 +142,7 @@ def fichasii4(request):
                     "SegundoNombre": vistaficha["SegundoNombre"],
                     "Sexo": vistaficha["Sexo"],
                     "Ocupacion": vistaficha["Ocupacion"],
+                    "NumeroArchivo": vistaficha["NumeroArchivo"],
                 }
 
                 return JsonResponse({"vistaficha": vistaficha, "empresa": empresa_data})
@@ -156,3 +160,71 @@ def contact(request):
 
     context = {"username": username}
     return render(request, "contact.html", context)
+
+
+
+
+
+
+
+
+def tu_vista_de_impresion(request):
+    if request.method == 'GET':
+        nombre_empresa_vacuna = request.GET.get('nombre_empresa_vacuna')
+        ruc = request.GET.get('ruc')
+        historia_clinica = request.GET.get('historiaclinica')
+        primer_apellido = request.GET.get('primerapellido')
+        segundo_apellido = request.GET.get('segundoapellido')
+        primer_nombre = request.GET.get('primernombre')
+        segundo_nombre = request.GET.get('segundonombre')
+        sexo = request.GET.get('sexo')
+        ocupacion = request.GET.get('ocupacion')
+        vacuna_tetano = 'Recibida'
+        vacuna_hepatitis_a = ''
+        vacuna_hepatitis_b = ''
+        influenza_estacionaria = ''
+        fiebre_amarilla = ''
+        sarampion = ''
+
+        connection = connections["empresa"]
+        # Realizar la inserción en la base de datos
+        with connection.cursor() as cursor:
+            sql_query = """
+                INSERT INTO vacunacion (
+                    NombreEmpresa,
+                    Ruc,
+                    HistoriaClinica,
+                    PrimerApellido,
+                    SegundoApellido,
+                    PrimerNombre,
+                    SegundoNombre,
+                    Sexo,
+                    Ocupacion,
+                    VacunaTetano,
+                    VacunaHepatitisA,
+                    VacunaHepatitisB,
+                    InfluenzaEstacionaria,
+                    FiebreAmarilla,
+                    Sarampion
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+            """
+
+            # Define los valores para los parámetros
+            params = (
+                nombre_empresa_vacuna, ruc, historia_clinica, primer_apellido, segundo_apellido, primer_nombre,
+                segundo_nombre, sexo, ocupacion, vacuna_tetano, vacuna_hepatitis_a, vacuna_hepatitis_b,
+                influenza_estacionaria, fiebre_amarilla, sarampion
+            )
+
+            # Ejecutar la consulta
+            cursor.execute(sql_query, params)
+
+        # Realiza otras acciones según sea necesario
+        return JsonResponse({'message': 'La información de formulación fue obtenida mediante una solicitud GET y se ha realizado una inserción exitosa en la tabla de vacunación.'})
+    else:
+        return JsonResponse({'error': 'Método no permitido'})
+
+
+
+
