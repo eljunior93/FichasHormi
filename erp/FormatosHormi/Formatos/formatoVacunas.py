@@ -545,7 +545,7 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(45,48)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=18, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+pdf.cell(w=18, h=5, txt=data['fecha_tetano'], border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(45,53)  # Establecer la posición X para la segunda casilla
@@ -950,7 +950,10 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(75,48)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=24, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+if data['esquema_tetano'] is True or data['esquema_tetano'] == 'True':
+    pdf.cell(w=24, h=5, txt='x', border=1, ln=2, align='C', fill=1)  # Segunda casilla con 'x'
+else:
+    pdf.cell(w=24, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(75,53)  # Establecer la posición X para la segunda casilla
@@ -1153,7 +1156,7 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(99,48)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=28, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+pdf.cell(w=28, h=5, txt=data['responsable_tetano'], border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(99,53)  # Establecer la posición X para la segunda casilla
@@ -1356,7 +1359,7 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(127,48)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=28, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+pdf.cell(w=28, h=5, txt=data['establecimiento_tetano'], border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(127,53)  # Establecer la posición X para la segunda casilla
@@ -1559,7 +1562,7 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(155,48)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=45, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+pdf.cell(w=45, h=5, txt=data['observaciones_tetano'], border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(155,53)  # Establecer la posición X para la segunda casilla

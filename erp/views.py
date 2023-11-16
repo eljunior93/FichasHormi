@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core.files.storage import default_storage
 from django.conf import settings
-#from FormatosHormi.Formatos import formatoVacunas
+# from FormatosHormi.Formatos import formatoVacunas
 
 # Función para convertir objetos Decimal a números de punto flotante (float)
 from erp_ishida.settings import BASE_DIR
@@ -46,7 +46,7 @@ def hormi2023(request):
 
     return render(request, "hormi2023.html", contexto)
 
-
+@login_required
 # Obtener apcientes por del codprovclijson
 def obtener_datos_paciente(request):
     codprovcli = request.GET.get("codprovcli", None)
@@ -78,7 +78,7 @@ def obtener_datos_paciente(request):
 
     return JsonResponse({"error": "No se proporcionó un código de paciente"})
 
-
+@login_required
 def fichasii4(request):
     codprovcli = request.GET.get("codprovcli", None)
 
@@ -162,6 +162,7 @@ def contact(request):
     context = {"username": username}
     return render(request, "contact.html", context)
 
+@login_required
 def tu_vista_de_impresion(request):
     if request.method == 'GET':
         nombre_empresa_vacuna = request.GET.get('nombre_empresa_vacuna')
@@ -179,6 +180,19 @@ def tu_vista_de_impresion(request):
         influenza_estacionaria = ''
         fiebre_amarilla = ''
         sarampion = ''
+        datos_filas_json = request.GET.get('datos_filas')
+        datos_filas = json.loads(datos_filas_json) if datos_filas_json else []
+
+        for fila in datos_filas:
+            # Accede a las propiedades de cada fila
+            dosis = fila['dosis']
+            fecha_str = fila['fecha']  # La fecha como cadena en formato 'YYYY-MM-DD'
+            fecha = datetime.strptime(fecha_str, '%Y-%m-%d').date()
+            lote = fila['lote']
+            esquema = fila['esquema']
+            responsable = fila['responsable']
+            establecimiento = fila['establecimiento']
+            observaciones = fila['observaciones']
 
         connection = connections["empresa"]
         # Realizar la inserción en la base de datos
@@ -217,6 +231,32 @@ def tu_vista_de_impresion(request):
             cursor.execute("SELECT TOP 1 numeroArchivo FROM Vacunacion ORDER BY numeroArchivo DESC;")
             numero_archivo_result = cursor.fetchone()
             numero_archivo = str(numero_archivo_result[0]) if numero_archivo_result else None
+
+            # Realizar la inserción en la tabla DosisVacunaTetano
+        with connection.cursor() as cursor:
+            sql_query_dosis = """
+                    INSERT INTO DosisVacunaTetano (
+                        NumeroArchivo,
+                        DosisNumero,
+                        Fecha,
+                        Lote,
+                        EsquemaCompleto,
+                        ResponsableVacuna,
+                        Establecimiento,
+                        Observaciones
+                    )
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+                """
+
+            # Define los valores para los parámetros en la tabla DosisVacunaTetano
+            params_dosis = (
+                numero_archivo,
+                dosis, fecha, lote, esquema, responsable, establecimiento, observaciones
+            )
+
+            # Ejecutar la consulta para la tabla DosisVacunaTetano
+            cursor.execute(sql_query_dosis, params_dosis)
+
         # Devolver todas las variables en la respuesta JSON
         response_data = {
             'nombre_empresa_vacuna': nombre_empresa_vacuna,
@@ -230,12 +270,19 @@ def tu_vista_de_impresion(request):
             'sexo': sexo,
             'ocupacion': ocupacion,
             'vacuna_tetano': vacuna_tetano,
+            'dosis_tetano': dosis,
+            'fecha_tetano': fecha_str,
+            'lote_tetano': lote,
+            'esquema_tetano': esquema,
+            'responsable_tetano': responsable,
+            'establecimiento_tetano': establecimiento,
+            'observaciones_tetano': observaciones
+
         }
 
         # Guardar los datos en un archivo JSON
         with open('postVacunas.json', 'w') as json_file:
             json.dump(response_data, json_file)
-        
 
         # Obtén la ruta completa del script
         script_path = 'erp/FormatosHormi/Formatos/formatoVacunas.py'
@@ -244,9 +291,10 @@ def tu_vista_de_impresion(request):
         try:
             subprocess.run(['python', script_path])
         except Exception as e:
-            print(f"Error al ejecutar el script: {e}")    
+            print(f"Error al ejecutar el script: {e}")
 
         return JsonResponse(response_data)
+        response['Content-Disposition'] = 'inline; filename="nombre_del_archivo.pdf"'
     else:
         return JsonResponse({'error': 'Método no permitido'})
 

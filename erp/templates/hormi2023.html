@@ -516,13 +516,23 @@
 
 <script>
 
+    var empresa = {};
     // Nueva función para enviar datos usando Ajax
     function enviarDatos(empresa) {
+        // Limpiar la variable datosFilas
+        var datosFilas = '';
+        console.log('datosFilas',datosFilas)
+          // Actualiza el valor de vacuna_tetano
+        var hayDatosEnTabla = datosTetanos.length > 0;
+        var vacuna_tetano = hayDatosEnTabla ? 'Recibida' : '';
+        // Guarda los datos de las filas
+        if (hayDatosEnTabla) {
+            datosFilas = JSON.stringify(datosTetanos);
+            console.log('datosFilas2',datosFilas)
+            // Reinicia el array de datosTetanos para evitar duplicados
+            datosTetanos = [];
+        }
 
-         var hayDatosEnTabla = datosTetanos.length > 0;
-
-    // Actualiza el valor de vacuna_tetano
-         var vacuna_tetano = hayDatosEnTabla ? 'Recibida' : '';
     $.ajax({
       type: 'GET',
       url: '{% url "tu_vista_de_impresion" %}',
@@ -535,12 +545,14 @@
         'primernombre': empresa.PrimerNombre,
         'segundonombre': empresa.SegundoNombre,
         'sexo': empresa.Sexo,
-        'ocupacion' : empresa.Ocupacion, 'vacuna_tetano': vacuna_tetano
+        'ocupacion' : empresa.Ocupacion,
+          'vacuna_tetano': vacuna_tetano,
+          'datos_filas': datosFilas
 
         // Puedes agregar más datos si es necesario
       },
       success: function (response) {
-        console.log(response); 
+        console.log(response);
         toastr.success('Insert a Vacunacion exitoso.', 'Éxito', {
             progressBar: true,
             closeDuration: 25,
@@ -552,8 +564,33 @@
       }
     });
 
-    limpiarInputsTabla();
+
+      // Limpia los campos dentro de la tabla después de grabar
+      limpiarCamposTabla();
+
+
   }
+
+// Función para limpiar campos dentro de la tabla
+function limpiarCamposTabla() {
+  const tbody = document.getElementById('tableTetanos').getElementsByTagName('tbody')[0];
+  const filas = tbody.getElementsByTagName('tr');
+
+  // Itera sobre todas las filas excepto la primera
+  for (let i = filas.length - 1; i > 0; i--) {
+    tbody.removeChild(filas[i]);
+  }
+
+  // Reinicia el contador de dosis
+  contadorDosis = 1;
+
+  // Actualiza el contenido de la celda de dosis en la primera fila con los inputs
+  const dosisSpan = document.getElementById('dosisSpan');
+  dosisSpan.textContent = contadorDosis;
+
+  // Habilita el botón de agregar
+  document.getElementById('btnAgregarFilaTetanos').disabled = false;
+}
 
   $(document).ready(function () {
     // DECLARACION DE LOS INPUTS PARA LLENAR
@@ -609,6 +646,7 @@
             } else {
               Swal.close();
               // LLENAR INPUT CON DATA
+
               let empresa = data.empresa;
               inputRucVacuna.value = empresa.Ruc
               inputNombreEmpresaVacuna.value = empresa.Nombreempresa
@@ -629,12 +667,28 @@
                 timer: 1000,
               });
 
-              $('#btnGrabar').on('click', function () {
-                   // Verifica si hay datos en la tabla
 
-                  // Enviar el valor a la vista usando Ajax
-                  enviarDatos(empresa);
-                
+              $('#btnGrabar').on('click', function () {
+                  if (datosTetanos.length > 0) {
+            // Actualiza la variable 'empresa' con los datos del paciente
+            empresa = {
+                'Nombreempresa': inputNombreEmpresaVacuna.value,
+                'Ruc': inputRucVacuna.value,
+                'HistoriaClinica': inputNumHistoriaClinicaVacuna.value,
+                'PrimerApellido': inputPrimerApellidoVacuna.value,
+                'SegundoApellido': inputSegundoApellidoVacuna.value,
+                'PrimerNombre': inputPrimerNombreVacuna.value,
+                'SegundoNombre': inputSegundoNombreVacuna.value,
+                'Sexo': inputSexoVacuna.value,
+                'Ocupacion': inputCargoOcupacionVacuna.value
+                // Agrega más campos según sea necesario
+            };
+
+            // Enviar el valor a la vista usando Ajax
+            enviarDatos(empresa);
+            empresa = {}; // Puedes reiniciar la variable 'empresa' si es necesario
+        }
+
                 });
             }
           },
@@ -655,7 +709,7 @@
   var contadorDosis = 1;
   const inputObservaciones = document.getElementById('observacionesInput');
   // Restablecer los valores de la tabla
-  
+
   function agregarFila() {
     // Obtén los valores de los campos de entrada
     const fecha = document.getElementById('fechaInput').value;
