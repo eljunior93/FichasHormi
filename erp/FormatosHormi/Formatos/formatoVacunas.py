@@ -1,5 +1,7 @@
 from fpdf import FPDF
 import json
+import os
+import subprocess
 from referencias import *
 
 # Lee datos desde el archivo JSON
@@ -1781,4 +1783,28 @@ pdf.multi_cell(w = 0, h = 6, txt = 'REGISTRO DE INMUNIZACIONES PARA SALUD EN EL 
         fill = 1)
 tfont(pdf,'')
 
-pdf.output('FormatoVacunas.pdf')
+# Obtén la ruta del directorio "Documentos"
+documentos_path = os.path.join(os.path.expanduser("~"), "Documentos")
+
+# Crea la carpeta "FichasVacunas" dentro de "Documentos" si no existe
+fichas_vacunas_path = os.path.join(documentos_path, "FichasVacunas")
+os.makedirs(fichas_vacunas_path, exist_ok=True)
+
+# Obtén el valor de 'historia_clinica' del archivo JSON
+historia_clinica = data.get('historia_clinica', 'SinHistoriaClinica')
+
+# Define la ruta completa donde deseas guardar el PDF con 'historia_clinica' en el nombre
+pdf_filename = f'FormatoVacunas_{historia_clinica}.pdf'
+pdf_path = os.path.join(fichas_vacunas_path, pdf_filename)
+
+# Guarda el archivo PDF en la ruta especificada
+pdf.output(pdf_path)
+
+# Abre el archivo PDF con el visor de PDF predeterminado del sistema
+try:
+    subprocess.run(['xdg-open', pdf_path])  # Para sistemas basados en Linux con xdg-open
+except OSError:  # Maneja excepciones si xdg-open no está disponible o si no es Linux
+    try:
+        subprocess.run(['open', pdf_path])  # Para sistemas basados en MacOS
+    except OSError:  # Maneja excepciones si open no está disponible o si no es MacOS
+        subprocess.run(['start', '', pdf_path], shell=True)  # Para sistemas basados en Windows
