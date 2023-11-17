@@ -634,13 +634,12 @@
     var hayDatosEnTabla = datosTetanos.length > 0;
     var vacuna_tetano = hayDatosEnTabla ? 'Recibida' : '';
     // Guarda los datos de las filas
+    var datosFilas = hayDatosEnTabla ? JSON.stringify(datosTetanos) : '';  //Utiliza una cadena vacía si no hay registros
     if (hayDatosEnTabla) {
-      datosFilas = JSON.stringify(datosTetanos);
-      console.log('datosFilas2', datosFilas)
-      // Reinicia el array de datosTetanos para evitar duplicados
+      // Reinicia el array de datosTetanos solo si hay datos en la tabla
       datosTetanos = [];
     }
-
+    
     $.ajax({
       type: 'GET',
       url: '{% url "tu_vista_de_impresion" %}',

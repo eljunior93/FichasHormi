@@ -91,42 +91,57 @@ def fichasii4(request):
                     [codprovcli],
                 )
                 resultados = cursor.fetchall()
+                vistaficha = {"dosis": []}
 
-                vistaficha = {}
                 for row in resultados:
-                    vistaficha = {
-                        "CodProvCli": row[0],
-                        "Cedula": row[2],
-                        "Sexo": row[3],
-                        "EstadoCivil": row[4],
-                        "PrimerApellido": row[5],
-                        "SegundoApellido": row[6],
-                        "PrimerNombre": row[7],
-                        "SegundoNombre": row[8],
-                        "DireccionActual": row[9],
-                        "Telefono1": row[10],
-                        "Telefono2": row[11],
-                        "Email": row[12],
-                        "Sector": row[13],
-                        "FechaNacimiento": row[14],
-                        "Edad": row[15],
-                        "Grupo1": row[16],
-                        "Grupo2": row[17],
-                        "Grupo3": row[18],
-                        "Instruccion": row[19],
-                        "Profesion": row[20],
-                        "Ocupacion": row[21],
-                        "Provincia": row[22],
-                        "Canton": row[23],
-                        "Religion": row[24],
-                        "Nacionalidad": row[25],
-                        "Discapacidad": row[26],
-                        "Tabaco": row[27],
-                        "Alcohol": row[28],
-                        "Droga": row[29],
+                    dosis_actual = {
                         "NumeroArchivo": row[30],
-
+                        "Id_dosistetano": row[31],
+                        "NumeroArchivofk": row[32],
+                        "DosisTetano": row[33],
+                        "FechaTetano": row[34],
+                        "Lotetetano": row[35],
+                        "Esquematetano": row[36],
+                        "ResponsableVacunaTetano": row[37],
+                        "EstablecimientoTetano": row[38],
+                        "Observaciones": row[39],
                     }
+                    vistaficha["dosis"].append(dosis_actual)
+
+
+                vistaficha.update({
+                "CodProvCli": resultados[0][0],
+                "Cedula": resultados[0][2],
+                "Sexo": resultados[0][3],
+                "EstadoCivil": resultados[0][4],
+                "PrimerApellido": resultados[0][5],
+                "SegundoApellido": resultados[0][6],
+                "PrimerNombre": resultados[0][7],
+                "SegundoNombre": resultados[0][8],
+                "DireccionActual": resultados[0][9],
+                "Telefono1": resultados[0][10],
+                "Telefono2": resultados[0][11],
+                "Email": resultados[0][12],
+                "Sector": resultados[0][13],
+                "FechaNacimiento": resultados[0][14],
+                "Edad": resultados[0][15],
+                "Grupo1": resultados[0][16],
+                "Grupo2": resultados[0][17],
+                "Grupo3": resultados[0][18],
+                "Instruccion": resultados[0][19],
+                "Profesion": resultados[0][20],
+                "Ocupacion": resultados[0][21],
+                "Provincia": resultados[0][22],
+                "Canton": resultados[0][23],
+                "Religion": resultados[0][24],
+                "Nacionalidad": resultados[0][25],
+                "Discapacidad": resultados[0][26],
+                "Tabaco": resultados[0][27],
+                "Alcohol": resultados[0][28],
+                "Droga": resultados[0][29],
+                "NumeroArchivo": resultados[0][30],
+
+            })
 
                 cursor.execute(
                     "SELECT TOP 1 Nombreempresa, ruc FROM gnopcion"
@@ -146,7 +161,7 @@ def fichasii4(request):
                     "NumeroArchivo": vistaficha["NumeroArchivo"],
                 }
 
-                return JsonResponse({"vistaficha": vistaficha, "empresa": empresa_data})
+                return JsonResponse({"dosistetano": vistaficha, "empresa": empresa_data})
 
             except Exception as e:
                 return JsonResponse(
@@ -182,7 +197,7 @@ def tu_vista_de_impresion(request):
         sarampion = ''
         datos_filas_json = request.GET.get('datos_filas')
         datos_filas = json.loads(datos_filas_json) if datos_filas_json else []
-
+        
         for fila in datos_filas:
             # Accede a las propiedades de cada fila
             dosis = fila['dosis']
@@ -232,6 +247,10 @@ def tu_vista_de_impresion(request):
             numero_archivo_result = cursor.fetchone()
             numero_archivo = str(numero_archivo_result[0]) if numero_archivo_result else None
 
+
+        # Inicializar una lista para almacenar todas las dosis
+        dosis_list = []
+
             # Realizar la inserción en la tabla DosisVacunaTetano
         with connection.cursor() as cursor:
             sql_query_dosis = """
@@ -247,15 +266,36 @@ def tu_vista_de_impresion(request):
                     )
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
                 """
+            for fila in datos_filas:
+                # Accede a las propiedades de cada fila
+                dosis = fila['dosis']
+                fecha_str = fila['fecha']  # La fecha como cadena en formato 'YYYY-MM-DD'
+                fecha = datetime.strptime(fecha_str, '%Y-%m-%d').date()
+                lote = fila['lote']
+                esquema = fila['esquema']
+                responsable = fila['responsable']
+                establecimiento = fila['establecimiento']
+                observaciones = fila['observaciones']
+                # Define los valores para los parámetros en la tabla DosisVacunaTetano
+                params_dosis = (
+                    numero_archivo,
+                    dosis, fecha, lote, esquema, responsable, establecimiento, observaciones
+                )
 
-            # Define los valores para los parámetros en la tabla DosisVacunaTetano
-            params_dosis = (
-                numero_archivo,
-                dosis, fecha, lote, esquema, responsable, establecimiento, observaciones
-            )
+                # Ejecutar la consulta para la tabla DosisVacunaTetano
+                cursor.execute(sql_query_dosis, params_dosis)
 
-            # Ejecutar la consulta para la tabla DosisVacunaTetano
-            cursor.execute(sql_query_dosis, params_dosis)
+
+                # Agregar cada dosis al listado
+                dosis_list.append({
+                    'dosis': dosis,
+                    'fecha': fecha_str,
+                    'lote': lote,
+                    'esquema': esquema,
+                    'responsable': responsable,
+                    'establecimiento': establecimiento,
+                    'observaciones': observaciones
+                })
 
         # Devolver todas las variables en la respuesta JSON
         response_data = {
@@ -270,13 +310,7 @@ def tu_vista_de_impresion(request):
             'sexo': sexo,
             'ocupacion': ocupacion,
             'vacuna_tetano': vacuna_tetano,
-            'dosis_tetano': dosis,
-            'fecha_tetano': fecha_str,
-            'lote_tetano': lote,
-            'esquema_tetano': esquema,
-            'responsable_tetano': responsable,
-            'establecimiento_tetano': establecimiento,
-            'observaciones_tetano': observaciones
+            'dosis_listtetano': dosis_list
 
         }
 
