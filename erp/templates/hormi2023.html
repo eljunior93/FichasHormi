@@ -106,7 +106,7 @@
                     <a class="nav-link active paso-tab" data-toggle="pill" href="#paso1">Personal</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link paso-tab" data-toggle="pill" href="#paso2" disabled>Paso 2</a>
+                    <a class="nav-link paso-tab" data-toggle="pill" href="#paso2" disabled>Dosis</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link paso-tab" data-toggle="pill" href="#paso3" disabled>Paso 3</a>
@@ -121,100 +121,109 @@
                   <!-- Paso 1 DATOS PERSONALES CARGADOS DESDE EL API -->
                   <div class="tab-pane fade show active" id="paso1">
                     <br>
-                      <form id="datosEmpresaForm" method="get" action="{% url 'tu_vista_de_impresion' %}">
-                        {% csrf_token %}
-                    <div class="card card-primary">
-                      <div class="card-header">
-                        <h4 class="card-title">Datos del establecimiento - Empresa y Usuario</h4>
+                    <form id="datosEmpresaForm" method="get" action="{% url 'tu_vista_de_impresion' %}">
+                      {% csrf_token %}
+                      <div class="card card-primary">
+                        <div class="card-header">
+                          <h4 class="card-title">Datos del establecimiento - Empresa y Usuario</h4>
+                        </div>
+                        <div class="card-body">
+                          <div class="row g-1">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="inputNombreEmpresaVacuna">Intitución del Sistema o Nombre de la
+                                  Empresa</label>
+                                <input type="text" class="form-control" id="inputNombreEmpresaVacuna" name="empresa"
+                                  disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row g-1">
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label for="inputRucVacuna">RUC</label>
+                                <input type="text" class="form-control" id="inputRucVacuna" name="ruc" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label for="inputCiuuVacuna">CIUU</label>
+                                <input type="text" class="form-control" id="inputCiuuVacuna" name="ciuu" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputEstablecimientoVacuna">Establecimiento de Salud</label>
+                                <input type="text" class="form-control" id="inputEstablecimientoVacuna"
+                                  name="establecimientosalud" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row g-1">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputNumHistoriaClinicaVacuna">Número de Historia Clínica</label>
+                                <input type="number" class="form-control" id="inputNumHistoriaClinicaVacuna"
+                                  name="historiaclinica" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputNumArchivoVacuna">Número de Archivo</label>
+                                <input type="number" class="form-control" id="inputNumArchivoVacuna" name="numarchivo"
+                                  disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row g-1">
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label for="inputPrimerApellidoVacuna">Primer Apellido</label>
+                                <input type="text" class="form-control" id="inputPrimerApellidoVacuna"
+                                  name="pmerapellido" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label for="inputSegundoApellidoVacuna">Segundo Apellido</label>
+                                <input type="text" class="form-control" id="inputSegundoApellidoVacuna"
+                                  name="segapellido" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label for="inputPrimerNombreVacuna">Primer Nombre</label>
+                                <input type="text" class="form-control" id="inputPrimerNombreVacuna" name="pmernombre"
+                                  disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label for="inputSegundoNombreVacuna">Segundo Nombre</label>
+                                <input type="text" class="form-control" id="inputSegundoNombreVacuna" name="segnombre"
+                                  disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row g-1">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputSexoVacuna">Sexo</label>
+                                <input type="text" class="form-control" id="inputSexoVacuna" name="sexo" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputCargoOcupacionVacuna">Cargo/Ocupación</label>
+                                <input type="text" class="form-control" id="inputCargoOcupacionVacuna" name="ocupacion"
+                                  disabled>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="card-body">
-                        <div class="row g-1">
-                          <div class="col-md-12">
-                            <div class="form-group">
-                              <label for="inputNombreEmpresaVacuna">Intitución del Sistema o Nombre de la
-                                Empresa</label>
-                              <input type="text" class="form-control" id="inputNombreEmpresaVacuna" name="empresa" disabled>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row g-1">
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label for="inputRucVacuna">RUC</label>
-                              <input type="text" class="form-control" id="inputRucVacuna" name="ruc" disabled>
-                            </div>
-                          </div>
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label for="inputCiuuVacuna">CIUU</label>
-                              <input type="text" class="form-control" id="inputCiuuVacuna" name="ciuu" disabled>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="inputEstablecimientoVacuna">Establecimiento de Salud</label>
-                              <input type="text" class="form-control" id="inputEstablecimientoVacuna" name="establecimientosalud" disabled>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row g-1">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="inputNumHistoriaClinicaVacuna">Número de Historia Clínica</label>
-                              <input type="number" class="form-control" id="inputNumHistoriaClinicaVacuna" name="historiaclinica" disabled>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="inputNumArchivoVacuna">Número de Archivo</label>
-                              <input type="number" class="form-control" id="inputNumArchivoVacuna"  name="numarchivo" disabled>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row g-1">
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label for="inputPrimerApellidoVacuna">Primer Apellido</label>
-                              <input type="text" class="form-control" id="inputPrimerApellidoVacuna"  name="pmerapellido" disabled>
-                            </div>
-                          </div>
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label for="inputSegundoApellidoVacuna">Segundo Apellido</label>
-                              <input type="text" class="form-control" id="inputSegundoApellidoVacuna" name="segapellido" disabled>
-                            </div>
-                          </div>
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label for="inputPrimerNombreVacuna">Primer Nombre</label>
-                              <input type="text" class="form-control" id="inputPrimerNombreVacuna" name="pmernombre" disabled>
-                            </div>
-                          </div>
-                          <div class="col-md-3">
-                            <div class="form-group">
-                              <label for="inputSegundoNombreVacuna">Segundo Nombre</label>
-                              <input type="text" class="form-control" id="inputSegundoNombreVacuna" name="segnombre" disabled>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row g-1">
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="inputSexoVacuna">Sexo</label>
-                              <input type="text" class="form-control" id="inputSexoVacuna"  name="sexo" disabled>
-                            </div>
-                          </div>
-                          <div class="col-md-6">
-                            <div class="form-group">
-                              <label for="inputCargoOcupacionVacuna">Cargo/Ocupación</label>
-                              <input type="text" class="form-control" id="inputCargoOcupacionVacuna" name="ocupacion" disabled>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <button type="button" class="btn btn-primary next-button" data-toggle="pill"
-                      href="#paso2">Siguiente</button>
+                      <button type="button" class="btn btn-primary next-button" data-toggle="pill"
+                        href="#paso2">Siguiente</button>
                     </form>
                   </div>
                   <!-- Paso 2 -->
@@ -288,8 +297,42 @@
                             <div id="coleccionHepatitisA" class="collapse" aria-labelledby="hepatitisA"
                               data-parent="#accordionListInmunizaciones">
                               <div class="card-body">
-                                Some placeholder content for the second accordion panel. This panel is hidden by
-                                default.
+                                <!-- CONTENIDO DE FORMULARIO PARA HEPATITIS A -->
+                                <div class="table-responsive">
+                                  <table class="table table-primary" id="tableHepatitisA">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Acciones</th>
+                                        <th scope="col">Dosis</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Lote</th>
+                                        <th scope="col">Esquema Completo</th>
+                                        <th scope="col">Responsable de la Vacuna</th>
+                                        <th scope="col">Establecimiento de Salud donde se colocó la Vacuna</th>
+                                        <th scope="col">Observaciones</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr id="newRowHepatitis">
+                                        <td><button class="btn btn-success" id="btnAgregarFilaHepatitis"
+                                            onclick="agregarFilaHepatitis()">Agregar</button>
+                                        </td>
+                                        <td><span id="dosisSpanHepatitis">1</span></td>
+                                        <td><input type="date" id="fechaInputHepatitis" placeholder="Fecha"></td>
+                                        <td><input type="number" id="loteInputHepatitis" placeholder="Lote"></td>
+                                        <td><input type="checkbox" id="esquemaInputHepatitis" placeholder="Esquema">
+                                        </td>
+                                        <td><input type="text" id="responsableInputHepatitis"
+                                            placeholder="Responsable"></td>
+                                        <td><input type="text" id="establecimientoInputHepatitis"
+                                            placeholder="Establecimiento">
+                                        </td>
+                                        <td><input type="text" id="observacionesInputHepatitis"
+                                            placeholder="Observaciones"></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -306,8 +349,42 @@
                             <div id="coleccionHepatitisB" class="collapse" aria-labelledby="hepatitisB"
                               data-parent="#accordionListInmunizaciones">
                               <div class="card-body">
-                                And lastly, the placeholder content for the third and final accordion panel. This panel
-                                is hidden by default.
+                                <!-- TABLA HEPATITIS B -->
+                                <div class="table-responsive">
+                                  <table class="table table-primary" id="tableHepatitisB">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Acciones</th>
+                                        <th scope="col">Dosis</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Lote</th>
+                                        <th scope="col">Esquema Completo</th>
+                                        <th scope="col">Responsable de la Vacuna</th>
+                                        <th scope="col">Establecimiento de Salud donde se colocó la Vacuna</th>
+                                        <th scope="col">Observaciones</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr id="newRowHepatitisB">
+                                        <td><button class="btn btn-success" id="btnAgregarFilaHepatitisB"
+                                            onclick="agregarFilaHepatitisB()">Agregar</button>
+                                        </td>
+                                        <td><span id="dosisSpanHepatitisB">1</span></td>
+                                        <td><input type="date" id="fechaInputHepatitisB" placeholder="Fecha"></td>
+                                        <td><input type="number" id="loteInputHepatitisB" placeholder="Lote"></td>
+                                        <td><input type="checkbox" id="esquemaInputHepatitisB" placeholder="Esquema">
+                                        </td>
+                                        <td><input type="text" id="responsableInputHepatitisB"
+                                            placeholder="Responsable"></td>
+                                        <td><input type="text" id="establecimientoInputHepatitisB"
+                                            placeholder="Establecimiento">
+                                        </td>
+                                        <td><input type="text" id="observacionesInputHepatitisB"
+                                            placeholder="Observaciones"></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -324,8 +401,42 @@
                             <div id="coleccionInfluenza" class="collapse" aria-labelledby="Influenza"
                               data-parent="#accordionListInmunizaciones">
                               <div class="card-body">
-                                And lastly, the placeholder content for the third and final accordion panel. This panel
-                                is hidden by default.
+                                <!-- TABLA DE LA INFLUENZA -->
+                                <div class="table-responsive">
+                                  <table class="table table-primary" id="tableInfluenza">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Acciones</th>
+                                        <th scope="col">Dosis</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Lote</th>
+                                        <th scope="col">Esquema Completo</th>
+                                        <th scope="col">Responsable de la Vacuna</th>
+                                        <th scope="col">Establecimiento de Salud donde se colocó la Vacuna</th>
+                                        <th scope="col">Observaciones</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr id="newRowInfluenza">
+                                        <td><button class="btn btn-success" id="btnAgregarFilaInfluenza"
+                                            onclick="agregarFilaInfluenza()">Agregar</button>
+                                        </td>
+                                        <td><span id="dosisSpanInfluenza">1</span></td>
+                                        <td><input type="date" id="fechaInputInfluenza" placeholder="Fecha"></td>
+                                        <td><input type="number" id="loteInputInfluenza" placeholder="Lote"></td>
+                                        <td><input type="checkbox" id="esquemaInputInfluenza" placeholder="Esquema">
+                                        </td>
+                                        <td><input type="text" id="responsableInputInfluenza"
+                                            placeholder="Responsable"></td>
+                                        <td><input type="text" id="establecimientoInputInfluenza"
+                                            placeholder="Establecimiento">
+                                        </td>
+                                        <td><input type="text" id="observacionesInputInfluenza"
+                                            placeholder="Observaciones"></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -342,8 +453,10 @@
                             <div id="coleccionFiebreAmarilla" class="collapse" aria-labelledby="FiebreAmarilla"
                               data-parent="#accordionListInmunizaciones">
                               <div class="card-body">
-                                And lastly, the placeholder content for the third and final accordion panel. This panel
-                                is hidden by default.
+                                <!-- TABLA DE LA DOSIS PARA FIEBRE AMARILLA -->
+                                <div class="table-responsive">
+                                  
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -409,7 +522,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button id="btnGrabar" type="button" class="btn btn-secondary" >Grabar</button>
+            <button id="btnGrabar" type="button" class="btn btn-secondary">Grabar</button>
           </div>
         </div>
       </div>
@@ -500,10 +613,6 @@
     $('#seleccion').addClass('show active');
   }
 
-
-
-
-
   // Nueva función para capturar el valor y mostrarlo en la consola
   function capturarCodProvCli(codprovcli, paciente) {
     // Muestra los detalles en el modal
@@ -515,23 +624,22 @@
 
 
 <script>
-
-    var empresa = {};
-    // Nueva función para enviar datos usando Ajax
-    function enviarDatos(empresa) {
-        // Limpiar la variable datosFilas
-        var datosFilas = '';
-        console.log('datosFilas',datosFilas)
-          // Actualiza el valor de vacuna_tetano
-        var hayDatosEnTabla = datosTetanos.length > 0;
-        var vacuna_tetano = hayDatosEnTabla ? 'Recibida' : '';
-        // Guarda los datos de las filas
-        if (hayDatosEnTabla) {
-            datosFilas = JSON.stringify(datosTetanos);
-            console.log('datosFilas2',datosFilas)
-            // Reinicia el array de datosTetanos para evitar duplicados
-            datosTetanos = [];
-        }
+  var empresa = {};
+  // Nueva función para enviar datos usando Ajax
+  function enviarDatos(empresa) {
+    // Limpiar la variable datosFilas
+    var datosFilas = '';
+    console.log('datosFilas', datosFilas)
+    // Actualiza el valor de vacuna_tetano
+    var hayDatosEnTabla = datosTetanos.length > 0;
+    var vacuna_tetano = hayDatosEnTabla ? 'Recibida' : '';
+    // Guarda los datos de las filas
+    if (hayDatosEnTabla) {
+      datosFilas = JSON.stringify(datosTetanos);
+      console.log('datosFilas2', datosFilas)
+      // Reinicia el array de datosTetanos para evitar duplicados
+      datosTetanos = [];
+    }
 
     $.ajax({
       type: 'GET',
@@ -539,23 +647,23 @@
       data: {
         'nombre_empresa_vacuna': empresa.Nombreempresa,
         'ruc': empresa.Ruc,
-        'historiaclinica' :empresa.HistoriaClinica,
+        'historiaclinica': empresa.HistoriaClinica,
         'primerapellido': empresa.PrimerApellido,
         'segundoapellido': empresa.SegundoApellido,
         'primernombre': empresa.PrimerNombre,
         'segundonombre': empresa.SegundoNombre,
         'sexo': empresa.Sexo,
-        'ocupacion' : empresa.Ocupacion,
-          'vacuna_tetano': vacuna_tetano,
-          'datos_filas': datosFilas
+        'ocupacion': empresa.Ocupacion,
+        'vacuna_tetano': vacuna_tetano,
+        'datos_filas': datosFilas
 
         // Puedes agregar más datos si es necesario
       },
       success: function (response) {
         console.log(response);
         toastr.success('Insert a Vacunacion exitoso.', 'Éxito', {
-            progressBar: true,
-            closeDuration: 25,
+          progressBar: true,
+          closeDuration: 25,
           "positionClass": "toast-top-left",
         }); // Maneja la respuesta del servidor
       },
@@ -565,32 +673,32 @@
     });
 
 
-      // Limpia los campos dentro de la tabla después de grabar
-      limpiarCamposTabla();
+    // Limpia los campos dentro de la tabla después de grabar
+    limpiarCamposTabla();
 
 
   }
 
-// Función para limpiar campos dentro de la tabla
-function limpiarCamposTabla() {
-  const tbody = document.getElementById('tableTetanos').getElementsByTagName('tbody')[0];
-  const filas = tbody.getElementsByTagName('tr');
+  // Función para limpiar campos dentro de la tabla
+  function limpiarCamposTabla() {
+    const tbody = document.getElementById('tableTetanos').getElementsByTagName('tbody')[0];
+    const filas = tbody.getElementsByTagName('tr');
 
-  // Itera sobre todas las filas excepto la primera
-  for (let i = filas.length - 1; i > 0; i--) {
-    tbody.removeChild(filas[i]);
+    // Itera sobre todas las filas excepto la primera
+    for (let i = filas.length - 1; i > 0; i--) {
+      tbody.removeChild(filas[i]);
+    }
+
+    // Reinicia el contador de dosis
+    contadorDosis = 1;
+
+    // Actualiza el contenido de la celda de dosis en la primera fila con los inputs
+    const dosisSpan = document.getElementById('dosisSpan');
+    dosisSpan.textContent = contadorDosis;
+
+    // Habilita el botón de agregar
+    document.getElementById('btnAgregarFilaTetanos').disabled = false;
   }
-
-  // Reinicia el contador de dosis
-  contadorDosis = 1;
-
-  // Actualiza el contenido de la celda de dosis en la primera fila con los inputs
-  const dosisSpan = document.getElementById('dosisSpan');
-  dosisSpan.textContent = contadorDosis;
-
-  // Habilita el botón de agregar
-  document.getElementById('btnAgregarFilaTetanos').disabled = false;
-}
 
   $(document).ready(function () {
     // DECLARACION DE LOS INPUTS PARA LLENAR
@@ -669,27 +777,27 @@ function limpiarCamposTabla() {
 
 
               $('#btnGrabar').on('click', function () {
-                  if (datosTetanos.length > 0) {
-            // Actualiza la variable 'empresa' con los datos del paciente
-            empresa = {
-                'Nombreempresa': inputNombreEmpresaVacuna.value,
-                'Ruc': inputRucVacuna.value,
-                'HistoriaClinica': inputNumHistoriaClinicaVacuna.value,
-                'PrimerApellido': inputPrimerApellidoVacuna.value,
-                'SegundoApellido': inputSegundoApellidoVacuna.value,
-                'PrimerNombre': inputPrimerNombreVacuna.value,
-                'SegundoNombre': inputSegundoNombreVacuna.value,
-                'Sexo': inputSexoVacuna.value,
-                'Ocupacion': inputCargoOcupacionVacuna.value
-                // Agrega más campos según sea necesario
-            };
+                if (datosTetanos.length > 0) {
+                  // Actualiza la variable 'empresa' con los datos del paciente
+                  empresa = {
+                    'Nombreempresa': inputNombreEmpresaVacuna.value,
+                    'Ruc': inputRucVacuna.value,
+                    'HistoriaClinica': inputNumHistoriaClinicaVacuna.value,
+                    'PrimerApellido': inputPrimerApellidoVacuna.value,
+                    'SegundoApellido': inputSegundoApellidoVacuna.value,
+                    'PrimerNombre': inputPrimerNombreVacuna.value,
+                    'SegundoNombre': inputSegundoNombreVacuna.value,
+                    'Sexo': inputSexoVacuna.value,
+                    'Ocupacion': inputCargoOcupacionVacuna.value
+                    // Agrega más campos según sea necesario
+                  };
 
-            // Enviar el valor a la vista usando Ajax
-            enviarDatos(empresa);
-            empresa = {}; // Puedes reiniciar la variable 'empresa' si es necesario
-        }
+                  // Enviar el valor a la vista usando Ajax
+                  enviarDatos(empresa);
+                  empresa = {}; // Puedes reiniciar la variable 'empresa' si es necesario
+                }
 
-                });
+              });
             }
           },
           error: function () {
@@ -700,14 +808,26 @@ function limpiarCamposTabla() {
     });
   });
 
-
 </script>
 
 <!-- CODIGO PARA LA FUNCIONALIDAD DE LA TABLA -->
 <script>
   let datosTetanos = [];
+  let datosHepatitis = [];
+  let datosHepatitisB = [];
+  let datosInfluenza = [];
+  let datosFiebreAmarilla = [];
+
   var contadorDosis = 1;
+  var contadorDosisHepatitis = 1;
+  var contadorDosisHepatitisB = 1;
+  var contadorDosisInfluenza = 1;
+  var contadorDosisFiebreAmarilla = 1;
+
   const inputObservaciones = document.getElementById('observacionesInput');
+  const inputObservacionesHepatitis = document.getElementById('observacionesInputHepatitis')
+  const inputObservacionesHepatitisB = document.getElementById('observacionesInputHepatitisB')
+  const inputObservacionesInfluenza = document.getElementById('observacionesInputInfluenza')
   // Restablecer los valores de la tabla
 
   function agregarFila() {
@@ -721,7 +841,8 @@ function limpiarCamposTabla() {
     const dosisSpan = document.getElementById('dosisSpan');
     const btnAgregarFilaTetanos = document.getElementById('btnAgregarFilaTetanos');
     var hayDatosEnTabla = datosTetanos.length > 0;
-     var vacuna_tetano = hayDatosEnTabla ? 'Recibida' : '';
+    var vacuna_tetano = hayDatosEnTabla ? 'Recibida' : '';
+
     if (fecha, lote, responsable, establecimiento != '') {
       var nuevaFila = {
         dosis: contadorDosis,
@@ -778,6 +899,7 @@ function limpiarCamposTabla() {
         document.getElementById('observacionesInput').disabled = true;
 
       }
+      
     } else {
       Swal.fire({
         position: "top-end",
@@ -787,8 +909,246 @@ function limpiarCamposTabla() {
         timer: 2000
       });
     }
+  }
 
+  function agregarFilaHepatitis() {
+    // Obtén los valores de los campos de entrada
+    const fechaHepatitis = document.getElementById('fechaInputHepatitis').value;
+    const loteHepatitis = document.getElementById('loteInputHepatitis').value;
+    const esquemaHepatitis = document.getElementById('esquemaInputHepatitis').checked;
+    const responsableHepatitis = document.getElementById('responsableInputHepatitis').value;
+    const establecimientoHepatitis = document.getElementById('establecimientoInputHepatitis').value;
+    const observacionesHepatitis = document.getElementById('observacionesInputHepatitis').value;
+    const dosisSpanHepatitis = document.getElementById('dosisSpanHepatitis');
+    const btnAgregarFilaHepatitis = document.getElementById('btnAgregarFilaHepatitis');
+    var hayDatosEnTabla = datosHepatitis.length > 0;
+    var vacuna_hepatitis = hayDatosEnTabla ? 'Recibida' : '';
 
+    if (fechaHepatitis, loteHepatitis, responsableHepatitis, establecimientoHepatitis != '') {
+      var nuevaFilaHepatitis = {
+        dosis: contadorDosisHepatitis,
+        fecha: fechaHepatitis,
+        lote: loteHepatitis,
+        esquema: esquemaHepatitis,
+        responsable: responsableHepatitis,
+        establecimiento: establecimientoHepatitis,
+        observaciones: observacionesHepatitis
+      };
+      datosHepatitis.push(nuevaFilaHepatitis);
+      // Obtén el cuerpo de la tabla
+      const tbodyHepatitis = document.getElementById('tableHepatitisA').getElementsByTagName('tbody')[0];
+      // Crea una nueva fila
+      const newRowHepatitis = tbodyHepatitis.insertRow();
+      // Agrega celdas a la nueva fila
+      const cell1Hepatitis = newRowHepatitis.insertCell(0);
+      const cell2Hepatitis = newRowHepatitis.insertCell(1);
+      const cell3Hepatitis = newRowHepatitis.insertCell(2);
+      const cell4Hepatitis = newRowHepatitis.insertCell(3);
+      const cell5Hepatitis = newRowHepatitis.insertCell(4);
+      const cell6Hepatitis = newRowHepatitis.insertCell(5);
+      const cell7Hepatitis = newRowHepatitis.insertCell(6);
+      const cell8Hepatitis = newRowHepatitis.insertCell(7);
+      // Llena las celdas con los valores de los campos de entrada
+      cell1Hepatitis.innerHTML = '+';
+      cell2Hepatitis.innerHTML = contadorDosisHepatitis;
+      cell3Hepatitis.innerHTML = fechaHepatitis;
+      cell4Hepatitis.innerHTML = loteHepatitis;
+      cell5Hepatitis.innerHTML = esquemaHepatitis ? 'Sí' : 'No';
+      cell6Hepatitis.innerHTML = responsableHepatitis;
+      cell7Hepatitis.innerHTML = establecimientoHepatitis;
+      cell8Hepatitis.innerHTML = observacionesHepatitis;
+      // Incrementar el contador de dosis
+      contadorDosisHepatitis++;
+
+      // Limpia o convierte los campos de entrada en etiquetas, según tu necesidad
+      dosisSpanHepatitis.value = contadorDosisHepatitis;
+      dosisSpanHepatitis.textContent = contadorDosisHepatitis;
+      document.getElementById('fechaInputHepatitis').value = '';
+      document.getElementById('loteInputHepatitis').value = '';
+      document.getElementById('esquemaInputHepatitis').checked = false;
+      document.getElementById('responsableInputHepatitis').value = '';
+      document.getElementById('establecimientoInputHepatitis').value = '';
+      document.getElementById('observacionesInputHepatitis').value = '';
+      // Verificar si el contador de dosis llega a 5 y deshabilitar el botón
+      if (contadorDosisHepatitis > 3) {
+        btnAgregarFilaHepatitis.disabled = true;
+        document.getElementById('fechaInputHepatitis').disabled = true;
+        document.getElementById('loteInputHepatitis').disabled = true;
+        document.getElementById('responsableInputHepatitis').disabled = true;
+        document.getElementById('esquemaInputHepatitis').disabled = true;
+        document.getElementById('establecimientoInputHepatitis').disabled = true;
+        document.getElementById('observacionesInputHepatitis').disabled = true;
+      }
+      
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Por favor llene los datos necesarios!",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+  }
+
+  function agregarFilaHepatitisB() {
+    // Obtén los valores de los campos de entrada
+    const fechaHepatitisB = document.getElementById('fechaInputHepatitisB').value;
+    const loteHepatitisB = document.getElementById('loteInputHepatitisB').value;
+    const esquemaHepatitisB = document.getElementById('esquemaInputHepatitisB').checked;
+    const responsableHepatitisB = document.getElementById('responsableInputHepatitisB').value;
+    const establecimientoHepatitisB = document.getElementById('establecimientoInputHepatitisB').value;
+    const observacionesHepatitisB = document.getElementById('observacionesInputHepatitisB').value;
+    const dosisSpanHepatitisB = document.getElementById('dosisSpanHepatitisB');
+    const btnAgregarFilaHepatitisB = document.getElementById('btnAgregarFilaHepatitisB');
+    var hayDatosEnTabla = datosHepatitisB.length > 0;
+    var vacuna_hepatitisB = hayDatosEnTabla ? 'Recibida' : '';
+
+    if (fechaHepatitisB, loteHepatitisB, responsableHepatitisB, establecimientoHepatitisB != '') {
+      var nuevaFilaHepatitisB = {
+        dosis: contadorDosisHepatitisB,
+        fecha: fechaHepatitisB,
+        lote: loteHepatitisB,
+        esquema: esquemaHepatitisB,
+        responsable: responsableHepatitisB,
+        establecimiento: establecimientoHepatitisB,
+        observaciones: observacionesHepatitisB
+      };
+      datosHepatitisB.push(nuevaFilaHepatitisB);
+      // Obtén el cuerpo de la tabla
+      const tbodyHepatitisB = document.getElementById('tableHepatitisB').getElementsByTagName('tbody')[0];
+      // Crea una nueva fila
+      const newRowHepatitisB = tbodyHepatitisB.insertRow();
+      // Agrega celdas a la nueva fila
+      const cell1HepatitisB = newRowHepatitisB.insertCell(0);
+      const cell2HepatitisB = newRowHepatitisB.insertCell(1);
+      const cell3HepatitisB = newRowHepatitisB.insertCell(2);
+      const cell4HepatitisB = newRowHepatitisB.insertCell(3);
+      const cell5HepatitisB = newRowHepatitisB.insertCell(4);
+      const cell6HepatitisB = newRowHepatitisB.insertCell(5);
+      const cell7HepatitisB = newRowHepatitisB.insertCell(6);
+      const cell8HepatitisB = newRowHepatitisB.insertCell(7);
+      // Llena las celdas con los valores de los campos de entrada
+      cell1HepatitisB.innerHTML = '+';
+      cell2HepatitisB.innerHTML = contadorDosisHepatitisB;
+      cell3HepatitisB.innerHTML = fechaHepatitisB;
+      cell4HepatitisB.innerHTML = loteHepatitisB;
+      cell5HepatitisB.innerHTML = esquemaHepatitisB ? 'Sí' : 'No';
+      cell6HepatitisB.innerHTML = responsableHepatitisB;
+      cell7HepatitisB.innerHTML = establecimientoHepatitisB;
+      cell8HepatitisB.innerHTML = observacionesHepatitisB;
+      // Incrementar el contador de dosis
+      contadorDosisHepatitisB++;
+
+      // Limpia o convierte los campos de entrada en etiquetas, según tu necesidad
+      dosisSpanHepatitisB.value = contadorDosisHepatitisB;
+      dosisSpanHepatitisB.textContent = contadorDosisHepatitisB;
+      document.getElementById('fechaInputHepatitisB').value = '';
+      document.getElementById('loteInputHepatitisB').value = '';
+      document.getElementById('esquemaInputHepatitisB').checked = false;
+      document.getElementById('responsableInputHepatitisB').value = '';
+      document.getElementById('establecimientoInputHepatitisB').value = '';
+      document.getElementById('observacionesInputHepatitisB').value = '';
+      // Verificar si el contador de dosis llega a 5 y deshabilitar el botón
+      if (contadorDosisHepatitisB > 3) {
+        btnAgregarFilaHepatitisB.disabled = true;
+        document.getElementById('fechaInputHepatitisB').disabled = true;
+        document.getElementById('loteInputHepatitisB').disabled = true;
+        document.getElementById('responsableInputHepatitisB').disabled = true;
+        document.getElementById('esquemaInputHepatitisB').disabled = true;
+        document.getElementById('establecimientoInputHepatitisB').disabled = true;
+        document.getElementById('observacionesInputHepatitisB').disabled = true;
+      }
+      
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Por favor llene los datos necesarios!",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+  }
+
+  function agregarFilaInfluenza(){
+    // Obtén los valores de los campos de entrada
+    const fechaInfluenza = document.getElementById('fechaInputInfluenza').value;
+    const loteInfluenza = document.getElementById('loteInputInfluenza').value;
+    const esquemaInfluenza = document.getElementById('esquemaInputInfluenza').checked;
+    const responsableInfluenza = document.getElementById('responsableInputInfluenza').value;
+    const establecimientoInfluenza = document.getElementById('establecimientoInputInfluenza').value;
+    const observacionesInfluenza = document.getElementById('observacionesInputInfluenza').value;
+    const dosisSpanInfluenza = document.getElementById('dosisSpanInfluenza');
+    const btnAgregarFilaInfluenza = document.getElementById('btnAgregarFilaInfluenza');
+    var hayDatosEnTabla = datosInfluenza.length > 0;
+    var vacuna_Influenza = hayDatosEnTabla ? 'Recibida' : '';
+
+    if (fechaInfluenza, loteInfluenza, responsableInfluenza, establecimientoInfluenza != '') {
+      var nuevaFilaInfluenza = {
+        dosis: contadorDosisInfluenza,
+        fecha: fechaInfluenza,
+        lote: loteInfluenza,
+        esquema: esquemaInfluenza,
+        responsable: responsableInfluenza,
+        establecimiento: establecimientoInfluenza,
+        observaciones: observacionesInfluenza
+      };
+      datosInfluenza.push(nuevaFilaInfluenza);
+      // Obtén el cuerpo de la tabla
+      const tbodyInfluenza = document.getElementById('tableInfluenza').getElementsByTagName('tbody')[0];
+      // Crea una nueva fila
+      const newRowInfluenza = tbodyInfluenza.insertRow();
+      // Agrega celdas a la nueva fila
+      const cell1Influenza = newRowInfluenza.insertCell(0);
+      const cell2Influenza = newRowInfluenza.insertCell(1);
+      const cell3Influenza = newRowInfluenza.insertCell(2);
+      const cell4Influenza = newRowInfluenza.insertCell(3);
+      const cell5Influenza = newRowInfluenza.insertCell(4);
+      const cell6Influenza = newRowInfluenza.insertCell(5);
+      const cell7Influenza = newRowInfluenza.insertCell(6);
+      const cell8Influenza = newRowInfluenza.insertCell(7);
+      // Llena las celdas con los valores de los campos de entrada
+      cell1Influenza.innerHTML = '+';
+      cell2Influenza.innerHTML = contadorDosisInfluenza;
+      cell3Influenza.innerHTML = fechaInfluenza;
+      cell4Influenza.innerHTML = loteInfluenza;
+      cell5Influenza.innerHTML = esquemaInfluenza ? 'Sí' : 'No';
+      cell6Influenza.innerHTML = responsableInfluenza;
+      cell7Influenza.innerHTML = establecimientoInfluenza;
+      cell8Influenza.innerHTML = observacionesInfluenza;
+      // Incrementar el contador de dosis
+      contadorDosisInfluenza++;
+
+      // Limpia o convierte los campos de entrada en etiquetas, según tu necesidad
+      dosisSpanInfluenza.value = contadorDosisInfluenza;
+      dosisSpanInfluenza.textContent = contadorDosisInfluenza;
+      document.getElementById('fechaInputInfluenza').value = '';
+      document.getElementById('loteInputInfluenza').value = '';
+      document.getElementById('esquemaInputInfluenza').checked = false;
+      document.getElementById('responsableInputInfluenza').value = '';
+      document.getElementById('establecimientoInputInfluenza').value = '';
+      document.getElementById('observacionesInputInfluenza').value = '';
+      // Verificar si el contador de dosis llega a 5 y deshabilitar el botón
+      if (contadorDosisInfluenza > 3) {
+        btnAgregarFilaInfluenza.disabled = true;
+        document.getElementById('fechaInputInfluenza').disabled = true;
+        document.getElementById('loteInputInfluenza').disabled = true;
+        document.getElementById('responsableInputInfluenza').disabled = true;
+        document.getElementById('esquemaInputInfluenza').disabled = true;
+        document.getElementById('establecimientoInputInfluenza').disabled = true;
+        document.getElementById('observacionesInputInfluenza').disabled = true;
+      }
+      console.log('tetanos:', datosTetanos, 'Hepatitis A', datosHepatitis, 'Hepatitis B', datosHepatitisB, 'Influenza', datosInfluenza)
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Por favor llene los datos necesarios!",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
   }
 
   // FUNCIONAMIENTO DEL ENTER
@@ -798,12 +1158,26 @@ function limpiarCamposTabla() {
       agregarFila();
     }
   })
-
+  inputObservacionesHepatitis.addEventListener('keydown', function(){
+    if(event.key == 'Enter'){
+      event.preventDefault();
+      agregarFilaHepatitis();
+    }
+  })
+  inputObservacionesHepatitisB.addEventListener('keydown', function(){
+    if(event.key == 'Enter'){
+      event.preventDefault();
+      agregarFilaHepatitisB();
+    }
+  })
+  inputObservacionesInfluenza.addEventListener('keydown', function(){
+    if(event.key == 'Enter'){
+      event.preventDefault();
+      agregarFilaInfluenza();
+    }
+  })
 
 </script>
-
-
-
 
 
 
