@@ -550,7 +550,11 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(45,53)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=18, h=5, txt=data["dosis_listtetano"][1]["fecha"], border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    fecha_value = data["dosis_listtetano"][1]["fecha"]
+except IndexError:
+    fecha_value = ''
+pdf.cell(w=18, h=5, txt=fecha_value, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(45,58)  # Establecer la posición X para la segunda casilla
@@ -958,10 +962,18 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(75,53)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-if data["dosis_listtetano"][1]["esquema"] is True or data["dosis_listtetano"][1]["esquema"] == 'True':
+# Manejar la posibilidad de IndexError o KeyError
+try:
+    esquema_value = data["dosis_listtetano"][1]["esquema"]
+except (IndexError, KeyError):
+    esquema_value = ''
+
+# Verificar si esquema_value es True o 'True' y establecer la casilla en consecuencia
+if esquema_value in (True, 'True'):
     pdf.cell(w=24, h=5, txt='x', border=1, ln=2, align='C', fill=1)  # Segunda casilla con 'x'
 else:
-    pdf.cell(w=24, h=5, txt='', border=1, ln=2, align='C', fill=1) 
+    pdf.cell(w=24, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla en blanco
+
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(75,58)  # Establecer la posición X para la segunda casilla
@@ -1164,7 +1176,11 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(99,53)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=28, h=5, txt=data["dosis_listtetano"][1]["responsable"], border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    responsable = data["dosis_listtetano"][1]["responsable"]
+except IndexError:
+    responsable = ''
+pdf.cell(w=28, h=5, txt=responsable, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(99,58)  # Establecer la posición X para la segunda casilla
@@ -1367,7 +1383,11 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(127,53)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=28, h=5, txt=data["dosis_listtetano"][1]["establecimiento"], border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    establecimiento = data["dosis_listtetano"][1]["establecimiento"]
+except IndexError:
+    establecimiento = ''
+pdf.cell(w=28, h=5, txt=establecimiento, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(127,58)  # Establecer la posición X para la segunda casilla
@@ -1570,7 +1590,11 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(155,53)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=45, h=5, txt=data["dosis_listtetano"][1]["observaciones"], border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    observaciones = data["dosis_listtetano"][1]["observaciones"]
+except IndexError:
+    observaciones = ''
+pdf.cell(w=45, h=5, txt=observaciones, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(155,58)  # Establecer la posición X para la segunda casilla

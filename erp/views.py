@@ -190,13 +190,17 @@ def tu_vista_de_impresion(request):
         sexo = request.GET.get('sexo')
         ocupacion = request.GET.get('ocupacion')
         vacuna_tetano = 'Recibida'
-        vacuna_hepatitis_a = ''
+        vacuna_hepatitis_a = 'Recibida'
         vacuna_hepatitis_b = ''
         influenza_estacionaria = ''
         fiebre_amarilla = ''
         sarampion = ''
         datos_filas_json = request.GET.get('datos_filas')
         datos_filas = json.loads(datos_filas_json) if datos_filas_json else []
+        datos_filas_json_hepatitis = request.GET.get('datos_filas_hepatitis')
+        datos_filas_hepatitis = json.loads(datos_filas_json_hepatitis) if datos_filas_json_hepatitis else []
+        print("datos_filas",datos_filas)
+        print("datos_filas_hepatitis",datos_filas_hepatitis)
         
         for fila in datos_filas:
             # Accede a las propiedades de cada fila
@@ -209,7 +213,18 @@ def tu_vista_de_impresion(request):
             establecimiento = fila['establecimiento']
             observaciones = fila['observaciones']
 
+        for fila_hepatitis in datos_filas_hepatitis:
+            dosis_hepatitis = fila_hepatitis['dosis']
+            fecha_str_hepatitis = fila_hepatitis['fecha']
+            fecha_hepatitis = datetime.strptime(fecha_str_hepatitis, '%Y-%m-%d').date()
+            lote_hepatitis = fila_hepatitis['lote']
+            esquema_hepatitis = fila_hepatitis['esquema']
+            responsable_hepatitis = fila_hepatitis['responsable']
+            establecimiento_hepatitis = fila_hepatitis['establecimiento']
+            observaciones_hepatitis = fila_hepatitis['observaciones']
+
         connection = connections["empresa"]
+        
         # Realizar la inserción en la base de datos
         with connection.cursor() as cursor:
             sql_query = """
@@ -247,11 +262,10 @@ def tu_vista_de_impresion(request):
             numero_archivo_result = cursor.fetchone()
             numero_archivo = str(numero_archivo_result[0]) if numero_archivo_result else None
 
-
-        # Inicializar una lista para almacenar todas las dosis
+        # Inicializar una lista para almacenar todas las dosis de tetanos
         dosis_list = []
-
-            # Realizar la inserción en la tabla DosisVacunaTetano
+        
+        # Realizar la inserción en la tabla DosisVacunaTetano
         with connection.cursor() as cursor:
             sql_query_dosis = """
                     INSERT INTO DosisVacunaTetano (
@@ -284,8 +298,6 @@ def tu_vista_de_impresion(request):
 
                 # Ejecutar la consulta para la tabla DosisVacunaTetano
                 cursor.execute(sql_query_dosis, params_dosis)
-
-
                 # Agregar cada dosis al listado
                 dosis_list.append({
                     'dosis': dosis,
@@ -295,6 +307,53 @@ def tu_vista_de_impresion(request):
                     'responsable': responsable,
                     'establecimiento': establecimiento,
                     'observaciones': observaciones
+                })
+
+        # Inicializar una lista para almacenar todas las dosis de hepatitis
+        dosis_list_hepa = []
+        with connection.cursor() as cursor_hepatitis:
+
+            sql_query_dosis_hepatitis = """
+                INSERT INTO DosisVacunaHepatitisA (
+                    NumeroArchivo,
+                    DosisNumero,
+                    Fecha,
+                    Lote,
+                    EsquemaCompleto,
+                    ResponsableVacuna,
+                    Establecimiento,
+                    Observaciones
+                )
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+            """
+
+            for fila in datos_filas_hepatitis:
+                # Accede a las propiedades de cada fila
+                dosis_hepatitis = fila['dosis']
+                fecha_str_hepatitis = fila['fecha']  # La fecha como cadena en formato 'YYYY-MM-DD'
+                fecha_hepatitis = datetime.strptime(fecha_str_hepatitis, '%Y-%m-%d').date()
+                lote_hepatitis = fila['lote']
+                esquema_hepatitis = fila['esquema']
+                responsable_hepatitis = fila['responsable']
+                establecimiento_hepatitis = fila['establecimiento']
+                observaciones_hepatitis = fila['observaciones']
+
+                params_dosis_hepatitis = (
+                numero_archivo,
+                dosis_hepatitis, fecha_hepatitis, lote_hepatitis, esquema_hepatitis, responsable_hepatitis,
+                establecimiento_hepatitis, observaciones_hepatitis
+                )
+
+                cursor_hepatitis.execute(sql_query_dosis_hepatitis, params_dosis_hepatitis)
+
+                dosis_list_hepa.append({
+                    'dosis': dosis_hepatitis,
+                    'fecha': fecha_str_hepatitis,
+                    'lote': lote_hepatitis,
+                    'esquema': esquema_hepatitis,
+                    'responsable': responsable_hepatitis,
+                    'establecimiento': establecimiento_hepatitis,
+                    'observaciones': observaciones_hepatitis
                 })
 
         # Devolver todas las variables en la respuesta JSON
@@ -310,8 +369,9 @@ def tu_vista_de_impresion(request):
             'sexo': sexo,
             'ocupacion': ocupacion,
             'vacuna_tetano': vacuna_tetano,
-            'dosis_listtetano': dosis_list
-
+            'vacuna_hepatits': vacuna_hepatitis_a,
+            'dosis_listtetano': dosis_list,
+            'dosis_listhepa': dosis_list_hepa,
         }
 
         # Guardar los datos en un archivo JSON
@@ -328,10 +388,8 @@ def tu_vista_de_impresion(request):
             print(f"Error al ejecutar el script: {e}")
 
         return JsonResponse(response_data)
-        response['Content-Disposition'] = 'inline; filename="nombre_del_archivo.pdf"'
     else:
         return JsonResponse({'error': 'Método no permitido'})
-
 
 
 

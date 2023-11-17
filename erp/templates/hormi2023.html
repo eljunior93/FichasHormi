@@ -765,6 +765,22 @@
       datosTetanos = [];
     }
 
+<<<<<<< HEAD
+=======
+    var datosFilasHepatitis = '';
+    console.log('datosFilasHepatitis', datosFilasHepatitis);
+    // Actualiza el valor de vacuna_hepatitis
+    var hayDatosEnTablaHepatitis = datosHepatitis.length > 0;
+    var vacuna_hepatitis = hayDatosEnTablaHepatitis ? 'Recibida' : '';
+    // Guarda los datos de las filas de Hepatitis
+    var datosFilasHepatitis = hayDatosEnTablaHepatitis ? JSON.stringify(datosHepatitis) : '';  // Utiliza una cadena vacía si no hay registros
+    console.log(datosFilasHepatitis)
+    if (hayDatosEnTablaHepatitis) {
+        // Reinicia el array de datosHepatitis solo si hay datos en la tabla
+        datosHepatitis = [];
+    }
+    
+>>>>>>> 43becf990aa4f8fccfe37a87f8d904505f7ec9de
     $.ajax({
       type: 'GET',
       url: '{% url "tu_vista_de_impresion" %}',
@@ -779,7 +795,9 @@
         'sexo': empresa.Sexo,
         'ocupacion': empresa.Ocupacion,
         'vacuna_tetano': vacuna_tetano,
-        'datos_filas': datosFilas
+        'vacuna_hepatitis' : vacuna_hepatitis,
+        'datos_filas': datosFilas,
+        'datos_filas_hepatitis': datosFilasHepatitis
 
         // Puedes agregar más datos si es necesario
       },
@@ -799,6 +817,7 @@
 
     // Limpia los campos dentro de la tabla después de grabar
     limpiarCamposTabla();
+    limpiarCamposTablaHepatitis();
 
 
   }
@@ -822,6 +841,23 @@
 
     // Habilita el botón de agregar
     document.getElementById('btnAgregarFilaTetanos').disabled = false;
+  }
+
+    // Función para limpiar campos dentro de la tabla Hepatitis
+  function limpiarCamposTablaHepatitis() {
+      const tbodyHepatitis = document.getElementById('tableHepatitisA').getElementsByTagName('tbody')[0];
+      const filasHepatitis = tbodyHepatitis.getElementsByTagName('tr');
+      // Itera sobre todas las filas excepto la primera
+      for (let i = filasHepatitis.length - 1; i > 0; i--) {
+          tbodyHepatitis.removeChild(filasHepatitis[i]);
+      }
+      // Reinicia el contador de dosis de Hepatitis
+      contadorDosisHepatitis = 1;
+      // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
+      const dosisSpanHepatitis = document.getElementById('dosisSpanHepatitis');
+      dosisSpanHepatitis.textContent = contadorDosisHepatitis;
+      // Habilita el botón de agregar para Hepatitis
+      document.getElementById('btnAgregarFilaHepatitis').disabled = false;
   }
 
   $(document).ready(function () {
@@ -916,6 +952,24 @@
                     // Agrega más campos según sea necesario
                   };
 
+                  // Enviar el valor a la vista usando Ajax
+                  enviarDatos(empresa);
+                  empresa = {}; // Puedes reiniciar la variable 'empresa' si es necesario
+                }
+                if (datosHepatitis.length > 0) {
+                  // Actualiza la variable 'empresa' con los datos del paciente
+                  empresa = {
+                    'Nombreempresa': inputNombreEmpresaVacuna.value,
+                    'Ruc': inputRucVacuna.value,
+                    'HistoriaClinica': inputNumHistoriaClinicaVacuna.value,
+                    'PrimerApellido': inputPrimerApellidoVacuna.value,
+                    'SegundoApellido': inputSegundoApellidoVacuna.value,
+                    'PrimerNombre': inputPrimerNombreVacuna.value,
+                    'SegundoNombre': inputSegundoNombreVacuna.value,
+                    'Sexo': inputSexoVacuna.value,
+                    'Ocupacion': inputCargoOcupacionVacuna.value
+                    // Agrega más campos según sea necesario
+                  };
                   // Enviar el valor a la vista usando Ajax
                   enviarDatos(empresa);
                   empresa = {}; // Puedes reiniciar la variable 'empresa' si es necesario
