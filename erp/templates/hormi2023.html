@@ -455,7 +455,39 @@
                               <div class="card-body">
                                 <!-- TABLA DE LA DOSIS PARA FIEBRE AMARILLA -->
                                 <div class="table-responsive">
-                                  
+                                  <table class="table table-primary" id="tableFiebreAmarilla">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Acciones</th>
+                                        <th scope="col">Dosis</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Lote</th>
+                                        <th scope="col">Esquema Completo</th>
+                                        <th scope="col">Responsable de la Vacuna</th>
+                                        <th scope="col">Establecimiento de Salud donde se colocó la Vacuna</th>
+                                        <th scope="col">Observaciones</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr id="newRowFiebreAmarilla">
+                                        <td><button class="btn btn-success" id="btnAgregarFilaFiebreAmarilla"
+                                            onclick="agregarFilaFiebreAmarilla()">Agregar</button>
+                                        </td>
+                                        <td><span id="dosisSpanFiebreAmarilla">1</span></td>
+                                        <td><input type="date" id="fechaInputFiebreAmarilla" placeholder="Fecha"></td>
+                                        <td><input type="number" id="loteInputFiebreAmarilla" placeholder="Lote"></td>
+                                        <td><input type="checkbox" id="esquemaInputFiebreAmarilla" placeholder="Esquema">
+                                        </td>
+                                        <td><input type="text" id="responsableInputFiebreAmarilla"
+                                            placeholder="Responsable"></td>
+                                        <td><input type="text" id="establecimientoInputFiebreAmarilla"
+                                            placeholder="Establecimiento">
+                                        </td>
+                                        <td><input type="text" id="observacionesInputFiebreAmarilla"
+                                            placeholder="Observaciones"></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
                                 </div>
                               </div>
                             </div>
@@ -473,8 +505,42 @@
                             <div id="coleccionSarampionRubeola" class="collapse" aria-labelledby="SarampionRubeola"
                               data-parent="#accordionListInmunizaciones">
                               <div class="card-body">
-                                And lastly, the placeholder content for the third and final accordion panel. This panel
-                                is hidden by default.
+                                <!-- TABLA PARA LA DOSIS DE SARAMPION -->
+                                <div class="table-responsive">
+                                  <table class="table table-primary" id="tableSarampion">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">Acciones</th>
+                                        <th scope="col">Dosis</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Lote</th>
+                                        <th scope="col">Esquema Completo</th>
+                                        <th scope="col">Responsable de la Vacuna</th>
+                                        <th scope="col">Establecimiento de Salud donde se colocó la Vacuna</th>
+                                        <th scope="col">Observaciones</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr id="newRowSarampion">
+                                        <td><button class="btn btn-success" id="btnAgregarFilaSarampion"
+                                            onclick="agregarFilaSarampion()">Agregar</button>
+                                        </td>
+                                        <td><span id="dosisSpanSarampion">1</span></td>
+                                        <td><input type="date" id="fechaInputSarampion" placeholder="Fecha"></td>
+                                        <td><input type="number" id="loteInputSarampion" placeholder="Lote"></td>
+                                        <td><input type="checkbox" id="esquemaInputSarampion" placeholder="Esquema">
+                                        </td>
+                                        <td><input type="text" id="responsableInputSarampion"
+                                            placeholder="Responsable"></td>
+                                        <td><input type="text" id="establecimientoInputSarampion"
+                                            placeholder="Establecimiento">
+                                        </td>
+                                        <td><input type="text" id="observacionesInputSarampion"
+                                            placeholder="Observaciones"></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -816,17 +882,20 @@
   let datosHepatitisB = [];
   let datosInfluenza = [];
   let datosFiebreAmarilla = [];
+  let datosSarampion = [];
 
   var contadorDosis = 1;
   var contadorDosisHepatitis = 1;
   var contadorDosisHepatitisB = 1;
   var contadorDosisInfluenza = 1;
   var contadorDosisFiebreAmarilla = 1;
+  var contadorDosisSarampion = 1;
 
   const inputObservaciones = document.getElementById('observacionesInput');
   const inputObservacionesHepatitis = document.getElementById('observacionesInputHepatitis')
   const inputObservacionesHepatitisB = document.getElementById('observacionesInputHepatitisB')
   const inputObservacionesInfluenza = document.getElementById('observacionesInputInfluenza')
+  const inputObservacionesFiebreAmarilla = document.getElementById('observacionesInputFiebreAmarilla');
   // Restablecer los valores de la tabla
 
   function agregarFila() {
@@ -1129,7 +1198,7 @@
       document.getElementById('establecimientoInputInfluenza').value = '';
       document.getElementById('observacionesInputInfluenza').value = '';
       // Verificar si el contador de dosis llega a 5 y deshabilitar el botón
-      if (contadorDosisInfluenza > 3) {
+      if (contadorDosisInfluenza > 1) {
         btnAgregarFilaInfluenza.disabled = true;
         document.getElementById('fechaInputInfluenza').disabled = true;
         document.getElementById('loteInputInfluenza').disabled = true;
@@ -1138,7 +1207,172 @@
         document.getElementById('establecimientoInputInfluenza').disabled = true;
         document.getElementById('observacionesInputInfluenza').disabled = true;
       }
-      console.log('tetanos:', datosTetanos, 'Hepatitis A', datosHepatitis, 'Hepatitis B', datosHepatitisB, 'Influenza', datosInfluenza)
+      
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Por favor llene los datos necesarios!",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+  }
+
+  function agregarFilaFiebreAmarilla(){
+    // Obtén los valores de los campos de entrada
+    const fechaFiebreAmarilla = document.getElementById('fechaInputFiebreAmarilla').value;
+    const loteFiebreAmarilla = document.getElementById('loteInputFiebreAmarilla').value;
+    const esquemaFiebreAmarilla = document.getElementById('esquemaInputFiebreAmarilla').checked;
+    const responsableFiebreAmarilla = document.getElementById('responsableInputFiebreAmarilla').value;
+    const establecimientoFiebreAmarilla = document.getElementById('establecimientoInputFiebreAmarilla').value;
+    const observacionesFiebreAmarilla = document.getElementById('observacionesInputFiebreAmarilla').value;
+    const dosisSpanFiebreAmarilla = document.getElementById('dosisSpanFiebreAmarilla');
+    const btnAgregarFilaFiebreAmarilla = document.getElementById('btnAgregarFilaFiebreAmarilla');
+    var hayDatosEnTabla = datosFiebreAmarilla.length > 0;
+    var vacuna_FiebreAmarilla = hayDatosEnTabla ? 'Recibida' : '';
+
+    if (fechaFiebreAmarilla, loteFiebreAmarilla, responsableFiebreAmarilla, establecimientoFiebreAmarilla != '') {
+      var nuevaFilaFiebreAmarilla = {
+        dosis: contadorDosisFiebreAmarilla,
+        fecha: fechaFiebreAmarilla,
+        lote: loteFiebreAmarilla,
+        esquema: esquemaFiebreAmarilla,
+        responsable: responsableFiebreAmarilla,
+        establecimiento: establecimientoFiebreAmarilla,
+        observaciones: observacionesFiebreAmarilla
+      };
+      datosFiebreAmarilla.push(nuevaFilaFiebreAmarilla);
+      // Obtén el cuerpo de la tabla
+      const tbodyFiebreAmarilla = document.getElementById('tableFiebreAmarilla').getElementsByTagName('tbody')[0];
+      // Crea una nueva fila
+      const newRowFiebreAmarilla = tbodyFiebreAmarilla.insertRow();
+      // Agrega celdas a la nueva fila
+      const cell1FiebreAmarilla = newRowFiebreAmarilla.insertCell(0);
+      const cell2FiebreAmarilla = newRowFiebreAmarilla.insertCell(1);
+      const cell3FiebreAmarilla = newRowFiebreAmarilla.insertCell(2);
+      const cell4FiebreAmarilla = newRowFiebreAmarilla.insertCell(3);
+      const cell5FiebreAmarilla = newRowFiebreAmarilla.insertCell(4);
+      const cell6FiebreAmarilla = newRowFiebreAmarilla.insertCell(5);
+      const cell7FiebreAmarilla = newRowFiebreAmarilla.insertCell(6);
+      const cell8FiebreAmarilla = newRowFiebreAmarilla.insertCell(7);
+      // Llena las celdas con los valores de los campos de entrada
+      cell1FiebreAmarilla.innerHTML = '+';
+      cell2FiebreAmarilla.innerHTML = contadorDosisFiebreAmarilla;
+      cell3FiebreAmarilla.innerHTML = fechaFiebreAmarilla;
+      cell4FiebreAmarilla.innerHTML = loteFiebreAmarilla;
+      cell5FiebreAmarilla.innerHTML = esquemaFiebreAmarilla ? 'Sí' : 'No';
+      cell6FiebreAmarilla.innerHTML = responsableFiebreAmarilla;
+      cell7FiebreAmarilla.innerHTML = establecimientoFiebreAmarilla;
+      cell8FiebreAmarilla.innerHTML = observacionesFiebreAmarilla;
+      // Incrementar el contador de dosis
+      contadorDosisFiebreAmarilla++;
+
+      // Limpia o convierte los campos de entrada en etiquetas, según tu necesidad
+      dosisSpanFiebreAmarilla.value = contadorDosisFiebreAmarilla;
+      dosisSpanFiebreAmarilla.textContent = contadorDosisFiebreAmarilla;
+      document.getElementById('fechaInputFiebreAmarilla').value = '';
+      document.getElementById('loteInputFiebreAmarilla').value = '';
+      document.getElementById('esquemaInputFiebreAmarilla').checked = false;
+      document.getElementById('responsableInputFiebreAmarilla').value = '';
+      document.getElementById('establecimientoInputFiebreAmarilla').value = '';
+      document.getElementById('observacionesInputFiebreAmarilla').value = '';
+      // Verificar si el contador de dosis llega a 5 y deshabilitar el botón
+      if (contadorDosisFiebreAmarilla > 1) {
+        btnAgregarFilaFiebreAmarilla.disabled = true;
+        document.getElementById('fechaInputFiebreAmarilla').disabled = true;
+        document.getElementById('loteInputFiebreAmarilla').disabled = true;
+        document.getElementById('responsableInputFiebreAmarilla').disabled = true;
+        document.getElementById('esquemaInputFiebreAmarilla').disabled = true;
+        document.getElementById('establecimientoInputFiebreAmarilla').disabled = true;
+        document.getElementById('observacionesInputFiebreAmarilla').disabled = true;
+      }
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Por favor llene los datos necesarios!",
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+  }
+
+  function agregarFilaSarampion(){
+    // Obtén los valores de los campos de entrada
+    const fechaSarampion = document.getElementById('fechaInputSarampion').value;
+    const loteSarampion = document.getElementById('loteInputSarampion').value;
+    const esquemaSarampion = document.getElementById('esquemaInputSarampion').checked;
+    const responsableSarampion = document.getElementById('responsableInputSarampion').value;
+    const establecimientoSarampion = document.getElementById('establecimientoInputSarampion').value;
+    const observacionesSarampion = document.getElementById('observacionesInputSarampion').value;
+    const dosisSpanSarampion = document.getElementById('dosisSpanSarampion');
+    const btnAgregarFilaSarampion = document.getElementById('btnAgregarFilaSarampion');
+    var hayDatosEnTabla = datosSarampion.length > 0;
+    var vacuna_Sarampion = hayDatosEnTabla ? 'Recibida' : '';
+
+    if (fechaSarampion, loteSarampion, responsableSarampion, establecimientoSarampion != '') {
+      var nuevaFilaSarampion = {
+        dosis: contadorDosisSarampion,
+        fecha: fechaSarampion,
+        lote: loteSarampion,
+        esquema: esquemaSarampion,
+        responsable: responsableSarampion,
+        establecimiento: establecimientoSarampion,
+        observaciones: observacionesSarampion
+      };
+      datosSarampion.push(nuevaFilaSarampion);
+      // Obtén el cuerpo de la tabla
+      const tbodySarampion = document.getElementById('tableSarampion').getElementsByTagName('tbody')[0];
+      // Crea una nueva fila
+      const newRowSarampion = tbodySarampion.insertRow();
+      // Agrega celdas a la nueva fila
+      const cell1Sarampion = newRowSarampion.insertCell(0);
+      const cell2Sarampion = newRowSarampion.insertCell(1);
+      const cell3Sarampion = newRowSarampion.insertCell(2);
+      const cell4Sarampion = newRowSarampion.insertCell(3);
+      const cell5Sarampion = newRowSarampion.insertCell(4);
+      const cell6Sarampion = newRowSarampion.insertCell(5);
+      const cell7Sarampion = newRowSarampion.insertCell(6);
+      const cell8Sarampion = newRowSarampion.insertCell(7);
+      // Llena las celdas con los valores de los campos de entrada
+      cell1Sarampion.innerHTML = '+';
+      cell2Sarampion.innerHTML = contadorDosisSarampion;
+      cell3Sarampion.innerHTML = fechaSarampion;
+      cell4Sarampion.innerHTML = loteSarampion;
+      cell5Sarampion.innerHTML = esquemaSarampion ? 'Sí' : 'No';
+      cell6Sarampion.innerHTML = responsableSarampion;
+      cell7Sarampion.innerHTML = establecimientoSarampion;
+      cell8Sarampion.innerHTML = observacionesSarampion;
+      // Incrementar el contador de dosis
+      contadorDosisSarampion++;
+
+      // Limpia o convierte los campos de entrada en etiquetas, según tu necesidad
+      dosisSpanSarampion.value = contadorDosisSarampion;
+      dosisSpanSarampion.textContent = contadorDosisSarampion;
+      document.getElementById('fechaInputSarampion').value = '';
+      document.getElementById('loteInputSarampion').value = '';
+      document.getElementById('esquemaInputSarampion').checked = false;
+      document.getElementById('responsableInputSarampion').value = '';
+      document.getElementById('establecimientoInputSarampion').value = '';
+      document.getElementById('observacionesInputSarampion').value = '';
+      // Verificar si el contador de dosis llega a 5 y deshabilitar el botón
+      if (contadorDosisSarampion > 1) {
+        btnAgregarFilaSarampion.disabled = true;
+        document.getElementById('fechaInputSarampion').disabled = true;
+        document.getElementById('loteInputSarampion').disabled = true;
+        document.getElementById('responsableInputSarampion').disabled = true;
+        document.getElementById('esquemaInputSarampion').disabled = true;
+        document.getElementById('establecimientoInputSarampion').disabled = true;
+        document.getElementById('observacionesInputSarampion').disabled = true;
+      }
+      console.log('Tetanos', datosTetanos)
+      console.log('Hepatitis A', datosHepatitis)
+      console.log('Hepatitis B', datosHepatitisB)
+      console.log('Influenza', datosInfluenza)
+      console.log('Fiebre', datosFiebreAmarilla)
+      console.log('Sarampion', datosSarampion)
+
     } else {
       Swal.fire({
         position: "top-end",
@@ -1173,6 +1407,12 @@
     if(event.key == 'Enter'){
       event.preventDefault();
       agregarFilaInfluenza();
+    }
+  })
+  inputObservacionesFiebreAmarilla.addEventListener('keydown', function(){
+    if(event.key == 'Enter'){
+      event.preventDefault();
+      agregarFilaFiebreAmarilla();
     }
   })
 
