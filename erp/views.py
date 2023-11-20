@@ -140,7 +140,7 @@ def fichasii4(request):
                 "Alcohol": resultados[0][28],
                 "Droga": resultados[0][29],
                 "NumeroArchivo": resultados[0][30],
-
+                "PuestoTrabajo": resultados[0][31],
             })
 
                 cursor.execute(
@@ -159,6 +159,9 @@ def fichasii4(request):
                     "Sexo": vistaficha["Sexo"],
                     "Ocupacion": vistaficha["Ocupacion"],
                     "NumeroArchivo": vistaficha["NumeroArchivo"],
+                    "Edad": resultados[0][15],
+                    "PuestoTrabajo": resultados[0][31],
+    
                 }
 
                 return JsonResponse({"dosistetano": vistaficha, "empresa": empresa_data})

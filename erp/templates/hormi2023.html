@@ -96,10 +96,23 @@
             </button>
           </div>
           <div class="modal-body">
-            <!-- BARRA DE NAVEGACION DE PASOS Y FORMULARIO DE INFORMACION PRINCIPAL -->
             <div class="row g-1">
+              <div class="col-md-4">
+                <button type="button" id="btnVacunas"
+                  class="btn btn-outline-secondary btn-lg btn-block">Vacunas</button>
+              </div>
+              <div class="col-md-4">
+                <button type="button" id="btnReingreso"
+                  class="btn btn-outline-secondary btn-lg btn-block">Reingreso</button>
+              </div>
+              <div class="col-md-4">
+                <button type="button" id="btnOtro" class="btn btn-outline-secondary btn-lg btn-block">Otro</button>
+              </div>
+            </div>
+            <br>
+            <!-- BARRA DE NAVEGACION DE PASOS Y FORMULARIO DE INFORMACION PRINCIPAL -->
+            <div class="row g-1" id="divFormularioVacunas">
               <div class="col-md-12">
-
                 <!-- Barra de navegación -->
                 <ul class="nav nav-pills">
                   <li class="nav-item">
@@ -108,14 +121,7 @@
                   <li class="nav-item">
                     <a class="nav-link paso-tab" data-toggle="pill" href="#paso2" disabled>Dosis</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link paso-tab" data-toggle="pill" href="#paso3" disabled>Paso 3</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link paso-tab" data-toggle="pill" href="#paso4" disabled>Paso 4</a>
-                  </li>
                 </ul>
-
                 <!-- CONTENIDO DEL FORMULARIO DE INFORMACION PERSONAL -->
                 <div class="tab-content mt-2">
                   <!-- Paso 1 DATOS PERSONALES CARGADOS DESDE EL API -->
@@ -606,48 +612,184 @@
                         </div>
                       </div>
                     </div>
-                    <button type="button" class="btn btn-secondary prev-button" data-toggle="pill"
+                    <button type="button" class="btn btn-primary prev-button" data-toggle="pill"
                       href="#paso1">Anterior</button>
-                    <button type="button" class="btn btn-primary next-button" data-toggle="pill"
-                      href="#paso3">Siguiente</button>
-                  </div>
-                  <!-- Paso 3 -->
-                  <div class="tab-pane fade" id="paso3">
-                    <br>
-                    <h4>Paso 3</h4>
-                    <form>
-                      <div class="form-group">
-                        <label for="edad">Edad:</label>
-                        <input type="number" class="form-control" id="edad" placeholder="Ingrese su edad">
-                      </div>
-                      <button type="button" class="btn btn-secondary prev-button" data-toggle="pill"
-                        href="#paso2">Anterior</button>
-                      <button type="button" class="btn btn-primary next-button" data-toggle="pill"
-                        href="#paso4">Siguiente</button>
-                    </form>
-                  </div>
-                  <!-- Paso 4 -->
-                  <div class="tab-pane fade" id="paso4">
-                    <br>
-                    <h4>Paso 4</h4>
-                    <form>
-                      <div class="form-group">
-                        <label for="correo">Correo:</label>
-                        <input type="email" class="form-control" id="correo" placeholder="Ingrese su correo">
-                      </div>
-                      <button type="button" class="btn btn-secondary prev-button" data-toggle="pill"
-                        href="#paso3">Anterior</button>
-                      <button type="submit" class="btn btn-success">Enviar</button>
-                    </form>
+                    <button id="btnGrabarVacunas" type="button" class="btn btn-secondary">Grabar</button>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="row g-1" id="divFormularioReingreso" style="display: none;">
+              <div class="col-md-12">
+                <!-- BARRA DE NAVEGACION -->
+                <ul class="nav nav-pills">
+                  <li class="nav-item">
+                    <a class="nav-link active paso-tab" data-toggle="pill" href="#paso1Reingreso">Personal</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link paso-tab" data-toggle="pill" href="#paso2Reingreso" disabled>Motivo y Enfermedad
+                      Actual</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link paso-tab" data-toggle="pill" href="#paso3Reingreso" disabled>Vitales y
+                      Antropometría</a>
+                  </li>
+                </ul>
+                <!-- CONTENIDO DEL FORMULARIO DE INFORMACION PERSONAL -->
+                <div class="tab-content mt-2">
+                  <div class="tab-pane fade show active" id="paso1Reingreso">
+                    <br>
+                      <div class="card card-primary">
+                        <div class="card-header">
+                          <h4 class="card-title">Datos del establecimiento - Empresa y Usuario</h4>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="inputNombreEmpresaReingreso">Institución del Sistema o Nombre de la Empresa</label>
+                                <input type="text" class="form-control" id="inputNombreEmpresaReingreso" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputRucReingreso">RUC</label>
+                                <input type="text" class="form-control" id="inputRucReingreso" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputCiiuReingreso">CIIU</label>
+                                <input type="text" class="form-control" id="inputCiiuReingreso" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="inputEstablecimientoReingreso">Establecimiento de Salud</label>
+                                <input type="text" class="form-control" id="inputEstablecimientoReingreso" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputNumHistoriaClinicaReingreso">Número de Historia Clinica</label>
+                                <input type="number" class="form-control" id="inputNumHistoriaClinicaReingreso" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputNumArchivoReingreso">Número de Archivo</label>
+                                <input type="number" class="form-control" id="inputNumArchivoReingreso" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputPrimerApellidoReingreso">Primer Apellido</label>
+                                <input type="text" class="form-control" id="inputPrimerApellidoReingreso" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputSegundoApellidoReingreso">Segundo Apellido</label>
+                                <input type="text" class="form-control" id="inputSegundoApellidoReingreso" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputPrimerNombreReingreso">Primer Nombre</label>
+                                <input type="text" class="form-control" id="inputPrimerNombreReingreso" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputSegundoNombreReingreso">Segundo Nombre</label>
+                                <input type="text" class="form-control" id="inputSegundoNombreReingreso" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label for="inputSexoReingreso">Sexo</label>
+                                <input type="text" class="form-control" id="inputSexoReingreso" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label for="inputEdadReingreso">Edad</label>
+                                <input type="number" class="form-control" id="inputEdadReingreso" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputPuestoTrabajoReingreso">Puesto de Trabajo</label>
+                                <input type="text" class="form-control" id="inputPuestoTrabajoReingreso" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputFechaUltDiaLaboralReingreso">Fecha del último día Laboral</label>
+                                <input type="date" class="form-control" id="inputFechaUltDiaLaboralReingreso" >
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="inputFechaReingreso">Fecha de Reingreso</label>
+                                <input type="date" class="form-control" id="inputFechaReingreso" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label for="inputTotalDiasReingreso">Total Días</label>
+                                <input type="number" class="form-control" id="inputTotalDiasReingreso" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-9">
+                              <div class="form-group">
+                                <label for="inputCausaSalidaReingreso">Causa de Salida</label>
+                                <input type="text" class="form-control" id="inputCausaSalidaReingreso">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="button" class="btn btn-primary next-button" data-toggle="pill"
+                        href="#paso2Reingreso">Siguiente</button>
+                  </div>
+                  <div class="tab-pane fade" id="paso2Reingreso">
+                    <br>
+                    <div class="card card-primary">
+                      <div class="card-header">
+                        <h4 class="card-title">Motivo y Enfermedad Actual</h4>
+                      </div>
+                      <div class="card-body">
 
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-primary next-button prev-button" data-toggle="pill"
+                      href="#paso1Reingreso">Anterior</button>
+                    <button type="button" class="btn btn-primary next-button next-button" data-toggle="pill"
+                      href="#paso3Reingreso">Siguiente</button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button id="btnGrabar" type="button" class="btn btn-secondary">Grabar</button>
           </div>
         </div>
       </div>
@@ -747,7 +889,6 @@
 
 </script>
 
-
 <script>
   var empresa = {};
   // Nueva función para enviar datos usando Ajax
@@ -774,8 +915,8 @@
     var datosFilasHepatitis = hayDatosEnTablaHepatitis ? JSON.stringify(datosHepatitis) : '';  // Utiliza una cadena vacía si no hay registros
     console.log(datosFilasHepatitis)
     if (hayDatosEnTablaHepatitis) {
-        // Reinicia el array de datosHepatitis solo si hay datos en la tabla
-        datosHepatitis = [];
+      // Reinicia el array de datosHepatitis solo si hay datos en la tabla
+      datosHepatitis = [];
     }
 
     var datosFilasHepatitisb = '';
@@ -787,8 +928,8 @@
     var datosFilasHepatitisb = hayDatosEnTablaHepatitisb ? JSON.stringify(datosHepatitisB) : '';  // Utiliza una cadena vacía si no hay registros
     console.log(datosFilasHepatitisb)
     if (hayDatosEnTablaHepatitisb) {
-        // Reinicia el array de datosHepatitisb solo si hay datos en la tabla
-        datosHepatitisB = [];
+      // Reinicia el array de datosHepatitisb solo si hay datos en la tabla
+      datosHepatitisB = [];
     }
 
     $.ajax({
@@ -805,7 +946,7 @@
         'sexo': empresa.Sexo,
         'ocupacion': empresa.Ocupacion,
         'vacuna_tetano': vacuna_tetano,
-        'vacuna_hepatitis' : vacuna_hepatitis,
+        'vacuna_hepatitis': vacuna_hepatitis,
         'datos_filas': datosFilas,
         'datos_filas_hepatitis': datosFilasHepatitis,
         'datos_filas_hepatitisb': datosFilasHepatitisb
@@ -855,37 +996,37 @@
     document.getElementById('btnAgregarFilaTetanos').disabled = false;
   }
 
-    // Función para limpiar campos dentro de la tabla Hepatitis
+  // Función para limpiar campos dentro de la tabla Hepatitis
   function limpiarCamposTablaHepatitis() {
-      const tbodyHepatitis = document.getElementById('tableHepatitisA').getElementsByTagName('tbody')[0];
-      const filasHepatitis = tbodyHepatitis.getElementsByTagName('tr');
-      // Itera sobre todas las filas excepto la primera
-      for (let i = filasHepatitis.length - 1; i > 0; i--) {
-          tbodyHepatitis.removeChild(filasHepatitis[i]);
-      }
-      // Reinicia el contador de dosis de Hepatitis
-      contadorDosisHepatitis = 1;
-      // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
-      const dosisSpanHepatitis = document.getElementById('dosisSpanHepatitis');
-      dosisSpanHepatitis.textContent = contadorDosisHepatitis;
-      // Habilita el botón de agregar para Hepatitis
-      document.getElementById('btnAgregarFilaHepatitis').disabled = false;
+    const tbodyHepatitis = document.getElementById('tableHepatitisA').getElementsByTagName('tbody')[0];
+    const filasHepatitis = tbodyHepatitis.getElementsByTagName('tr');
+    // Itera sobre todas las filas excepto la primera
+    for (let i = filasHepatitis.length - 1; i > 0; i--) {
+      tbodyHepatitis.removeChild(filasHepatitis[i]);
+    }
+    // Reinicia el contador de dosis de Hepatitis
+    contadorDosisHepatitis = 1;
+    // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
+    const dosisSpanHepatitis = document.getElementById('dosisSpanHepatitis');
+    dosisSpanHepatitis.textContent = contadorDosisHepatitis;
+    // Habilita el botón de agregar para Hepatitis
+    document.getElementById('btnAgregarFilaHepatitis').disabled = false;
   }
 
   function limpiarCamposTablaHepatitisb() {
-      const tbodyHepatitisb = document.getElementById('tableHepatitisB').getElementsByTagName('tbody')[0];
-      const filasHepatitisb = tbodyHepatitisb.getElementsByTagName('tr');
-      // Itera sobre todas las filas excepto la primera
-      for (let i = filasHepatitisb.length - 1; i > 0; i--) {
-          tbodyHepatitisb.removeChild(filasHepatitisb[i]);
-      }
-      // Reinicia el contador de dosis de Hepatitisb
-      contadorDosisHepatitisB = 1;
-      // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
-      const dosisSpanHepatitis = document.getElementById('dosisSpanHepatitisB');
-      dosisSpanHepatitis.textContent = contadorDosisHepatitis;
-      // Habilita el botón de agregar para Hepatitisb
-      document.getElementById('btnAgregarFilaHepatitisB').disabled = false;
+    const tbodyHepatitisb = document.getElementById('tableHepatitisB').getElementsByTagName('tbody')[0];
+    const filasHepatitisb = tbodyHepatitisb.getElementsByTagName('tr');
+    // Itera sobre todas las filas excepto la primera
+    for (let i = filasHepatitisb.length - 1; i > 0; i--) {
+      tbodyHepatitisb.removeChild(filasHepatitisb[i]);
+    }
+    // Reinicia el contador de dosis de Hepatitisb
+    contadorDosisHepatitisB = 1;
+    // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
+    const dosisSpanHepatitis = document.getElementById('dosisSpanHepatitisB');
+    dosisSpanHepatitis.textContent = contadorDosisHepatitis;
+    // Habilita el botón de agregar para Hepatitisb
+    document.getElementById('btnAgregarFilaHepatitisB').disabled = false;
   }
 
 
@@ -902,6 +1043,38 @@
     const inputSexoVacuna = document.getElementById('inputSexoVacuna');
     const inputNumArchivoVacuna = document.getElementById('inputNumArchivoVacuna');
 
+    const inputNombreEmpresaReingreso = document.getElementById('inputNombreEmpresaReingreso');
+    const inputRucReingreso = document.getElementById('inputRucReingreso');
+    const inputNumHistoriaClinicaReingreso = document.getElementById('inputNumHistoriaClinicaReingreso');
+    const inputNumArchivoReingreso = document.getElementById('inputNumArchivoReingreso');
+    const inputPrimerApellidoReingreso = document.getElementById('inputPrimerApellidoReingreso');
+    const inputSegundoApellidoReingreso= document.getElementById('inputSegundoApellidoReingreso');
+    const inputPrimerNombreReingreso= document.getElementById('inputPrimerNombreReingreso');
+    const inputSegundoNombreReingreso = document.getElementById('inputSegundoNombreReingreso');
+    const inputSexoReingreso = document.getElementById('inputSexoReingreso');
+    const inputEdadReingreso = document.getElementById('inputEdadReingreso');
+    const inputPuestoTrabajoReingreso = document.getElementById('inputPuestoTrabajoReingreso');
+    const inputFechaUltDiaLaboralReingreso = document.getElementById('inputFechaUltDiaLaboralReingreso');
+    const inputFechaReingreso = document.getElementById('inputFechaReingreso');
+    const inputTotalDiasReingreso = document.getElementById('inputTotalDiasReingreso');
+    const inputCausaSalidaReingreso = document.getElementById('inputCausaSalidaReingreso');
+    
+    inputFechaUltDiaLaboralReingreso.addEventListener('change', function(){
+      inputFechaReingreso.disabled = false;
+    })
+    inputFechaReingreso.addEventListener('change', function(){
+      const diferenciaEnDias = (new Date(inputFechaReingreso.value) - new Date(inputFechaUltDiaLaboralReingreso.value)) / (1000 * 60 * 60 * 24);
+      if(diferenciaEnDias >= 0){
+        document.getElementById('inputTotalDiasReingreso').value = Math.floor(diferenciaEnDias);
+      }else{
+        toastr.error('Necesita que el valor del Ultimo dia sea menor que el del Reingreso.', 'Error', {
+          progressBar: true,
+          closeDuration: 20,
+          "positionClass": "toast-top-left",
+        });
+      }
+    })
+
     // Agregar evento al modal cuando se muestra
     $('#modalInfoPaciente').on('shown.bs.modal', function () {
       inputRucVacuna.value = '';
@@ -913,6 +1086,22 @@
       inputPrimerNombreVacuna.value = '';
       inputSegundoNombreVacuna.value = '';
       inputNumArchivoVacuna.value = '';
+
+      inputNombreEmpresaReingreso.value = '';
+      inputRucReingreso.value = '';
+      inputNumHistoriaClinicaReingreso.value = '';
+      inputNumArchivoReingreso.value = '';
+      inputPrimerApellidoReingreso.value = '';
+      inputSegundoApellidoReingreso.value = '';
+      inputPrimerNombreReingreso.value = '';
+      inputSegundoNombreReingreso.value = '';
+      inputSexoReingreso.value = '';
+      inputEdadReingreso.value = '';
+      inputPuestoTrabajoReingreso.value = '';
+      inputFechaUltDiaLaboralReingreso.value ='';
+      inputFechaReingreso.value = '';
+      inputTotalDiasReingreso.value = '';
+      inputCausaSalidaReingreso.value = '';
 
       Swal.fire({
         position: "top-end",
@@ -942,9 +1131,10 @@
               });
             } else {
               Swal.close();
-              // LLENAR INPUT CON DATA
+              // LLENAR INPUT CON DATA PARA LOS FORMULARIIOS SIGUIENTES
 
               let empresa = data.empresa;
+              // FORMULARIOS DE VACUNACION
               inputRucVacuna.value = empresa.Ruc
               inputNombreEmpresaVacuna.value = empresa.Nombreempresa
               inputNumHistoriaClinicaVacuna.value = empresa.HistoriaClinica
@@ -955,6 +1145,20 @@
               inputSegundoNombreVacuna.value = empresa.SegundoNombre;
               inputSexoVacuna.value = empresa.Sexo;
               inputNumArchivoVacuna.value = empresa.NumeroArchivo;
+              // FORMULARIOS DE REINGRESO
+              inputNombreEmpresaReingreso.value = empresa.Nombreempresa;
+              inputRucReingreso.value = empresa.Ruc
+              inputNumHistoriaClinicaReingreso.value = empresa.HistoriaClinica;
+              inputNumArchivoReingreso.value = empresa.NumeroArchivo;
+              inputPrimerApellidoReingreso.value = empresa.PrimerApellido;
+              inputSegundoApellidoReingreso.value = empresa.SegundoApellido;
+              inputPrimerNombreReingreso.value = empresa.PrimerNombre;
+              inputSegundoNombreReingreso.value = empresa.SegundoNombre;
+              inputSexoReingreso.value = empresa.Sexo;
+              inputEdadReingreso.value = empresa.Edad;
+              inputPuestoTrabajoReingreso.value = empresa.PuestoTrabajo;
+
+              console.log(empresa)
               // DATOS LLENOS
               Swal.fire({
                 position: "top-end",
@@ -965,7 +1169,7 @@
               });
 
 
-              $('#btnGrabar').on('click', function () {
+              $('#btnGrabarVacunas').on('click', function () {
                 if (datosTetanos.length > 0) {
                   // Actualiza la variable 'empresa' con los datos del paciente
                   empresa = {
@@ -1670,7 +1874,7 @@
       agregarFilaSarampion();
     }
   })
-  observacionesInputVacunasAdicionales.addEventListener('keydown', function(){
+  observacionesInputVacunasAdicionales.addEventListener('keydown', function () {
     if (event.key == 'Enter') {
       event.preventDefault();
       agregarFilaSarampion();
@@ -1679,6 +1883,27 @@
 
 </script>
 
+<!-- FUNCIONALIDAD PARA OBTENER LOS DIFERENTES FORMULARIOS -->
+<script>
+  const btnVacunas = document.getElementById('btnVacunas');
+  const btnReingreso = document.getElementById('btnReingreso');
+
+  const divFormularioVacunas = document.getElementById('divFormularioVacunas');
+  const divFormularioReingreso = document.getElementById('divFormularioReingreso');
+
+  btnVacunas.addEventListener('click', function () {
+    divFormularioVacunas.style.display = '';
+
+    divFormularioReingreso.style.display = 'none';
+  });
+
+  btnReingreso.addEventListener('click', function () {
+    divFormularioReingreso.style.display = '';
+
+    divFormularioVacunas.style.display = 'none';
+  })
+
+</script>
 
 
 {% endblock %}
