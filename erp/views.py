@@ -191,7 +191,7 @@ def tu_vista_de_impresion(request):
         ocupacion = request.GET.get('ocupacion')
         vacuna_tetano = 'Recibida'
         vacuna_hepatitis_a = 'Recibida'
-        vacuna_hepatitis_b = ''
+        vacuna_hepatitis_b = 'Recibida'
         influenza_estacionaria = ''
         fiebre_amarilla = ''
         sarampion = ''
@@ -199,9 +199,12 @@ def tu_vista_de_impresion(request):
         datos_filas = json.loads(datos_filas_json) if datos_filas_json else []
         datos_filas_json_hepatitis = request.GET.get('datos_filas_hepatitis')
         datos_filas_hepatitis = json.loads(datos_filas_json_hepatitis) if datos_filas_json_hepatitis else []
+        datos_filas_json_hepatitisb = request.GET.get('datos_filas_hepatitisb')
+        datos_filas_hepatitisb = json.loads(datos_filas_json_hepatitisb) if datos_filas_json_hepatitisb else []
         print("datos_filas",datos_filas)
         print("datos_filas_hepatitis",datos_filas_hepatitis)
-        
+        print("datos_filas_hepatitisb", datos_filas_hepatitisb)
+
         for fila in datos_filas:
             # Accede a las propiedades de cada fila
             dosis = fila['dosis']
@@ -222,6 +225,16 @@ def tu_vista_de_impresion(request):
             responsable_hepatitis = fila_hepatitis['responsable']
             establecimiento_hepatitis = fila_hepatitis['establecimiento']
             observaciones_hepatitis = fila_hepatitis['observaciones']
+
+        for fila_hepatitisb in datos_filas_hepatitisb:
+            dosis_hepatitisb = fila_hepatitisb['dosis']
+            fecha_str_hepatitisb = fila_hepatitisb['fecha']
+            fecha_hepatitisb = datetime.strptime(fecha_str_hepatitisb, '%Y-%m-%d').date()
+            lote_hepatitisb = fila_hepatitisb['lote']
+            esquema_hepatitisb = fila_hepatitisb['esquema']
+            responsable_hepatitisb = fila_hepatitisb['responsable']
+            establecimiento_hepatitisb = fila_hepatitisb['establecimiento']
+            observaciones_hepatitisb = fila_hepatitisb['observaciones']
 
         connection = connections["empresa"]
         
@@ -280,6 +293,7 @@ def tu_vista_de_impresion(request):
                     )
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
                 """
+
             for fila in datos_filas:
                 # Accede a las propiedades de cada fila
                 dosis = fila['dosis']
@@ -356,6 +370,53 @@ def tu_vista_de_impresion(request):
                     'observaciones': observaciones_hepatitis
                 })
 
+        # Inicializar una lista para almacenar todas las dosis de hepatitisb
+        dosis_list_hepab = []
+        with connection.cursor() as cursor_hepatitisb:
+            sql_query_dosis_hepatitisb = """
+                            INSERT INTO DosisVacunaHepatitisB (
+                                NumeroArchivo,
+                                DosisNumero,
+                                Fecha,
+                                Lote,
+                                EsquemaCompleto,
+                                ResponsableVacuna,
+                                Establecimiento,
+                                Observaciones
+                            )
+                            VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+                        """
+
+            for fila in datos_filas_hepatitisb:
+                # Accede a las propiedades de cada fila
+                dosis_hepatitisb = fila['dosis']
+                fecha_str_hepatitisb = fila['fecha']  # La fecha como cadena en formato 'YYYY-MM-DD'
+                fecha_hepatitisb = datetime.strptime(fecha_str_hepatitisb, '%Y-%m-%d').date()
+                lote_hepatitisb = fila['lote']
+                esquema_hepatitisb = fila['esquema']
+                responsable_hepatitisb = fila['responsable']
+                establecimiento_hepatitisb = fila['establecimiento']
+                observaciones_hepatitisb = fila['observaciones']
+
+                params_dosis_hepatitisb = (
+                numero_archivo,
+                dosis_hepatitisb, fecha_hepatitisb, lote_hepatitisb, esquema_hepatitisb, responsable_hepatitisb,
+                establecimiento_hepatitisb, observaciones_hepatitisb
+                )
+
+                cursor_hepatitisb.execute(sql_query_dosis_hepatitisb, params_dosis_hepatitisb)
+
+                dosis_list_hepab.append({
+                    'dosis': dosis_hepatitisb,
+                    'fecha': fecha_str_hepatitisb,
+                    'lote': lote_hepatitisb,
+                    'esquema': esquema_hepatitisb,
+                    'responsable': responsable_hepatitisb,
+                    'establecimiento': establecimiento_hepatitisb,
+                    'observaciones': observaciones_hepatitisb
+                })
+
+
         # Devolver todas las variables en la respuesta JSON
         response_data = {
             'nombre_empresa_vacuna': nombre_empresa_vacuna,
@@ -372,6 +433,7 @@ def tu_vista_de_impresion(request):
             'vacuna_hepatits': vacuna_hepatitis_a,
             'dosis_listtetano': dosis_list,
             'dosis_listhepa': dosis_list_hepa,
+            'dosis_list_hepab': dosis_list_hepab
         }
 
         # Guardar los datos en un archivo JSON

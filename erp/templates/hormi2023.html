@@ -777,7 +777,20 @@
         // Reinicia el array de datosHepatitis solo si hay datos en la tabla
         datosHepatitis = [];
     }
-    
+
+    var datosFilasHepatitisb = '';
+    console.log('datosFilasHepatitis', datosFilasHepatitisb);
+    // Actualiza el valor de vacuna_hepatitis
+    var hayDatosEnTablaHepatitisb = datosHepatitisB.length > 0;
+    var vacuna_hepatitisb = hayDatosEnTablaHepatitisb ? 'Recibida' : '';
+    // Guarda los datos de las filas de Hepatitisb
+    var datosFilasHepatitisb = hayDatosEnTablaHepatitisb ? JSON.stringify(datosHepatitisB) : '';  // Utiliza una cadena vacía si no hay registros
+    console.log(datosFilasHepatitisb)
+    if (hayDatosEnTablaHepatitisb) {
+        // Reinicia el array de datosHepatitisb solo si hay datos en la tabla
+        datosHepatitisB = [];
+    }
+
     $.ajax({
       type: 'GET',
       url: '{% url "tu_vista_de_impresion" %}',
@@ -794,7 +807,8 @@
         'vacuna_tetano': vacuna_tetano,
         'vacuna_hepatitis' : vacuna_hepatitis,
         'datos_filas': datosFilas,
-        'datos_filas_hepatitis': datosFilasHepatitis
+        'datos_filas_hepatitis': datosFilasHepatitis,
+        'datos_filas_hepatitisb': datosFilasHepatitisb
 
         // Puedes agregar más datos si es necesario
       },
@@ -815,6 +829,7 @@
     // Limpia los campos dentro de la tabla después de grabar
     limpiarCamposTabla();
     limpiarCamposTablaHepatitis();
+    limpiarCamposTablaHepatitisb();
 
 
   }
@@ -856,6 +871,23 @@
       // Habilita el botón de agregar para Hepatitis
       document.getElementById('btnAgregarFilaHepatitis').disabled = false;
   }
+
+  function limpiarCamposTablaHepatitisb() {
+      const tbodyHepatitisb = document.getElementById('tableHepatitisB').getElementsByTagName('tbody')[0];
+      const filasHepatitisb = tbodyHepatitisb.getElementsByTagName('tr');
+      // Itera sobre todas las filas excepto la primera
+      for (let i = filasHepatitisb.length - 1; i > 0; i--) {
+          tbodyHepatitisb.removeChild(filasHepatitisb[i]);
+      }
+      // Reinicia el contador de dosis de Hepatitisb
+      contadorDosisHepatitisB = 1;
+      // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
+      const dosisSpanHepatitis = document.getElementById('dosisSpanHepatitisB');
+      dosisSpanHepatitis.textContent = contadorDosisHepatitis;
+      // Habilita el botón de agregar para Hepatitisb
+      document.getElementById('btnAgregarFilaHepatitisB').disabled = false;
+  }
+
 
   $(document).ready(function () {
     // DECLARACION DE LOS INPUTS PARA LLENAR
@@ -971,7 +1003,24 @@
                   enviarDatos(empresa);
                   empresa = {}; // Puedes reiniciar la variable 'empresa' si es necesario
                 }
-
+                if (datosHepatitisB.length > 0) {
+                  // Actualiza la variable 'empresa' con los datos del paciente
+                  empresa = {
+                    'Nombreempresa': inputNombreEmpresaVacuna.value,
+                    'Ruc': inputRucVacuna.value,
+                    'HistoriaClinica': inputNumHistoriaClinicaVacuna.value,
+                    'PrimerApellido': inputPrimerApellidoVacuna.value,
+                    'SegundoApellido': inputSegundoApellidoVacuna.value,
+                    'PrimerNombre': inputPrimerNombreVacuna.value,
+                    'SegundoNombre': inputSegundoNombreVacuna.value,
+                    'Sexo': inputSexoVacuna.value,
+                    'Ocupacion': inputCargoOcupacionVacuna.value
+                    // Agrega más campos según sea necesario
+                  };
+                  // Enviar el valor a la vista usando Ajax
+                  enviarDatos(empresa);
+                  empresa = {}; // Puedes reiniciar la variable 'empresa' si es necesario
+                }
               });
             }
           },
