@@ -932,6 +932,45 @@
       datosHepatitisB = [];
     }
 
+    var datosFilasinfluenza = '';
+    console.log('datosFilasinfluenza', datosFilasinfluenza);
+    // Actualiza el valor de vacuna_influenza
+    var hayDatosEnTablaInfluenza = datosInfluenza.length > 0;
+    var vacuna_influenza = hayDatosEnTablaInfluenza ? 'Recibida' : '';
+    // Guarda los datos de las filas de influenza
+    var datosFilasinfluenza = hayDatosEnTablaInfluenza ? JSON.stringify(datosInfluenza) : '';  // Utiliza una cadena vacía si no hay registros
+    console.log(datosFilasinfluenza)
+    if (datosFilasinfluenza) {
+      // Reinicia el array de influenza solo si hay datos en la tabla
+      datosInfluenza = [];
+    }
+
+    var datosFilasFiebre = '';
+    console.log('datosFilasfiebre', datosFilasFiebre);
+    // Actualiza el valor de vacuna_influenza
+    var hayDatosEnTablaFiebre = datosFiebreAmarilla.length > 0;
+    var vacuna_fiebre = hayDatosEnTablaFiebre ? 'Recibida' : '';
+    // Guarda los datos de las filas de influenza
+    var datosFilasFiebre = hayDatosEnTablaFiebre ? JSON.stringify(datosFiebreAmarilla) : '';  // Utiliza una cadena vacía si no hay registros
+    console.log(datosFilasFiebre)
+    if (datosFilasFiebre) {
+      // Reinicia el array de influenza solo si hay datos en la tabla
+      datosFiebreAmarilla = [];
+    }
+
+    var datosFilasSarampion = '';
+    console.log('datosFilasSarampion', datosFilasSarampion);
+    // Actualiza el valor de vacuna_influenza
+    var hayDatosEnTablaSarampion = datosSarampion.length > 0;
+    var vacuna_sarampion = hayDatosEnTablaSarampion ? 'Recibida' : '';
+    // Guarda los datos de las filas de influenza
+    var datosFilasSarampion = hayDatosEnTablaSarampion ? JSON.stringify(datosSarampion) : '';  // Utiliza una cadena vacía si no hay registros
+    console.log(datosFilasSarampion)
+    if (datosFilasSarampion) {
+      // Reinicia el array de influenza solo si hay datos en la tabla
+      datosSarampion = [];
+    }
+
     $.ajax({
       type: 'GET',
       url: '{% url "tu_vista_de_impresion" %}',
@@ -947,9 +986,15 @@
         'ocupacion': empresa.Ocupacion,
         'vacuna_tetano': vacuna_tetano,
         'vacuna_hepatitis': vacuna_hepatitis,
+        'vacuna_influenza': vacuna_influenza,
+        'vacuna_fiebre': vacuna_fiebre,
         'datos_filas': datosFilas,
         'datos_filas_hepatitis': datosFilasHepatitis,
-        'datos_filas_hepatitisb': datosFilasHepatitisb
+        'datos_filas_hepatitisb': datosFilasHepatitisb,
+        'datos_filas_influenza': datosFilasinfluenza,
+        'datos_filas_fiebre': datosFilasFiebre,
+        'datos_filas_sarampion': datosFilasSarampion,
+
 
         // Puedes agregar más datos si es necesario
       },
@@ -971,6 +1016,9 @@
     limpiarCamposTabla();
     limpiarCamposTablaHepatitis();
     limpiarCamposTablaHepatitisb();
+    limpiarCamposTablainfluenza();
+    limpiarCamposTablafiebre();
+    limpiarCamposTablasarampion();
 
 
   }
@@ -1024,11 +1072,60 @@
     contadorDosisHepatitisB = 1;
     // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
     const dosisSpanHepatitis = document.getElementById('dosisSpanHepatitisB');
-    dosisSpanHepatitis.textContent = contadorDosisHepatitis;
+    dosisSpanHepatitis.textContent = contadorDosisHepatitisB;
     // Habilita el botón de agregar para Hepatitisb
     document.getElementById('btnAgregarFilaHepatitisB').disabled = false;
   }
 
+  function limpiarCamposTablainfluenza() {
+    const tbodyInfluenza = document.getElementById('tableInfluenza').getElementsByTagName('tbody')[0];
+    const filasInfluenza = tbodyInfluenza.getElementsByTagName('tr');
+    // Itera sobre todas las filas excepto la primera
+    for (let i = filasInfluenza.length - 1; i > 0; i--) {
+      tbodyInfluenza.removeChild(filasInfluenza[i]);
+    }
+    // Reinicia el contador de dosis de Influenza
+    contadorDosisInfluenza = 1;
+    // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
+    const dosisSpanInfluenza = document.getElementById('dosisSpanInfluenza');
+    dosisSpanInfluenza.textContent = contadorDosisInfluenza;
+    // Habilita el botón de agregar para Influenza
+    document.getElementById('btnAgregarFilaInfluenza').disabled = false;
+  }
+
+
+  function limpiarCamposTablafiebre() {
+    const tbodyFiebre = document.getElementById('tableFiebreAmarilla').getElementsByTagName('tbody')[0];
+    const filasFiebre = tbodyFiebre.getElementsByTagName('tr');
+    // Itera sobre todas las filas excepto la primera
+    for (let i = filasFiebre.length - 1; i > 0; i--) {
+      tbodyFiebre.removeChild(filasFiebre[i]);
+    }
+    // Reinicia el contador de dosis de Influenza
+    contadorDosisFiebreAmarilla = 1;
+    // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
+    const dosisSpanFiebre = document.getElementById('dosisSpanFiebreAmarilla');
+    dosisSpanFiebre.textContent = contadorDosisFiebreAmarilla;
+    // Habilita el botón de agregar para Influenza
+    document.getElementById('btnAgregarFilaFiebreAmarilla').disabled = false;
+  }
+
+
+  function limpiarCamposTablasarampion() {
+    const tbodySarampion = document.getElementById('tableSarampion').getElementsByTagName('tbody')[0];
+    const filasSarampion = tbodySarampion.getElementsByTagName('tr');
+    // Itera sobre todas las filas excepto la primera
+    for (let i = filasFiebre.length - 1; i > 0; i--) {
+      tbodySarampion.removeChild(filasSarampion[i]);
+    }
+    // Reinicia el contador de dosis de Influenza
+    contadorDosisSarampion = 1;
+    // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
+    const dosisSpanSarampion = document.getElementById('dosisSpanSarampion');
+    dosisSpanSarampion.textContent = contadorDosisSarampion;
+    // Habilita el botón de agregar para Influenza
+    document.getElementById('btnAgregarFilaSarampion').disabled = false;
+  }
 
   $(document).ready(function () {
     // DECLARACION DE LOS INPUTS PARA LLENAR
@@ -1225,6 +1322,61 @@
                   enviarDatos(empresa);
                   empresa = {}; // Puedes reiniciar la variable 'empresa' si es necesario
                 }
+                if (datosInfluenza.length > 0) {
+                  // Actualiza la variable 'empresa' con los datos del paciente
+                  empresa = {
+                    'Nombreempresa': inputNombreEmpresaVacuna.value,
+                    'Ruc': inputRucVacuna.value,
+                    'HistoriaClinica': inputNumHistoriaClinicaVacuna.value,
+                    'PrimerApellido': inputPrimerApellidoVacuna.value,
+                    'SegundoApellido': inputSegundoApellidoVacuna.value,
+                    'PrimerNombre': inputPrimerNombreVacuna.value,
+                    'SegundoNombre': inputSegundoNombreVacuna.value,
+                    'Sexo': inputSexoVacuna.value,
+                    'Ocupacion': inputCargoOcupacionVacuna.value
+                    // Agrega más campos según sea necesario
+                  };
+                  // Enviar el valor a la vista usando Ajax
+                  enviarDatos(empresa);
+                  empresa = {}; // Puedes reiniciar la variable 'empresa' si es necesario
+                }
+                if (datosFiebreAmarilla.length > 0) {
+                  // Actualiza la variable 'empresa' con los datos del paciente
+                  empresa = {
+                    'Nombreempresa': inputNombreEmpresaVacuna.value,
+                    'Ruc': inputRucVacuna.value,
+                    'HistoriaClinica': inputNumHistoriaClinicaVacuna.value,
+                    'PrimerApellido': inputPrimerApellidoVacuna.value,
+                    'SegundoApellido': inputSegundoApellidoVacuna.value,
+                    'PrimerNombre': inputPrimerNombreVacuna.value,
+                    'SegundoNombre': inputSegundoNombreVacuna.value,
+                    'Sexo': inputSexoVacuna.value,
+                    'Ocupacion': inputCargoOcupacionVacuna.value
+                    // Agrega más campos según sea necesario
+                  };
+                  // Enviar el valor a la vista usando Ajax
+                  enviarDatos(empresa);
+                  empresa = {}; // Puedes reiniciar la variable 'empresa' si es necesario
+                }
+                if (datosSarampion.length > 0) {
+                  // Actualiza la variable 'empresa' con los datos del paciente
+                  empresa = {
+                    'Nombreempresa': inputNombreEmpresaVacuna.value,
+                    'Ruc': inputRucVacuna.value,
+                    'HistoriaClinica': inputNumHistoriaClinicaVacuna.value,
+                    'PrimerApellido': inputPrimerApellidoVacuna.value,
+                    'SegundoApellido': inputSegundoApellidoVacuna.value,
+                    'PrimerNombre': inputPrimerNombreVacuna.value,
+                    'SegundoNombre': inputSegundoNombreVacuna.value,
+                    'Sexo': inputSexoVacuna.value,
+                    'Ocupacion': inputCargoOcupacionVacuna.value
+                    // Agrega más campos según sea necesario
+                  };
+                  // Enviar el valor a la vista usando Ajax
+                  enviarDatos(empresa);
+                  empresa = {}; // Puedes reiniciar la variable 'empresa' si es necesario
+                }
+
               });
             }
           },

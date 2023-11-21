@@ -46,6 +46,7 @@ def hormi2023(request):
 
     return render(request, "hormi2023.html", contexto)
 
+
 @login_required
 # Obtener apcientes por del codprovclijson
 def obtener_datos_paciente(request):
@@ -78,6 +79,7 @@ def obtener_datos_paciente(request):
 
     return JsonResponse({"error": "No se proporcionó un código de paciente"})
 
+
 @login_required
 def fichasii4(request):
     codprovcli = request.GET.get("codprovcli", None)
@@ -108,40 +110,40 @@ def fichasii4(request):
                     }
                     vistaficha["dosis"].append(dosis_actual)
 
-
                 vistaficha.update({
-                "CodProvCli": resultados[0][0],
-                "Cedula": resultados[0][2],
-                "Sexo": resultados[0][3],
-                "EstadoCivil": resultados[0][4],
-                "PrimerApellido": resultados[0][5],
-                "SegundoApellido": resultados[0][6],
-                "PrimerNombre": resultados[0][7],
-                "SegundoNombre": resultados[0][8],
-                "DireccionActual": resultados[0][9],
-                "Telefono1": resultados[0][10],
-                "Telefono2": resultados[0][11],
-                "Email": resultados[0][12],
-                "Sector": resultados[0][13],
-                "FechaNacimiento": resultados[0][14],
-                "Edad": resultados[0][15],
-                "Grupo1": resultados[0][16],
-                "Grupo2": resultados[0][17],
-                "Grupo3": resultados[0][18],
-                "Instruccion": resultados[0][19],
-                "Profesion": resultados[0][20],
-                "Ocupacion": resultados[0][21],
-                "Provincia": resultados[0][22],
-                "Canton": resultados[0][23],
-                "Religion": resultados[0][24],
-                "Nacionalidad": resultados[0][25],
-                "Discapacidad": resultados[0][26],
-                "Tabaco": resultados[0][27],
-                "Alcohol": resultados[0][28],
-                "Droga": resultados[0][29],
-                "NumeroArchivo": resultados[0][30],
-                "PuestoTrabajo": resultados[0][31],
-            })
+                    "CodProvCli": resultados[0][0],
+                    "Cedula": resultados[0][2],
+                    "Sexo": resultados[0][3],
+                    "EstadoCivil": resultados[0][4],
+                    "PrimerApellido": resultados[0][5],
+                    "SegundoApellido": resultados[0][6],
+                    "PrimerNombre": resultados[0][7],
+                    "SegundoNombre": resultados[0][8],
+                    "DireccionActual": resultados[0][9],
+                    "Telefono1": resultados[0][10],
+                    "Telefono2": resultados[0][11],
+                    "Email": resultados[0][12],
+                    "Sector": resultados[0][13],
+                    "FechaNacimiento": resultados[0][14],
+                    "Edad": resultados[0][15],
+                    "Grupo1": resultados[0][16],
+                    "Grupo2": resultados[0][17],
+                    "Grupo3": resultados[0][18],
+                    "Instruccion": resultados[0][19],
+                    "Profesion": resultados[0][20],
+                    "Ocupacion": resultados[0][21],
+                    "Provincia": resultados[0][22],
+                    "Canton": resultados[0][23],
+                    "Religion": resultados[0][24],
+                    "Nacionalidad": resultados[0][25],
+                    "Discapacidad": resultados[0][26],
+                    "Tabaco": resultados[0][27],
+                    "Alcohol": resultados[0][28],
+                    "Droga": resultados[0][29],
+                    "NumeroArchivo": resultados[0][30],
+                    "PuestoTrabajo": resultados[0][31],
+
+                })
 
                 cursor.execute(
                     "SELECT TOP 1 Nombreempresa, ruc FROM gnopcion"
@@ -159,9 +161,6 @@ def fichasii4(request):
                     "Sexo": vistaficha["Sexo"],
                     "Ocupacion": vistaficha["Ocupacion"],
                     "NumeroArchivo": vistaficha["NumeroArchivo"],
-                    "Edad": resultados[0][15],
-                    "PuestoTrabajo": resultados[0][31],
-    
                 }
 
                 return JsonResponse({"dosistetano": vistaficha, "empresa": empresa_data})
@@ -180,6 +179,7 @@ def contact(request):
     context = {"username": username}
     return render(request, "contact.html", context)
 
+
 @login_required
 def tu_vista_de_impresion(request):
     if request.method == 'GET':
@@ -195,8 +195,8 @@ def tu_vista_de_impresion(request):
         vacuna_tetano = 'Recibida'
         vacuna_hepatitis_a = 'Recibida'
         vacuna_hepatitis_b = 'Recibida'
-        influenza_estacionaria = ''
-        fiebre_amarilla = ''
+        influenza_estacionaria = 'Recibida'
+        fiebre_amarilla = 'Recibida'
         sarampion = ''
         datos_filas_json = request.GET.get('datos_filas')
         datos_filas = json.loads(datos_filas_json) if datos_filas_json else []
@@ -204,9 +204,22 @@ def tu_vista_de_impresion(request):
         datos_filas_hepatitis = json.loads(datos_filas_json_hepatitis) if datos_filas_json_hepatitis else []
         datos_filas_json_hepatitisb = request.GET.get('datos_filas_hepatitisb')
         datos_filas_hepatitisb = json.loads(datos_filas_json_hepatitisb) if datos_filas_json_hepatitisb else []
-        print("datos_filas",datos_filas)
-        print("datos_filas_hepatitis",datos_filas_hepatitis)
+
+        datos_filas_json_influenza = request.GET.get('datos_filas_influenza')
+        datos_filas_influenza = json.loads(datos_filas_json_influenza) if datos_filas_json_influenza else []
+
+        datos_filas_json_fiebre = request.GET.get('datos_filas_fiebre')
+        datos_filas_fiebre = json.loads(datos_filas_json_fiebre) if datos_filas_json_fiebre else []
+
+        datos_filas_json_sarampion = request.GET.get('datos_filas_sarampion')
+        datos_filas_sarampion = json.loads(datos_filas_json_sarampion) if datos_filas_json_sarampion else []
+
+        print("datos_filas", datos_filas)
+        print("datos_filas_hepatitis", datos_filas_hepatitis)
         print("datos_filas_hepatitisb", datos_filas_hepatitisb)
+        print("datos_filas_influenza", datos_filas_influenza)
+        print("datos_filas_fiebre", datos_filas_fiebre)
+
 
         for fila in datos_filas:
             # Accede a las propiedades de cada fila
@@ -239,8 +252,38 @@ def tu_vista_de_impresion(request):
             establecimiento_hepatitisb = fila_hepatitisb['establecimiento']
             observaciones_hepatitisb = fila_hepatitisb['observaciones']
 
+        for fila_influenza in datos_filas_influenza:
+            dosis_influenza = fila_influenza['dosis']
+            fecha_str_influenza = fila_influenza['fecha']
+            fecha_influenza = datetime.strptime(fecha_str_influenza, '%Y-%m-%d').date()
+            lote_influenza = fila_influenza['lote']
+            esquema_influenza = fila_influenza['esquema']
+            responsable_influenza = fila_influenza['responsable']
+            establecimiento_influenza = fila_influenza['establecimiento']
+            observaciones_influenza = fila_influenza['observaciones']
+
+        for fila_fiebre in datos_filas_fiebre:
+            dosis_fiebre = fila_fiebre['dosis']
+            fecha_str_fiebre = fila_fiebre['fecha']
+            fecha_fiebre = datetime.strptime(fecha_str_fiebre, '%Y-%m-%d').date()
+            lote_fiebre = fila_fiebre['lote']
+            esquema_fiebre = fila_fiebre['esquema']
+            responsable_fiebre = fila_fiebre['responsable']
+            establecimiento_fiebre = fila_fiebre['establecimiento']
+            observaciones_fiebre = fila_fiebre['observaciones']
+
+        for fila_sarampion in datos_filas_sarampion:
+            dosis_sarampion = fila_sarampion['dosis']
+            fecha_str_sarampion = fila_sarampion['fecha']
+            fecha_sarampion = datetime.strptime(fecha_str_fiebre, '%Y-%m-%d').date()
+            lote_sarampion = fila_sarampion['lote']
+            esquema_sarampion = fila_sarampion['esquema']
+            responsable_sarampion = fila_sarampion['responsable']
+            establecimiento_sarampion = fila_sarampion['establecimiento']
+            observaciones_sarampion = fila_sarampion['observaciones']
+
         connection = connections["empresa"]
-        
+
         # Realizar la inserción en la base de datos
         with connection.cursor() as cursor:
             sql_query = """
@@ -278,9 +321,9 @@ def tu_vista_de_impresion(request):
             numero_archivo_result = cursor.fetchone()
             numero_archivo = str(numero_archivo_result[0]) if numero_archivo_result else None
 
+        ###---- INSERT INTO DOSIS VACUNAS ----###
         # Inicializar una lista para almacenar todas las dosis de tetanos
         dosis_list = []
-        
         # Realizar la inserción en la tabla DosisVacunaTetano
         with connection.cursor() as cursor:
             sql_query_dosis = """
@@ -356,9 +399,9 @@ def tu_vista_de_impresion(request):
                 observaciones_hepatitis = fila['observaciones']
 
                 params_dosis_hepatitis = (
-                numero_archivo,
-                dosis_hepatitis, fecha_hepatitis, lote_hepatitis, esquema_hepatitis, responsable_hepatitis,
-                establecimiento_hepatitis, observaciones_hepatitis
+                    numero_archivo,
+                    dosis_hepatitis, fecha_hepatitis, lote_hepatitis, esquema_hepatitis, responsable_hepatitis,
+                    establecimiento_hepatitis, observaciones_hepatitis
                 )
 
                 cursor_hepatitis.execute(sql_query_dosis_hepatitis, params_dosis_hepatitis)
@@ -402,9 +445,9 @@ def tu_vista_de_impresion(request):
                 observaciones_hepatitisb = fila['observaciones']
 
                 params_dosis_hepatitisb = (
-                numero_archivo,
-                dosis_hepatitisb, fecha_hepatitisb, lote_hepatitisb, esquema_hepatitisb, responsable_hepatitisb,
-                establecimiento_hepatitisb, observaciones_hepatitisb
+                    numero_archivo,
+                    dosis_hepatitisb, fecha_hepatitisb, lote_hepatitisb, esquema_hepatitisb, responsable_hepatitisb,
+                    establecimiento_hepatitisb, observaciones_hepatitisb
                 )
 
                 cursor_hepatitisb.execute(sql_query_dosis_hepatitisb, params_dosis_hepatitisb)
@@ -419,6 +462,143 @@ def tu_vista_de_impresion(request):
                     'observaciones': observaciones_hepatitisb
                 })
 
+        # Inicializar una lista para almacenar todas las dosis de influenza
+        dosis_list_influenza = []
+        with connection.cursor() as cursor_influenza:
+            sql_query_dosis_influenza = """
+                                        INSERT INTO DosisInfluenzaEstacionaria (
+                                            NumeroArchivo,
+                                            DosisNumero,
+                                            Fecha,
+                                            Lote,
+                                            EsquemaCompleto,
+                                            ResponsableVacuna,
+                                            Establecimiento,
+                                            Observaciones
+                                        )
+                                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+                                    """
+
+            for fila in datos_filas_influenza:
+                # Accede a las propiedades de cada fila
+                dosis_influenza = fila['dosis']
+                fecha_str_influenza = fila['fecha']  # La fecha como cadena en formato 'YYYY-MM-DD'
+                fecha_influenza = datetime.strptime(fecha_str_influenza, '%Y-%m-%d').date()
+                lote_influenza = fila['lote']
+                esquema_influenza = fila['esquema']
+                responsable_influenza = fila['responsable']
+                establecimiento_influenza = fila['establecimiento']
+                observaciones_influenza = fila['observaciones']
+
+                params_dosis_influenza = (
+                    numero_archivo,
+                    dosis_influenza, fecha_influenza, lote_influenza, esquema_influenza, responsable_influenza,
+                    establecimiento_influenza, observaciones_influenza
+                )
+
+                cursor_influenza.execute(sql_query_dosis_influenza, params_dosis_influenza)
+
+                dosis_list_influenza.append({
+                    'dosis': dosis_influenza,
+                    'fecha': fecha_str_influenza,
+                    'lote': lote_influenza,
+                    'esquema': esquema_influenza,
+                    'responsable': responsable_influenza,
+                    'establecimiento': establecimiento_influenza,
+                    'observaciones': observaciones_influenza
+                })
+
+        # Inicializar una lista para almacenar todas las dosis de fiebre
+        dosis_list_fiebre = []
+        with connection.cursor() as cursor_fiebre:
+            sql_query_dosis_fiebre = """
+                                        INSERT INTO DosisFiebreAmarilla (
+                                            NumeroArchivo,
+                                            DosisNumero,
+                                            Fecha,
+                                            Lote,
+                                            EsquemaCompleto,
+                                            ResponsableVacuna,
+                                            Establecimiento,
+                                            Observaciones
+                                        )
+                                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+                                    """
+
+            for fila in datos_filas_fiebre:
+                # Accede a las propiedades de cada fila
+                dosis_fiebre = fila['dosis']
+                fecha_str_fiebre = fila['fecha']  # La fecha como cadena en formato 'YYYY-MM-DD'
+                fecha_fiebre = datetime.strptime(fecha_str_fiebre, '%Y-%m-%d').date()
+                lote_fiebre = fila['lote']
+                esquema_fiebre = fila['esquema']
+                responsable_fiebre = fila['responsable']
+                establecimiento_fiebre = fila['establecimiento']
+                observaciones_fiebre = fila['observaciones']
+
+                params_dosis_fiebre = (
+                    numero_archivo,
+                    dosis_fiebre, fecha_fiebre, lote_fiebre, esquema_fiebre, responsable_fiebre,
+                    establecimiento_fiebre, observaciones_fiebre
+                )
+
+                cursor_fiebre.execute(sql_query_dosis_fiebre, params_dosis_fiebre)
+
+                dosis_list_fiebre.append({
+                    'dosis': dosis_fiebre,
+                    'fecha': fecha_str_fiebre,
+                    'lote': lote_fiebre,
+                    'esquema': esquema_fiebre,
+                    'responsable': responsable_fiebre,
+                    'establecimiento': establecimiento_fiebre,
+                    'observaciones': observaciones_fiebre
+                })
+
+        #Inicializar una lista para almacenar todas las dosis de fiebre
+        dosis_list_sarampion = []
+        with connection.cursor() as cursor_sarampion:
+            sql_query_dosis_sarampion = """
+                                        INSERT INTO DosisSarampion (
+                                        NumeroArchivo,
+                                        DosisNumero,
+                                        Fecha,
+                                        Lote,
+                                        EsquemaCompleto,
+                                        ResponsableVacuna,
+                                        Establecimiento,
+                                        Observaciones
+                                        )
+                                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s);
+                                        """
+
+            for fila in datos_filas_sarampion:
+                # Accede a las propiedades de cada fila
+                dosis_sarampion = fila['dosis']
+                fecha_str_sarampion = fila['fecha']  # La fecha como cadena en formato 'YYYY-MM-DD'
+                fecha_sarampion = datetime.strptime(fecha_str_sarampion, '%Y-%m-%d').date()
+                lote_sarampion = fila['lote']
+                esquema_sarampion = fila['esquema']
+                responsable_sarampion = fila['responsable']
+                establecimiento_sarampion = fila['establecimiento']
+                observaciones_sarampion = fila['observaciones']
+
+                params_dosis_sarampion = (
+                    numero_archivo,
+                    dosis_sarampion, fecha_sarampion, lote_sarampion, esquema_sarampion, responsable_sarampion,
+                    establecimiento_sarampion, observaciones_sarampion
+                )
+
+                cursor_sarampion.execute(sql_query_dosis_sarampion, params_dosis_sarampion)
+
+                dosis_list_sarampion.append({
+                    'dosis': dosis_sarampion,
+                    'fecha': fecha_str_sarampion,
+                    'lote': lote_sarampion,
+                    'esquema': esquema_sarampion,
+                    'responsable': responsable_sarampion,
+                    'establecimiento': establecimiento_sarampion,
+                    'observaciones': observaciones_sarampion
+                })
 
         # Devolver todas las variables en la respuesta JSON
         response_data = {
@@ -436,7 +616,9 @@ def tu_vista_de_impresion(request):
             'vacuna_hepatits': vacuna_hepatitis_a,
             'dosis_listtetano': dosis_list,
             'dosis_listhepa': dosis_list_hepa,
-            'dosis_list_hepab': dosis_list_hepab
+            'dosis_list_hepab': dosis_list_hepab,
+            'dosis_list_influenza': dosis_list_influenza,
+            'dosis_list_fiebre': dosis_list_fiebre,
         }
 
         # Guardar los datos en un archivo JSON
