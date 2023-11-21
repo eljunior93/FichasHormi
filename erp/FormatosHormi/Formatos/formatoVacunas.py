@@ -646,26 +646,42 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(45,103)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=18, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    fecha_value = data["dosis_list_influenza"][0]["fecha"]
+except IndexError:
+    fecha_value = ''
+pdf.cell(w=18, h=5, txt=fecha_value, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 ########FECHAS AMARILLA
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(45,108)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=18, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    fecha_value = data["dosis_list_fiebre"][0]["fecha"]
+except IndexError:
+    fecha_value = ''
+pdf.cell(w=18, h=5, txt=fecha_value, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 ########FECHAS SARAMPION
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(45,113)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=18, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    fecha_value = data["dosis_list_sarampion"][0]["fecha"]
+except IndexError:
+    fecha_value = ''
+pdf.cell(w=18, h=5, txt=fecha_value, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(45,118)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=18, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    fecha_value = data["dosis_list_sarampion"][1]["fecha"]
+except IndexError:
+    fecha_value = ''
+pdf.cell(w=18, h=5, txt=fecha_value, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 ########FECHAS ADICIONAL 1
@@ -1148,26 +1164,59 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(75,103)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=24, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    esquema_value = data["dosis_list_influenza"][0]["esquema"]
+except (IndexError, KeyError):
+    esquema_value = ''
+if data.get("dosis_list_influenza") and \
+   (data["dosis_list_influenza"][0]["esquema"] is True or data["dosis_list_influenza"][0]["esquema"] == 'True'):
+    pdf.cell(w=24, h=5, txt='x', border=1, ln=2, align='C', fill=1)  # Segunda casilla con 'x'
+else:
+    pdf.cell(w=24, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 #####ESQUEMA AMARILLA
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(75,108)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=24, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    esquema_value = data["dosis_list_fiebre"][0]["esquema"]
+except (IndexError, KeyError):
+    esquema_value = ''
+if data.get("dosis_list_fiebre") and \
+   (data["dosis_list_fiebre"][0]["esquema"] is True or data["dosis_list_fiebre"][0]["esquema"] == 'True'):
+    pdf.cell(w=24, h=5, txt='x', border=1, ln=2, align='C', fill=1)  # Segunda casilla con 'x'
+else:
+    pdf.cell(w=24, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 #####ESQUEMA SARAMPION
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(75,113)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=24, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    esquema_value = data["dosis_list_sarampion"][0]["esquema"]
+except (IndexError, KeyError):
+    esquema_value = ''
+if data.get("dosis_list_sarampion") and \
+   (data["dosis_list_sarampion"][0]["esquema"] is True or data["dosis_list_sarampion"][0]["esquema"] == 'True'):
+    pdf.cell(w=24, h=5, txt='x', border=1, ln=2, align='C', fill=1)  # Segunda casilla con 'x'
+else:
+    pdf.cell(w=24, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(75,118)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=24, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    esquema_value = data["dosis_list_sarampion"][1]["esquema"]
+    if len(data.get("dosis_list_sarampion", [])) >= 2 and \
+       (esquema_value is True or esquema_value == 'True'):
+        pdf.cell(w=24, h=5, txt='x', border=1, ln=2, align='C', fill=1)  # Segunda casilla con 'x'
+    else:
+        pdf.cell(w=24, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+except (IndexError, KeyError):
+    esquema_value = ''
+    pdf.cell(w=24, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 #####ESQUEMA ADICIONAL 1
@@ -1391,26 +1440,42 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(99,103)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=28, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    responsable = data["dosis_list_influenza"][0]["responsable"]
+except IndexError:
+    responsable = ''
+pdf.cell(w=28, h=5, txt=responsable, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 ########nombres AMARILLA
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(99,108)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=28, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    responsable = data["dosis_list_fiebre"][0]["responsable"]
+except IndexError:
+    responsable = ''
+pdf.cell(w=28, h=5, txt=responsable, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 ########nombres SARAMPION
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(99,113)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=28, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    responsable = data["dosis_list_sarampion"][0]["responsable"]
+except IndexError:
+    responsable = ''
+pdf.cell(w=28, h=5, txt=responsable, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(99,118)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=28, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    responsable = data["dosis_list_sarampion"][1]["responsable"]
+except IndexError:
+    responsable = ''
+pdf.cell(w=28, h=5, txt=responsable, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 ########nombres ADICIONAL 1
@@ -1634,26 +1699,42 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(127,103)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=28, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    establecimiento = data["dosis_list_influenza"][0]["establecimiento"]
+except IndexError:
+    establecimiento = ''
+pdf.cell(w=28, h=5, txt=establecimiento, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 ########ESTABLECIMIENTO AMARILLA
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(127,108)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=28, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    establecimiento = data["dosis_list_fiebre"][0]["establecimiento"]
+except IndexError:
+    establecimiento = ''
+pdf.cell(w=28, h=5, txt=establecimiento, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 ########ESTABLECIMIENTO VACUNA SARAMPION
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(127,113)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=28, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    establecimiento = data["dosis_list_sarampion"][0]["establecimiento"]
+except IndexError:
+    establecimiento = ''
+pdf.cell(w=28, h=5, txt=establecimiento, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(127,118)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=28, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    establecimiento = data["dosis_list_sarampion"][1]["establecimiento"]
+except IndexError:
+    establecimiento = ''
+pdf.cell(w=28, h=5, txt=establecimiento, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 ########ESTABLECIMIENTO VACUNA ADICIONAL 1
@@ -1877,26 +1958,42 @@ tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(155,103)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=45, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    observaciones = data["dosis_list_influenza"][0]["observaciones"]
+except IndexError:
+    observaciones = ''
+pdf.cell(w=45, h=5, txt=observaciones, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 #######OBSERVACIONES AMARILLA
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(155,108)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=45, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    observaciones = data["dosis_list_fiebre"][0]["observaciones"]
+except IndexError:
+    observaciones = ''
+pdf.cell(w=45, h=5, txt=observaciones, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 #######OBSERVACIONES SARAMPION
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(155,113)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=45, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    observaciones = data["dosis_list_sarampion"][0]["observaciones"]
+except IndexError:
+    observaciones = ''
+pdf.cell(w=45, h=5, txt=observaciones, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 # Casilla de texto en blanco a la derecha
 pdf.set_xy(155,118)  # Establecer la posición X para la segunda casilla
 pdf.set_fill_color(255, 255, 255)  # Establecer el color de fondo en blanco
-pdf.cell(w=45, h=5, txt='', border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
+try:
+    observaciones = data["dosis_list_sarampion"][1]["observaciones"]
+except IndexError:
+    observaciones = ''
+pdf.cell(w=45, h=5, txt=observaciones, border=1, ln=2, align='C', fill=1)  # Segunda casilla de texto en blanco
 tfont(pdf, '')
 
 #######OBSERVACIONES ADICIONAL 1

@@ -98,15 +98,24 @@ def fichasii4(request):
                 for row in resultados:
                     dosis_actual = {
                         "NumeroArchivo": row[30],
-                        "Id_dosistetano": row[31],
-                        "NumeroArchivofk": row[32],
-                        "DosisTetano": row[33],
-                        "FechaTetano": row[34],
-                        "Lotetetano": row[35],
-                        "Esquematetano": row[36],
-                        "ResponsableVacunaTetano": row[37],
-                        "EstablecimientoTetano": row[38],
-                        "Observaciones": row[39],
+                        "Id_dosistetano": row[32],
+                        "NumeroArchivofk": row[33],
+                        "DosisTetano": row[34],
+                        "FechaTetano": row[35],
+                        "Lotetetano": row[36],
+                        "Esquematetano": row[37],
+                        "ResponsableVacunaTetano": row[38],
+                        "EstablecimientoTetano": row[39],
+                        "Observaciones": row[40],
+                        "Id_dosishepab": row[41],
+                        "NumeroArchivofk": row[42],
+                        "Dosishepab": row[43],
+                        "Fechahepab": row[44],
+                        "Lotehepab": row[45],
+                        "Esquemahepab": row[46],
+                        "ResponsableVacunahepab": row[47],
+                        "Establecimientohepab": row[48],
+                        "Observacioneshepab": row[49],
                     }
                     vistaficha["dosis"].append(dosis_actual)
 
@@ -161,6 +170,8 @@ def fichasii4(request):
                     "Sexo": vistaficha["Sexo"],
                     "Ocupacion": vistaficha["Ocupacion"],
                     "NumeroArchivo": vistaficha["NumeroArchivo"],
+
+
                 }
 
                 return JsonResponse({"dosistetano": vistaficha, "empresa": empresa_data})
@@ -170,6 +181,24 @@ def fichasii4(request):
                     {"error": f"Error al ejecutar la consulta: {str(e)}"}
                 )
     return JsonResponse({"error": "No se proporcionó un código de paciente"})
+
+
+def editar_vacunacion(request, numeroarchivo):
+    # Realiza una consulta SQL directa
+    numarchivo = request.GET.get("numarchivo", None)
+    connection = connections["empresa"]
+    with connection.cursor() as cursor:
+        # Consulta para obtener datos de las tablas directamente
+        consulta_sql = f"""
+            SELECT * FROM DosisVacunaTetano WHERE numeroarchivo = {numarchivo};
+            -- Puedes agregar consultas para otras tablas aquí
+        """
+        cursor.execute(consulta_sql)
+        resultados = cursor.fetchall()
+
+    # Puedes enviar los resultados a tu plantilla HTML
+    return render(request, 'editar_vacunacion.html', {'resultados': resultados})
+
 
 
 @login_required
