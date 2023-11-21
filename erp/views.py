@@ -93,10 +93,15 @@ def fichasii4(request):
                     [codprovcli],
                 )
                 resultados = cursor.fetchall()
-                vistaficha = {"dosis": []}
+                dosistetano = {"dosis": []}
+                dosishepaa = {"dosis": []}
+                dosishepab = {"dosis": []}
+                dosisesta = {"dosis": []}
+                dosisama = {"dosis": []}
+                dosissara = {"dosis": []}
 
                 for row in resultados:
-                    dosis_actual = {
+                    dosis_tetano = {
                         "NumeroArchivo": row[30],
                         "Id_dosistetano": row[32],
                         "NumeroArchivofk": row[33],
@@ -107,19 +112,98 @@ def fichasii4(request):
                         "ResponsableVacunaTetano": row[38],
                         "EstablecimientoTetano": row[39],
                         "Observaciones": row[40],
-                        "Id_dosishepab": row[41],
-                        "NumeroArchivofk": row[42],
-                        "Dosishepab": row[43],
-                        "Fechahepab": row[44],
-                        "Lotehepab": row[45],
-                        "Esquemahepab": row[46],
-                        "ResponsableVacunahepab": row[47],
-                        "Establecimientohepab": row[48],
-                        "Observacioneshepab": row[49],
                     }
-                    vistaficha["dosis"].append(dosis_actual)
+                    # Agregar dosis_esta solo si no existe en la lista
+                    if dosis_tetano not in dosistetano["dosis"]:
+                        dosistetano["dosis"].append(dosis_tetano)
 
-                vistaficha.update({
+                    dosis_hepaa = {
+                        "Id_dosishepaa": row[41],
+                        "NumeroArchivofk_hepaa": row[42],
+                        "Dosishepaa": row[43],
+                        "Fechahepaa": row[44],
+                        "Lotehepaa": row[45],
+                        "Esquemahepaa": row[46],
+                        "ResponsableVacunahepaa": row[47],
+                        "Establecimientohepaa": row[48],
+                        "Observacioneshepaa": row[49],
+                    }
+
+                    # Agregar dosis_hepab solo si no existe en la lista
+                    if dosis_hepaa not in dosishepaa["dosis"]:
+                        dosishepaa["dosis"].append(dosis_hepaa)
+
+                    dosis_hepab = {
+                        "Id_dosishepab": row[50],
+                        "NumeroArchivofk_hepab": row[51],
+                        "Dosishepab": row[52],
+                        "Fechahepab": row[53],
+                        "Lotehepab": row[54],
+                        "Esquemahepab": row[55],
+                        "ResponsableVacunahepab": row[56],
+                        "Establecimientohepab": row[57],
+                        "Observacioneshepab": row[58],
+                    }
+
+                    # Agregar dosis_hepab solo si no existe en la lista
+                    if dosis_hepab not in dosishepab["dosis"]:
+                        dosishepab["dosis"].append(dosis_hepab)
+
+                    dosis_esta = {
+                        "Id_dosisesta": row[59],
+                        "NumeroArchivofk_esta": row[60],
+                        "Dosisesta": row[61],
+                        "Fechaesta": row[62],
+                        "Loteesta": row[63],
+                        "Esquemaesta": row[64],
+                        "ResponsableVacunaesta": row[65],
+                        "Establecimientoesta": row[66],
+                        "Observacionesesta": row[67],
+                    }
+
+                    # Agregar dosis_esta solo si no existe en la lista
+                    if dosis_esta not in dosisesta["dosis"]:
+                        dosisesta["dosis"].append(dosis_esta)
+
+                    dosis_ama = {
+                        "Id_dosisama": row[68],
+                        "NumeroArchivofk_ama": row[69],
+                        "Dosisama": row[70],
+                        "Fechaama": row[71],
+                        "Loteama": row[72],
+                        "Esquemaama": row[73],
+                        "ResponsableVacunaama": row[74],
+                        "Establecimientoama": row[75],
+                        "Observacionesama": row[76],
+                    }
+
+                    # Agregar dosis_esta solo si no existe en la lista
+                    if dosis_ama not in dosisama["dosis"]:
+                        dosisama["dosis"].append(dosis_ama)
+
+                    dosis_sara = {
+                        "Id_dosissara": row[77],
+                        "NumeroArchivofk_sara": row[78],
+                        "Dosissara": row[79],
+                        "Fechasara": row[80],
+                        "Lotesara": row[81],
+                        "Esquemasara": row[82],
+                        "ResponsableVacunasara": row[83],
+                        "Establecimientosara": row[84],
+                        "Observacionessara": row[85],
+                    }
+
+                    # Agregar dosis_esta solo si no existe en la lista
+                    if dosis_sara not in dosissara["dosis"]:
+                        dosissara["dosis"].append(dosis_sara)
+
+                vistaficha = {
+                    "dosistetano": dosistetano,
+                    "dosishepaa": dosishepaa,
+                    "dosishepab": dosishepab,
+                    "dosisesta": dosisesta,
+                    "dosisama": dosisama,
+                    "dosissara": dosissara,
                     "CodProvCli": resultados[0][0],
                     "Cedula": resultados[0][2],
                     "Sexo": resultados[0][3],
@@ -151,8 +235,7 @@ def fichasii4(request):
                     "Droga": resultados[0][29],
                     "NumeroArchivo": resultados[0][30],
                     "PuestoTrabajo": resultados[0][31],
-
-                })
+                }
 
                 cursor.execute(
                     "SELECT TOP 1 Nombreempresa, ruc FROM gnopcion"
@@ -170,36 +253,15 @@ def fichasii4(request):
                     "Sexo": vistaficha["Sexo"],
                     "Ocupacion": vistaficha["Ocupacion"],
                     "NumeroArchivo": vistaficha["NumeroArchivo"],
-
-
                 }
 
-                return JsonResponse({"dosistetano": vistaficha, "empresa": empresa_data})
+                return JsonResponse({"vistaficha": vistaficha, "empresa": empresa_data})
 
             except Exception as e:
                 return JsonResponse(
                     {"error": f"Error al ejecutar la consulta: {str(e)}"}
                 )
     return JsonResponse({"error": "No se proporcionó un código de paciente"})
-
-
-def editar_vacunacion(request, numeroarchivo):
-    # Realiza una consulta SQL directa
-    numarchivo = request.GET.get("numarchivo", None)
-    connection = connections["empresa"]
-    with connection.cursor() as cursor:
-        # Consulta para obtener datos de las tablas directamente
-        consulta_sql = f"""
-            SELECT * FROM DosisVacunaTetano WHERE numeroarchivo = {numarchivo};
-            -- Puedes agregar consultas para otras tablas aquí
-        """
-        cursor.execute(consulta_sql)
-        resultados = cursor.fetchall()
-
-    # Puedes enviar los resultados a tu plantilla HTML
-    return render(request, 'editar_vacunacion.html', {'resultados': resultados})
-
-
 
 @login_required
 def contact(request):
