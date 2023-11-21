@@ -1036,6 +1036,17 @@
     // Reinicia el contador de dosis
     contadorDosis = 1;
 
+    // Habilita los campos y el botón de agregar para Influenza para dosis especificas maximo 5
+      document.getElementById('fechaInput').disabled = false;
+      document.getElementById('loteInput').disabled = false;
+      document.getElementById('responsableInput').disabled = false;
+      document.getElementById('esquemaInput').disabled = false;
+      document.getElementById('establecimientoInput').disabled = false;
+      document.getElementById('observacionesInput').disabled = false;
+      document.getElementById('btnAgregarFilaTetanos').disabled = false;
+
+
+
     // Actualiza el contenido de la celda de dosis en la primera fila con los inputs
     const dosisSpan = document.getElementById('dosisSpan');
     dosisSpan.textContent = contadorDosis;
@@ -1052,6 +1063,17 @@
     for (let i = filasHepatitis.length - 1; i > 0; i--) {
       tbodyHepatitis.removeChild(filasHepatitis[i]);
     }
+
+    // Habilita los campos y el botón de agregar para Influenza para dosis especificas maximo 3
+      document.getElementById('fechaInputHepatitis').disabled = false;
+      document.getElementById('loteInputHepatitis').disabled = false;
+      document.getElementById('responsableInputHepatitis').disabled = false;
+      document.getElementById('esquemaInputHepatitis').disabled = false;
+      document.getElementById('establecimientoInputHepatitis').disabled = false;
+      document.getElementById('observacionesInputHepatitis').disabled = false;
+      document.getElementById('btnAgregarFilaHepatitis').disabled = false;
+
+
     // Reinicia el contador de dosis de Hepatitis
     contadorDosisHepatitis = 1;
     // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
@@ -1070,6 +1092,17 @@
     }
     // Reinicia el contador de dosis de Hepatitisb
     contadorDosisHepatitisB = 1;
+
+    // Habilita los campos y el botón de agregar para Influenza para dosis especificas maximo 3
+      document.getElementById('fechaInputHepatitisB').disabled = false;
+      document.getElementById('loteInputHepatitisB').disabled = false;
+      document.getElementById('responsableInputHepatitisB').disabled = false;
+      document.getElementById('esquemaInputHepatitisB').disabled = false;
+      document.getElementById('establecimientoInputHepatitisB').disabled = false;
+      document.getElementById('observacionesInputHepatitisB').disabled = false;
+      document.getElementById('btnAgregarFilaHepatitisB').disabled = false;
+
+
     // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
     const dosisSpanHepatitis = document.getElementById('dosisSpanHepatitisB');
     dosisSpanHepatitis.textContent = contadorDosisHepatitisB;
@@ -1086,6 +1119,16 @@
     }
     // Reinicia el contador de dosis de Influenza
     contadorDosisInfluenza = 1;
+
+    // Habilita los campos y el botón de agregar para Influenza para dosis especificas maximo 1
+      document.getElementById('fechaInputInfluenza').disabled = false;
+      document.getElementById('loteInputInfluenza').disabled = false;
+      document.getElementById('responsableInputInfluenza').disabled = false;
+      document.getElementById('esquemaInputInfluenza').disabled = false;
+      document.getElementById('establecimientoInputInfluenza').disabled = false;
+      document.getElementById('observacionesInputInfluenza').disabled = false;
+      document.getElementById('btnAgregarFilaInfluenza').disabled = false;
+
     // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
     const dosisSpanInfluenza = document.getElementById('dosisSpanInfluenza');
     dosisSpanInfluenza.textContent = contadorDosisInfluenza;
@@ -1103,6 +1146,18 @@
     }
     // Reinicia el contador de dosis de Influenza
     contadorDosisFiebreAmarilla = 1;
+
+    // Habilita los campos y el botón de agregar para Influenza para dosis especificas maximo 1
+      document.getElementById('fechaInputFiebreAmarilla').disabled = false;
+      document.getElementById('loteInputFiebreAmarilla').disabled = false;
+      document.getElementById('responsableInputFiebreAmarilla').disabled = false;
+      document.getElementById('esquemaInputFiebreAmarilla').disabled = false;
+      document.getElementById('establecimientoInputFiebreAmarilla').disabled = false;
+      document.getElementById('observacionesInputFiebreAmarilla').disabled = false;
+      document.getElementById('btnAgregarFilaFiebreAmarilla').disabled = false;
+
+
+
     // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
     const dosisSpanFiebre = document.getElementById('dosisSpanFiebreAmarilla');
     dosisSpanFiebre.textContent = contadorDosisFiebreAmarilla;
@@ -1120,6 +1175,17 @@
     }
     // Reinicia el contador de dosis de Influenza
     contadorDosisSarampion = 1;
+
+    // Habilita los campos y el botón de agregar para Influenza para dosis especificas maximo 2
+      document.getElementById('fechaInputSarampion').disabled = false;
+      document.getElementById('loteInputSarampion').disabled = false;
+      document.getElementById('responsableInputSarampion').disabled = false;
+      document.getElementById('esquemaInputSarampion').disabled = false;
+      document.getElementById('establecimientoInputSarampion').disabled = false;
+      document.getElementById('observacionesInputSarampion').disabled = false;
+      document.getElementById('btnAgregarFilaSarampion').disabled = false;
+
+
     // Actualiza el contenido de la celda de dosis en la primera fila con los inputs de Hepatitis
     const dosisSpanSarampion = document.getElementById('dosisSpanSarampion');
     dosisSpanSarampion.textContent = contadorDosisSarampion;
