@@ -275,7 +275,7 @@ def tu_vista_de_impresion(request):
         for fila_sarampion in datos_filas_sarampion:
             dosis_sarampion = fila_sarampion['dosis']
             fecha_str_sarampion = fila_sarampion['fecha']
-            fecha_sarampion = datetime.strptime(fecha_str_fiebre, '%Y-%m-%d').date()
+            fecha_sarampion = datetime.strptime(fecha_str_sarampion, '%Y-%m-%d').date()
             lote_sarampion = fila_sarampion['lote']
             esquema_sarampion = fila_sarampion['esquema']
             responsable_sarampion = fila_sarampion['responsable']
